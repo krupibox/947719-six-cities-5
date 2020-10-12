@@ -16,3 +16,7 @@ plugins: ["react"]
 settings:
   react:
     version: "16"
+
+globals:
+  React: true
+  PropTypes: true
