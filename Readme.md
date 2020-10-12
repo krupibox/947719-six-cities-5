@@ -1,7 +1,8 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Илья Крупин](https://up.htmlacademy.ru/react/5/user/947719).
-* Наставник: `Неизвестно`.
+* Наставник 947719-six-cities-5: `Без наставника`
+* Наставник 947719-six-cities-3: [Евгений Фаллер](https://htmlacademy.ru/profile/id505933).
 
 ---
 
