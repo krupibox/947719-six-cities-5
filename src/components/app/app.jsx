@@ -9,18 +9,16 @@ import reviewProperties from "../../proptypes/review-properties";
 
 const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
 
-  offersMock.map((offer) => {
-    return offer;
-  });
-
-  reviewsMock.map((review) => {
-    return review;
-  });
-
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact><Main numberOfPlaces={numberOfPlaces}/></Route>
+        <Route path="/" exact>
+          <Main
+            offersMock = {offersMock}
+            reviewsMock = {reviewsMock}
+            numberOfPlaces = {numberOfPlaces}
+          />
+        </Route>
         <Route path="/login" exact><SignIn /></Route>
         <Route path="/favorites" exact><Favorites /></Route>
         <Route path="/offer/:id?" exact component={OfferDetails} />

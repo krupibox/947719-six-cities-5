@@ -1,7 +1,10 @@
 import Header from '../header/header';
 import Cities from '../cities/cities';
 import OfferList from '../offers-list/offer-list';
-const Main = ({numberOfPlaces}) => {
+
+import offerProperties from "../../proptypes/offer-properties";
+
+const Main = ({offersMock, numberOfPlaces}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -49,7 +52,7 @@ const Main = ({numberOfPlaces}) => {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                <OfferList />
+                <OfferList offersMock = {offersMock} />
 
               </div>
             </section>
@@ -64,6 +67,7 @@ const Main = ({numberOfPlaces}) => {
 };
 
 Main.propTypes = {
+  offersMock: PropTypes.shape(offerProperties).isRequired,
   numberOfPlaces: PropTypes.string.isRequired
 };
 
