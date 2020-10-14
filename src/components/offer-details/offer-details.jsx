@@ -1,6 +1,6 @@
 import Header from '../header/header';
 
-const Room = () => {
+const OfferDetails = () => {
 
   return (
 
@@ -303,4 +303,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default OfferDetails;

@@ -1,15 +1,15 @@
 export default {
   user: PropTypes.shape({
-    id: PropTypes.number,
-    avatar: PropTypes.string,
-    name: PropTypes.string,
-    isPro: PropTypes.bool,
-  }.isRequired),
+    id: PropTypes.number.isRequired,
+    avatar: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    isPro: PropTypes.bool.isRequired,
+  }),
 
   comment: PropTypes.shape({
-    id: PropTypes.number,
-    rating: PropTypes.number,
-    comment: PropTypes.string,
-    date: PropTypes.number,
-  }.isRequired),
+    id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.number.isRequired,
+  }),
 };

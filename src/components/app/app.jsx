@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Switch, Link} from "react-router-dom";
 import Main from '../main/main';
 import SignIn from '../signin/signin';
 import Favorites from '../favorites/favorites';
-import Room from '../room/room';
+import OfferDetails from '../offer-details/offer-details';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
@@ -23,7 +23,7 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
         <Route path="/" exact><Main numberOfPlaces={numberOfPlaces}/></Route>
         <Route path="/login" exact><SignIn /></Route>
         <Route path="/favorites" exact><Favorites /></Route>
-        <Route path="/offer/:id?" exact component={Room} />
+        <Route path="/offer/:id?" exact component={OfferDetails} />
         <Route
           render={() => (<>
             <h1>
