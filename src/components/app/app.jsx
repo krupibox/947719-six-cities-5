@@ -4,7 +4,18 @@ import SignIn from '../signin/signin';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 
-const App = ({numberOfPlaces}) => {
+import offerProperties from "../../proptypes/offer-properties";
+import reviewProperties from "../../proptypes/review-properties";
+
+const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
+
+  offersMock.map((offer) => {
+    return offer;
+  });
+
+  reviewsMock.map((review) => {
+    return review;
+  });
 
   return (
     <BrowserRouter>
@@ -30,6 +41,8 @@ const App = ({numberOfPlaces}) => {
 };
 
 App.propTypes = {
+  offersMock: PropTypes.shape(offerProperties).isRequired,
+  reviewsMock: PropTypes.shape(reviewProperties).isRequired,
   numberOfPlaces: PropTypes.string.isRequired,
 };
 
