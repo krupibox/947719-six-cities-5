@@ -14,9 +14,9 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
       <Switch>
         <Route path="/" exact>
           <Main
-            offersMock = {offersMock}
-            reviewsMock = {reviewsMock}
-            numberOfPlaces = {numberOfPlaces}
+            offersMock={offersMock}
+            reviewsMock={reviewsMock}
+            numberOfPlaces={numberOfPlaces}
           />
         </Route>
         <Route path="/login" exact><SignIn /></Route>
@@ -39,8 +39,8 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
 };
 
 App.propTypes = {
-  offersMock: PropTypes.shape(offerProperties).isRequired,
-  reviewsMock: PropTypes.shape(reviewProperties).isRequired,
+  offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  reviewsMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties))).isRequired,
   numberOfPlaces: PropTypes.string.isRequired,
 };
 

@@ -31,7 +31,7 @@ export default [
     {
       user: {
         id: 3,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.06997580364137201`,
+        avatar: `https://api.adorable.io/avatars/128/0.06997580364137201`,
         name: `Rax`,
         isPro: true,
       },
@@ -41,102 +41,90 @@ export default [
         comment: `Emplacement parfait, beaucoup de commerces à proximité, le tout dans un lieu traditionnel et agréable, j'ai adoré mon court séjour et aimerait beaucoup y retourner un jour!`,
         date: 1574276894250
       }
-    },
+    }
   ],
-  [
-    {
-      user: {
-        id: 4,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.3963321309597061`,
-        name: `Wax`,
-        isPro: true,
-      },
-      comment: {
-        id: 4,
-        rating: 3.8,
-        comment: `Very nice hotel, helpful and friendly staff (thank you guys for everything), good breakfast, clean and comfy room.`,
-        date: 1576868903507
-      }
+  [{
+    user: {
+      id: 4,
+      avatar: `https://api.adorable.io/avatars/128/0.3963321309597061`,
+      name: `Wax`,
+      isPro: true,
     },
-  ],
-  [
-    {
-      user: {
-        id: 4,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.1138720045992132`,
-        name: `Tax`,
-        isPro: false,
-      },
-      comment: {
-        id: 4,
-        rating: 4.5,
-        comment: `Breakfast was excellent. Everything was really tasty. Location perfect, in a walking distance from everything. Staff was friendly and welcoming. Hotel was really silent.`,
-        date: 1576868903507
-      }
+    comment: {
+      id: 4,
+      rating: 3.8,
+      comment: `Very nice hotel, helpful and friendly staff (thank you guys for everything), good breakfast, clean and comfy room.`,
+      date: 1576868903507
+    }
+  }],
+  [{
+    user: {
+      id: 4,
+      avatar: `https://api.adorable.io/avatars/128/0.1138720045992132`,
+      name: `Tax`,
+      isPro: false,
     },
-  ],
-  [
-    {
-      user: {
-        id: 5,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.477232804299224`,
-        name: `Bax`,
-        isPro: false,
-      },
-      comment: {
-        id: 5,
-        rating: 3.2,
-        comment: `The only drawback for me was that I could hear the traffic through the window in my room. It was therefore not often i opened the window to get fresh air.`,
-        date: 1576868903507
-      }
+    comment: {
+      id: 4,
+      rating: 4.5,
+      comment: `Breakfast was excellent. Everything was really tasty. Location perfect, in a walking distance from everything. Staff was friendly and welcoming. Hotel was really silent.`,
+      date: 1576868903507
+    }
+  }],
+  [{
+    user: {
+      id: 5,
+      avatar: `https://api.adorable.io/avatars/128/0.477232804299224`,
+      name: `Bax`,
+      isPro: false,
     },
-  ],
-  [
-    {
-      user: {
-        id: 6,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.3963321309597061`,
-        name: `Dax`,
-        isPro: true,
-      },
-      comment: {
-        id: 6,
-        rating: 3.8,
-        comment: `Very nice hotel, helpful and friendly staff (thank you guys for everything), good breakfast, clean and comfy room.`,
-        date: 1576868903507
-      }
+    comment: {
+      id: 5,
+      rating: 3.2,
+      comment: `The only drawback for me was that I could hear the traffic through the window in my room. It was therefore not often i opened the window to get fresh air.`,
+      date: 1576868903507
+    }
+  }],
+  [{
+    user: {
+      id: 6,
+      avatar: `https://api.adorable.io/avatars/128/0.3963321309597061`,
+      name: `Dax`,
+      isPro: true,
     },
-  ],
-  [
-    {
-      user: {
-        id: 7,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.1138720045992132`,
-        name: `Zax`,
-        isPro: false,
-      },
-      comment: {
-        id: 7,
-        rating: 4.5,
-        comment: `I stayed here for one night and it was an unpleasant experience.`,
-        date: 1576868903507
-      }
+    comment: {
+      id: 6,
+      rating: 3.8,
+      comment: `Very nice hotel, helpful and friendly staff (thank you guys for everything), good breakfast, clean and comfy room.`,
+      date: 1576868903507
+    }
+  }],
+  [{
+    user: {
+      id: 7,
+      avatar: `https://api.adorable.io/avatars/128/0.1138720045992132`,
+      name: `Zax`,
+      isPro: false,
     },
-  ],
-  [
-    {
-      user: {
-        id: 8,
-        avatarUrl: `https://api.adorable.io/avatars/128/0.477232804299224`,
-        name: `Pax`,
-        isPro: false,
-      },
-      comment: {
-        id: 8,
-        rating: 3.2,
-        comment: `The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.`,
-        date: 1576868903507
-      }
+    comment: {
+      id: 7,
+      rating: 4.5,
+      comment: `I stayed here for one night and it was an unpleasant experience.`,
+      date: 1576868903507
+    }
+  }],
+  [{
+    user: {
+      id: 8,
+      avatar: `https://api.adorable.io/avatars/128/0.477232804299224`,
+      name: `Pax`,
+      isPro: false,
     },
-  ]
+    comment: {
+      id: 8,
+      rating: 3.2,
+      comment: `The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.`,
+      date: 1576868903507
+    }
+  }],
 ];

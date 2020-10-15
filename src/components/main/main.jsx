@@ -67,7 +67,7 @@ const Main = ({offersMock, numberOfPlaces}) => {
 };
 
 Main.propTypes = {
-  offersMock: PropTypes.shape(offerProperties).isRequired,
+  offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   numberOfPlaces: PropTypes.string.isRequired
 };
 
