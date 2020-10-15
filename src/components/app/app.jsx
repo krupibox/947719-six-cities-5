@@ -12,23 +12,23 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact>
-          <Main
-            offersMock={offersMock}
-            reviewsMock={reviewsMock}
-            numberOfPlaces={numberOfPlaces}
-          />
-        </Route>
+        <Route path="/" exact
+          render={({history}) => (
+            <Main
+              offersMock={offersMock}
+              numberOfPlaces={numberOfPlaces}
+              onCardClick={() => history.push(`/offer/`)}
+            />
+          )}
+        />
         <Route path="/login" exact><SignIn /></Route>
         <Route path="/favorites" exact><Favorites /></Route>
-        <Route path="/offer/:id?" exact component={OfferDetails} />
+        <Route path="/offer/:id?" exact><OfferDetails offerMock={offersMock[0]} reviewMock={reviewsMock[0]}/></Route>
         <Route
           render={() => (<>
-            <h1>
-              404.
-              <br />
-              <small>Page not found</small>
-            </h1>
+            <h1>404</h1>
+            <p>Page not found</p>
+
             <Link to="/">Go to main page</Link>
 
           </>)}

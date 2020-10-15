@@ -1,7 +1,7 @@
 export default {
   id: PropTypes.number.isRequired,
   city: PropTypes.string.isRequired,
-  image: PropTypes.arrayOf(PropTypes.string).isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,

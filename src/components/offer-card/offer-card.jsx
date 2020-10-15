@@ -1,13 +1,19 @@
+import {Link} from "react-router-dom";
 import offerProperties from "../../proptypes/offer-properties";
 
-const OfferCard = ({isPremium, price, name, image, rating, type}) => {
+const OfferCard = (props) => {
 
-  const FIRST_IMAGE = image[0];
+  const {id, isPremium, price, name, images, rating, type, onCardHover, onCardClick} = props;
+  const FIRST_IMAGE = images[0];
   const MIN_RATING = 20;
   const getStars = (offerRating) => Math.round(offerRating) * MIN_RATING;
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card"
+      // all attributes set here
+      onMouseEnter={onCardHover}
+      onClick={onCardClick}
+    >
 
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
 
@@ -36,7 +42,11 @@ const OfferCard = ({isPremium, price, name, image, rating, type}) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+
+          <Link to={`/offer/${id}`} className={`place-card__name`}>
+            {name}
+          </Link>
+
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -45,5 +55,10 @@ const OfferCard = ({isPremium, price, name, image, rating, type}) => {
 };
 
 OfferCard.propTypes = offerProperties;
+
+OfferCard.propTypes = {
+  onCardHover: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+};
 
 export default OfferCard;

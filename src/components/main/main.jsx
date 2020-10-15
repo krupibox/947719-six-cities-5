@@ -4,7 +4,7 @@ import OfferList from '../offers-list/offer-list';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offersMock, numberOfPlaces}) => {
+const Main = ({offersMock, numberOfPlaces, onCardClick}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -52,7 +52,10 @@ const Main = ({offersMock, numberOfPlaces}) => {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                <OfferList offersMock = {offersMock} />
+                <OfferList
+                  offersMock={offersMock}
+                  onCardClick={onCardClick}
+                />
 
               </div>
             </section>
@@ -68,7 +71,8 @@ const Main = ({offersMock, numberOfPlaces}) => {
 
 Main.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  numberOfPlaces: PropTypes.string.isRequired
+  numberOfPlaces: PropTypes.string.isRequired,
+  onCardClick: PropTypes.func.isRequired,
 };
 
 export default Main;

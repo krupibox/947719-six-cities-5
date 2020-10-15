@@ -2,7 +2,7 @@ export default [
   {
     id: 1,
     city: `Paris`,
-    image: [
+    images: [
       `img/apartment-01.jpg`,
       `img/apartment-02.jpg`,
       `img/apartment-03.jpg`,
@@ -17,7 +17,7 @@ export default [
   {
     id: 2,
     city: `Cologne`,
-    image: [`img/room.jpg`],
+    images: [`img/room.jpg`],
     type: `Private room`,
     price: `132`,
     rating: 1.8,
@@ -28,7 +28,7 @@ export default [
   {
     id: 3,
     city: `Brussels`,
-    image: [`img/apartment-02.jpg`],
+    images: [`img/apartment-02.jpg`],
     type: `Apartment`,
     price: `180`,
     rating: 3.8,
@@ -39,7 +39,7 @@ export default [
   {
     id: 4,
     city: `Amsterdam`,
-    image: [`img/apartment-03.jpg`],
+    images: [`img/apartment-03.jpg`],
     type: `Apartment`,
     price: `80`,
     rating: 4.5,
@@ -50,7 +50,7 @@ export default [
   {
     id: 5,
     city: `Hamburg`,
-    image: [`img/room.jpg`],
+    images: [`img/room.jpg`],
     type: `Private room`,
     price: `132`,
     rating: 1.8,
@@ -61,7 +61,7 @@ export default [
   {
     id: 6,
     city: `Dusseldorf`,
-    image: [`img/apartment-02.jpg`],
+    images: [`img/apartment-02.jpg`],
     type: `Apartment`,
     price: `180`,
     rating: 3.8,
@@ -72,7 +72,7 @@ export default [
   {
     id: 7,
     city: `Cologne`,
-    image: [`img/apartment-03.jpg`],
+    images: [`img/apartment-03.jpg`],
     type: `Apartment`,
     price: `80`,
     rating: 4.5,
