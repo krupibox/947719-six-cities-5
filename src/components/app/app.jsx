@@ -17,6 +17,7 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
             <Main
               offersMock={offersMock}
               numberOfPlaces={numberOfPlaces}
+              onCardHover={() => {}}
               onCardClick={() => history.push(`/offer/`)}
             />
           )}

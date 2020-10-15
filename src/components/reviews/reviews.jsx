@@ -1,8 +1,6 @@
 import reviewProperties from "../../proptypes/review-properties";
 
-const Reviews = (props) => {
-
-  console.log(props);
+const Reviews = () => {
 
   return (<>
     <li className="reviews__item">

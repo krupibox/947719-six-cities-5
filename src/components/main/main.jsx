@@ -4,7 +4,7 @@ import OfferList from '../offers-list/offer-list';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offersMock, numberOfPlaces, onCardClick}) => {
+const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -54,6 +54,7 @@ const Main = ({offersMock, numberOfPlaces, onCardClick}) => {
 
                 <OfferList
                   offersMock={offersMock}
+                  onCardHover={onCardHover}
                   onCardClick={onCardClick}
                 />
 
@@ -72,6 +73,7 @@ const Main = ({offersMock, numberOfPlaces, onCardClick}) => {
 Main.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   numberOfPlaces: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
 

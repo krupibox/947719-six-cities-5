@@ -11,16 +11,14 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {offersMock, onCardClick} = this.props;
+    const {offersMock, onCardHover, onCardClick} = this.props;
 
     return (
       offersMock.map((offer, index) =>
         <OfferCard
           key={`${index}-${offer.id}`}
           {...offer}
-          onCardHover={() => {
-            this.setState(() => ({activeCard: offer.id}));
-          }}
+          onCardHover={onCardHover}
           onCardClick={onCardClick}
         />)
     );
@@ -30,6 +28,7 @@ class OfferList extends PureComponent {
 
 OfferList.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  onCardHover: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
 

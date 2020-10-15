@@ -4,31 +4,37 @@ class ReviewsForm extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
       rating: ``,
-      review: ``,
+      review: ``
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
   }
 
   handleSubmit(evt) {
+    /* eslint-disable */
+    console.log(this.state);
+    /* eslint-enable */
     evt.preventDefault();
-    console.log(`handleSubmit`);
   }
 
   handleFieldChange(evt) {
-    evt.preventDefault();
-    const {rating, value} = evt.target;
+    const {name, value} = evt.target;
 
-    this.setState({[rating]: value});
-
-    console.log(`handleFieldChange`);
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
 
+    const {rating, review} = this.state;
+
     return (<>
-      <form className="reviews__form form" action="#" method="post">
+      <form onSubmit={this.handleSubmit} className="reviews__form form" action="#" method="post">
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           <input onChange={this.handleFieldChange} className="form__rating-input visually-hidden" name="rating" defaultValue={5} id="5-stars" type="radio" />
@@ -67,12 +73,13 @@ class ReviewsForm extends PureComponent {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+          <button className="reviews__submit form__submit button" type="submit">Submit</button>
         </div>
       </form>
 
       <h2>Стейт:</h2>
       <p>Рейтинг: {rating}</p>
+      <p>Отзыв: {review}</p>
 
     </>);
   }

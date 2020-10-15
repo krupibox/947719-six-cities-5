@@ -2,6 +2,9 @@ import Header from '../header/header';
 import Reviews from '../reviews/reviews';
 import ReviewsForm from '../reviews-form/reviews-form';
 
+import offerProperties from "../../proptypes/offer-properties";
+import reviewProperties from "../../proptypes/review-properties";
+
 const OfferDetails = ({offerMock, reviewMock}) => {
 
   const MIN_RATING = 20;
@@ -244,6 +247,11 @@ const OfferDetails = ({offerMock, reviewMock}) => {
     </div>
 
   );
+};
+
+OfferDetails.propTypes = {
+  offerMock: PropTypes.shape(offerProperties).isRequired,
+  reviewMock: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
 };
 
 export default OfferDetails;
