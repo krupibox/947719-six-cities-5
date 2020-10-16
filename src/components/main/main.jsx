@@ -1,6 +1,7 @@
 import Header from '../header/header';
 import Cities from '../cities/cities';
 import OfferList from '../offers-list/offer-list';
+import Map from '../map/map';
 
 import offerProperties from "../../proptypes/offer-properties";
 
@@ -61,7 +62,11 @@ const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+
+                <Map />
+
+              </section>
             </div>
           </div>
         </div>
