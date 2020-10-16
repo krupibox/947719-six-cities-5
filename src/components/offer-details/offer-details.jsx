@@ -9,6 +9,7 @@ const OfferDetails = ({offerMock, reviewMock}) => {
 
   const MIN_RATING = 20;
   const {isPremium, price, name, images, rating} = offerMock;
+
   const getStars = (offerRating) => Math.round(offerRating) * MIN_RATING;
 
   return (
@@ -56,7 +57,7 @@ const OfferDetails = ({offerMock, reviewMock}) => {
                 <span className="property__rating-value rating__value">4.8</span>
               </div>
               <ul className="property__features">
-                {/* TODO move data to mock*/}
+                {/* TODO put data from mock*/}
                 <li className="property__feature property__feature--entire">
                   Apartment
                 </li>
@@ -74,7 +75,7 @@ const OfferDetails = ({offerMock, reviewMock}) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {/* TODO move data to mock*/}
+                  {/* TODO put data from mock*/}
                   <li className="property__inside-item">
                     Wi-Fi
                   </li>

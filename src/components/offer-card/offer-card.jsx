@@ -11,8 +11,7 @@ const OfferCard = (props) => {
   return (
     <article className="cities__place-card place-card"
       // all attributes set here
-      onMouseEnter={onCardHover}
-      onClick={onCardClick}
+      onMouseEnter={() => onCardHover(id)}
     >
 
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
@@ -41,7 +40,11 @@ const OfferCard = (props) => {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name">
+        <h2 className="place-card__name"
+
+          onClick={() => onCardClick(id)}
+
+        >
 
           <Link to={`/offer/${id}`} className={`place-card__name`}>
             {name}

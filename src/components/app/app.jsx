@@ -12,19 +12,37 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact
+        <Route exact path="/"
           render={({history}) => (
             <Main
               offersMock={offersMock}
               numberOfPlaces={numberOfPlaces}
-              onCardHover={() => {}}
-              onCardClick={() => history.push(`/offer/`)}
+              onCardHover={(id) => {
+                /* eslint-disable */
+                console.log(id)
+                /* eslint-enable */
+              }}
+              onCardClick={(id) => history.push(`/offer/${id}`)}
             />
           )}
         />
-        <Route path="/login" exact><SignIn /></Route>
-        <Route path="/favorites" exact><Favorites /></Route>
-        <Route path="/offer/:id?" exact><OfferDetails offerMock={offersMock[0]} reviewMock={reviewsMock[0]}/></Route>
+
+        <Route exact path="/login"><SignIn /></Route>
+        <Route exact path="/favorites"><Favorites /></Route>
+
+        <Route exact path="/offer/:id?"
+          render={(props) => {
+
+            /* eslint-disable */
+            const indexCard = offersMock.findIndex((element) => element.id === parseInt(props.match.params.id));
+            /* eslint-enable */
+
+            return (
+              <OfferDetails offerMock={offersMock[indexCard]} reviewMock={reviewsMock[0]} />
+            );
+          }}
+        />
+
         <Route
           render={() => (<>
             <h1>404</h1>
