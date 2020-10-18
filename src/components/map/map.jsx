@@ -7,6 +7,7 @@ class Map extends PureComponent {
 
   constructor(props) {
     super(props);
+    this.offerCords = props;
   }
 
   componentDidMount() {
@@ -17,7 +18,10 @@ class Map extends PureComponent {
       iconSize: [30, 30]
     });
 
+
     const zoom = 12;
+
+    // initialize the map and return map object
     const map = Leaflet.map(`map`, {
       center: city,
       zoom,
@@ -26,15 +30,17 @@ class Map extends PureComponent {
     });
     map.setView(city, zoom);
 
+    // add layer
     Leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     }).addTo(map);
 
-    const offerCords = [52.3709553943508, 4.89309666406198];
-    Leaflet.marker(offerCords, {icon}).addTo(map);
+    // iterate object as an array
+    if (typeof this.offerCords === `object` && this.offerCords !== null) {
+      Object.values(this.offerCords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(map));
+    }
 
   }
-
 
   render() {
 

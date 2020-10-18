@@ -7,6 +7,8 @@ import offerProperties from "../../proptypes/offer-properties";
 
 const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
 
+  const offerCords = offersMock.map((offer) => offer.coordinates);
+
   return (
     <div className="page page--gray page--main">
 
@@ -64,7 +66,7 @@ const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
             <div className="cities__right-section">
               <section className="cities__map map">
 
-                <Map />
+                <Map {...offerCords}/>
 
               </section>
             </div>
