@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import {PureComponent} from "react";
 import OfferCard from '../offer-card/offer-card';
 
 import offerProperties from "../../proptypes/offer-properties";
