@@ -59,6 +59,7 @@ const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
                   offersMock={offersMock}
                   onCardHover={onCardHover}
                   onCardClick={onCardClick}
+                  nearby={false}
                 />
 
               </div>

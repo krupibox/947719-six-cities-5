@@ -9,7 +9,7 @@ export default {
   comment: PropTypes.shape({
     id: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     date: PropTypes.number.isRequired,
   }),
 };

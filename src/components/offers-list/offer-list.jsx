@@ -11,7 +11,7 @@ class OfferList extends PureComponent {
   }
 
   render() {
-    const {offersMock, onCardHover, onCardClick} = this.props;
+    const {offersMock, onCardHover, onCardClick, nearby} = this.props;
 
     return (
       offersMock.map((offer, index) =>
@@ -20,6 +20,7 @@ class OfferList extends PureComponent {
           {...offer}
           onCardHover={onCardHover}
           onCardClick={onCardClick}
+          nearby={nearby}
         />)
     );
 

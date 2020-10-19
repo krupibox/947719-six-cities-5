@@ -7,7 +7,7 @@ import OfferDetails from '../offer-details/offer-details';
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 
-const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
+const App = ({offersMock, reviewsMock, nearbyMock, numberOfPlaces}) => {
 
   return (
     <BrowserRouter>
@@ -38,7 +38,18 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
             /* eslint-enable */
 
             return (
-              <OfferDetails offerMock={offersMock[indexCard]} reviewMock={reviewsMock[0]} />
+              <OfferDetails
+                offerMock={offersMock[indexCard]}
+                reviewMock={reviewsMock[0]}
+                nearbyMock={nearbyMock}
+
+                onCardHover={(id) => {
+                  /* eslint-disable */
+                  console.log(id)
+                  /* eslint-enable */
+                }}
+                onCardClick={(id) => history.push(`/offer/${id}`)}
+              />
             );
           }}
         />

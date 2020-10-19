@@ -22,24 +22,28 @@ class Map extends PureComponent {
     const zoom = 12;
 
     // initialize the map and return map object
-    const map = Leaflet.map(`map`, {
+    this._map = Leaflet.map(`map`, {
       center: city,
       zoom,
       zoomControl: false,
       marker: true
     });
-    map.setView(city, zoom);
+    this._map.setView(city, zoom);
 
     // add layer
     Leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-    }).addTo(map);
+    }).addTo(this._map);
 
     // iterate object as an array
     if (typeof this.offerCords === `object` && this.offerCords !== null) {
-      Object.values(this.offerCords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(map));
+      Object.values(this.offerCords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._map));
     }
 
+  }
+
+  componentWillUnmount() {
+    this._map.remove();
   }
 
   render() {
