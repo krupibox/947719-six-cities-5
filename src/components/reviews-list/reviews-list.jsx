@@ -1,4 +1,5 @@
 import Reviews from '../reviews/reviews';
+import reviewProperties from "../../proptypes/review-properties";
 
 const ReviewsList = ({reviewMock}) => {
 
@@ -11,6 +12,10 @@ const ReviewsList = ({reviewMock}) => {
     </ul>
 
   </>);
+};
+
+ReviewsList.propTypes = {
+  reviewMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties)))
 };
 
 export default ReviewsList;

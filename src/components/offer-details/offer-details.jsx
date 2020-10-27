@@ -172,6 +172,9 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, onCardHover, onCardCli
 OfferDetails.propTypes = {
   offerMock: PropTypes.shape(offerProperties).isRequired,
   reviewMock: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+  nearbyMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  onCardClick: PropTypes.func.isRequired
 };
 
 export default OfferDetails;

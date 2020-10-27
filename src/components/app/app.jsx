@@ -71,6 +71,7 @@ const App = ({offersMock, reviewsMock, nearbyMock, numberOfPlaces}) => {
 App.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   reviewsMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties))).isRequired,
+  nearbyMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   numberOfPlaces: PropTypes.string.isRequired,
 };
 

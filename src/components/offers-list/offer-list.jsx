@@ -31,6 +31,7 @@ OfferList.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   onCardHover: PropTypes.func.isRequired,
   onCardClick: PropTypes.func.isRequired,
+  nearby: PropTypes.bool.isRequired,
 };
 
 export default OfferList;
