@@ -8,6 +8,8 @@ import offerProperties from "../../proptypes/offer-properties";
 const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
 
   const offerCords = offersMock.map((offer) => offer.coordinates);
+  const offerCities = offersMock.map((offer) => offer.city);
+
 
   return (
     <div className="page page--gray page--main">
@@ -20,7 +22,7 @@ const Main = ({offersMock, numberOfPlaces, onCardHover, onCardClick}) => {
           <section className="locations container">
             <ul className="locations__list tabs__list">
 
-              <Cities />
+              <Cities cities={offerCities}/>
 
             </ul>
           </section>
