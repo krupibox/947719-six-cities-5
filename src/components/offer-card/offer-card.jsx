@@ -9,13 +9,13 @@ const OfferCard = (props) => {
   const FIRST_IMAGE = images[0];
 
   return (
-    <article className={`${nearby ? `near-places__card` : `cities__place-card`} place-card`}
+    <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
       onMouseEnter={() => onCardHover(id)}
     >
 
-      {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
