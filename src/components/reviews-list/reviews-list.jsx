@@ -15,7 +15,7 @@ const ReviewsList = ({reviewMock}) => {
 };
 
 ReviewsList.propTypes = {
-  reviewMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties)))
+  reviewMock: PropTypes.arrayOf(PropTypes.shape(reviewProperties))
 };
 
 export default ReviewsList;

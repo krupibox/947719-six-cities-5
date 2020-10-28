@@ -8,8 +8,9 @@ import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
+import nearbyProperties from "../../proptypes/nearby-properties";
 
-const OfferDetails = ({offerMock, reviewMock, nearbyMock, onCardHover, onCardClick}) => {
+const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
 
   const {isPremium, price, name, images, rating} = offerMock;
 
@@ -155,8 +156,8 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, onCardHover, onCardCli
 
               <OfferList
                 offersMock={nearbyMock}
-                onCardHover={onCardHover}
-                onCardClick={onCardClick}
+                handleCardHover={handleCardHover}
+                handleCardClick={handleCardClick}
                 nearby={true}
               />
 
@@ -172,9 +173,9 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, onCardHover, onCardCli
 OfferDetails.propTypes = {
   offerMock: PropTypes.shape(offerProperties).isRequired,
   reviewMock: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
-  nearbyMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  onCardHover: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired
+  nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+  handleCardHover: PropTypes.func.isRequired,
+  handleCardClick: PropTypes.func.isRequired
 };
 
 export default OfferDetails;

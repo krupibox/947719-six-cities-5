@@ -5,14 +5,15 @@ import offerProperties from "../../proptypes/offer-properties";
 
 const OfferCard = (props) => {
 
-  const {id, isPremium, price, name, images, rating, type, onCardHover, onCardClick, nearby} = props;
+  const {id, isPremium, price, name, images, coordinates, rating, type, handleCardClick, handleCardHover, nearby} = props;
   const FIRST_IMAGE = images[0];
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
-      onMouseEnter={() => onCardHover(id)}
+      onMouseEnter={() => handleCardHover(coordinates)}
+      onMouseOut={() => handleCardHover([0, 0])}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
@@ -44,7 +45,7 @@ const OfferCard = (props) => {
         </div>
         <h2 className="place-card__name"
 
-          onClick={() => onCardClick(id)}
+          onClick={() => handleCardClick(id)}
 
         >
 
@@ -62,8 +63,8 @@ const OfferCard = (props) => {
 OfferCard.propTypes = offerProperties;
 
 OfferCard.propTypes = {
-  onCardHover: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
+  handleCardHover: PropTypes.func.isRequired,
+  handleCardClick: PropTypes.func.isRequired,
 };
 
 export default OfferCard;
