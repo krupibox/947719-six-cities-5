@@ -1,37 +1,16 @@
-const Cities = () => {
+const Cities = ({cities}) => {
 
-  return (<>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Paris</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Cologne</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Brussels</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item tabs__item--active">
-            <span>Amsterdam</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Hamburg</span>
-          </a>
-        </li>
-        <li className="locations__item">
-          <a className="locations__item-link tabs__item" href="#">
-            <span>Dusseldorf</span>
-          </a>
-        </li>
-    </>);
+  const MAX_CITIES = 6;
+
+  return cities.slice(0, MAX_CITIES).map((city, index) => (
+    <li key={`${index}-${city}`} className="locations__item">
+      <a className="locations__item-link tabs__item" href="#">
+        <span>{city}</span>
+      </a>
+    </li>)
+  );
 };
+
+Cities.propTypes = {cities: PropTypes.string.isRequired};
 
 export default Cities;

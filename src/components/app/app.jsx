@@ -6,8 +6,9 @@ import OfferDetails from '../offer-details/offer-details';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
+import nearbyProperties from "../../proptypes/nearby-properties";
 
-const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
+const App = ({offersMock, reviewsMock, nearbyMock}) => {
 
   return (
     <BrowserRouter>
@@ -16,13 +17,8 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
           render={({history}) => (
             <Main
               offersMock={offersMock}
-              numberOfPlaces={numberOfPlaces}
-              onCardHover={(id) => {
-                /* eslint-disable */
-                console.log(id)
-                /* eslint-enable */
-              }}
-              onCardClick={(id) => history.push(`/offer/${id}`)}
+              handleCardHover={(id) => id}
+              handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
           )}
         />
@@ -38,7 +34,18 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
             /* eslint-enable */
 
             return (
-              <OfferDetails offerMock={offersMock[indexCard]} reviewMock={reviewsMock[0]} />
+              <OfferDetails
+                offerMock={offersMock[indexCard]}
+                reviewMock={reviewsMock[0]}
+                nearbyMock={nearbyMock}
+
+                handleCardHover={(id) => {
+                  /* eslint-disable */
+                  console.log(id)
+                  /* eslint-enable */
+                }}
+                handleCardClick={(id) => history.push(`/offer/${id}`)}
+              />
             );
           }}
         />
@@ -60,7 +67,7 @@ const App = ({offersMock, reviewsMock, numberOfPlaces}) => {
 App.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   reviewsMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties))).isRequired,
-  numberOfPlaces: PropTypes.string.isRequired,
+  nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
 };
 
 export default App;

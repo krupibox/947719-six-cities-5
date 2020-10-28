@@ -1,22 +1,25 @@
 import {Link} from "react-router-dom";
+import {getStars} from '../../utils/get-stars';
+
 import offerProperties from "../../proptypes/offer-properties";
 
 const OfferCard = (props) => {
 
-  const {id, isPremium, price, name, images, rating, type, onCardHover, onCardClick} = props;
+  const {id, isPremium, price, name, images, coordinates, rating, type, handleCardClick, handleCardHover, nearby} = props;
   const FIRST_IMAGE = images[0];
-  const MIN_RATING = 20;
-  const getStars = (offerRating) => Math.round(offerRating) * MIN_RATING;
 
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
+
       // all attributes set here
-      onMouseEnter={() => onCardHover(id)}
+      onMouseEnter={() => handleCardHover(coordinates)}
+      onMouseOut={() => handleCardHover([0, 0])}
     >
 
-      {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
+
         <a href="#">
           <img className="place-card__image" src={FIRST_IMAGE} alt="Place image" width={260} height={200} />
         </a>
@@ -42,7 +45,7 @@ const OfferCard = (props) => {
         </div>
         <h2 className="place-card__name"
 
-          onClick={() => onCardClick(id)}
+          onClick={() => handleCardClick(id)}
 
         >
 
@@ -60,8 +63,8 @@ const OfferCard = (props) => {
 OfferCard.propTypes = offerProperties;
 
 OfferCard.propTypes = {
-  onCardHover: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
+  handleCardHover: PropTypes.func.isRequired,
+  handleCardClick: PropTypes.func.isRequired,
 };
 
 export default OfferCard;
