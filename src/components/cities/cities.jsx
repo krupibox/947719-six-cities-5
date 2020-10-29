@@ -13,4 +13,4 @@ const Cities = ({cities}) => {
 
 Cities.propTypes = {cities: PropTypes.array.isRequired};
 
-export default Cities;
+export default React.memo(Cities);

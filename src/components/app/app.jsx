@@ -10,12 +10,15 @@ import nearbyProperties from "../../proptypes/nearby-properties";
 
 const App = ({offersMock, reviewsMock, nearbyMock}) => {
 
+  const offerCities = offersMock.map((offer) => offer.city);
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/"
           render={({history}) => (
             <Main
+              offerCities={offerCities}
               offersMock={offersMock}
               handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
