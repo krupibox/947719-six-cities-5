@@ -87,9 +87,11 @@ const Main = ({offerCities, offersMock, activeCoords, handleCardClick, handleCar
 
 Main.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  offerCities: PropTypes.array.isRequired,
   activeCoords: PropTypes.array.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   handleCardHover: PropTypes.func.isRequired,
 };
 
 export default withActiveCoords(Main);
+
