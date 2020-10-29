@@ -11,13 +11,12 @@ class Main extends PureComponent {
   constructor(props) {
     super(props);
     this._offersMock = props.offersMock;
-    this._handleCardHover = props.handleCardHover;
-    this.handleCardHover = this.handleCardHover.bind(this);
+    this._handleCardClick = props.handleCardClick;
+    this._handleCardHover = this.handleCardHover.bind(this);
 
     this.state = {
       activeCoords: [0, 0],
     };
-
   }
 
   handleCardHover(value) {
@@ -89,8 +88,8 @@ class Main extends PureComponent {
 
                   <Map
                     offerCoords={offerCoords}
-                    handleCardHover={this._handleCardHover}
                     activeCoords={this.state.activeCoords}
+                    handleCardHover={this._handleCardHover}
                   />
 
                 </section>
@@ -106,8 +105,6 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  numberOfPlaces: PropTypes.string.isRequired,
-  handleCardHover: PropTypes.func.isRequired,
   handleCardClick: PropTypes.func.isRequired,
 };
 

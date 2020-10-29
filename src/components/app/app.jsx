@@ -17,7 +17,6 @@ const App = ({offersMock, reviewsMock, nearbyMock}) => {
           render={({history}) => (
             <Main
               offersMock={offersMock}
-              handleCardHover={(id) => id}
               handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
           )}
