@@ -1,9 +1,11 @@
+const AVATAR_URL = `https://i.pravatar.cc/150?img`;
+
 export default [
   [
     {
       user: {
         id: 1,
-        avatar: `../img/avatar-max.jpg`,
+        avatar: `${AVATAR_URL}=1`,
         name: `Max`,
         isPro: true,
       },
@@ -17,7 +19,7 @@ export default [
     {
       user: {
         id: 2,
-        avatar: `../img/avatar-max.jpg`,
+        avatar: `${AVATAR_URL}=10`,
         name: `Sax`,
         isPro: false,
       },
@@ -31,7 +33,7 @@ export default [
     {
       user: {
         id: 3,
-        avatar: `../img/avatar-max.jpg`,
+        avatar: `${AVATAR_URL}=3`,
         name: `Rax`,
         isPro: true,
       },
@@ -46,7 +48,7 @@ export default [
   [{
     user: {
       id: 4,
-      avatar: `../img/avatar-max.jpg`,
+      avatar: `${AVATAR_URL}=4`,
       name: `Wax`,
       isPro: true,
     },
@@ -60,7 +62,7 @@ export default [
   [{
     user: {
       id: 4,
-      avatar: `../img/avatar-max.jpg`,
+      avatar: `${AVATAR_URL}=5`,
       name: `Tax`,
       isPro: false,
     },
@@ -74,7 +76,7 @@ export default [
   [{
     user: {
       id: 5,
-      avatar: `../img/avatar-max.jpg`,
+      avatar: `${AVATAR_URL}=6`,
       name: `Bax`,
       isPro: false,
     },
@@ -88,7 +90,7 @@ export default [
   [{
     user: {
       id: 6,
-      avatar: `../img/avatar-max.jpg`,
+      avatar: `${AVATAR_URL}=7`,
       name: `Dax`,
       isPro: true,
     },
@@ -102,7 +104,7 @@ export default [
   [{
     user: {
       id: 7,
-      avatar: `../img/avatar-max.jpg`,
+      avatar: `${AVATAR_URL}=8`,
       name: `Zax`,
       isPro: false,
     },
@@ -116,7 +118,7 @@ export default [
   [{
     user: {
       id: 8,
-      avatar: `../img/avatar-max.jpg`,
+      avatar: `${AVATAR_URL}=9`,
       name: `Pax`,
       isPro: false,
     },
