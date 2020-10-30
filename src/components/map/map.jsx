@@ -53,7 +53,6 @@ class Map extends PureComponent {
   componentDidUpdate(prevProps) {
     // need to check if the previous state and the current state are different !important
     if (this.props.activeCoords !== prevProps.activeCoords) {
-
       this._markers.map((marker) => {
         if (marker._latlng.lat === this.props.activeCoords[0]
           && marker._latlng.lng === this.props.activeCoords[1]) {
@@ -64,13 +63,10 @@ class Map extends PureComponent {
       });
     }
 
-    // if (this.props.offerCoords !== prevProps.offerCoords) {
-
-    //   this._layerGroup.clearLayers();
-
-    //   this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
-    //   console.log(this.props.offerCoords !== prevProps.offerCoords);
-    // }
+    if (JSON.stringify(this.props.offerCoords) !== JSON.stringify(prevProps.offerCoords)) {
+      this._layerGroup.clearLayers();
+      this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
+    }
 
   }
 
