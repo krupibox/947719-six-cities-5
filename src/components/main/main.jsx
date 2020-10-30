@@ -1,3 +1,6 @@
+import {connect} from 'react-redux';
+// import {ActionCreator} from '../../store/action';
+
 import Header from '../header/header';
 import Cities from '../cities/cities';
 import OfferList from '../offers-list/offer-list';
@@ -7,9 +10,10 @@ import {withActiveCoords} from '../hoc/with-active-coords';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offerCities, offersMock, activeCoords, handleCardClick, handleCardHover}) => {
-  const offerCoords = offersMock.map((offer) => offer.coordinates);
-  const numberOfPlaces = offersMock.filter((offer) => offer.city === `Paris`);
+const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, city}) => {
+
+  const offerPlaces = offersMock.filter((offer) => offer.city === city);
+  const offerCoords = offerPlaces.map((offer) => offer.coordinates);
 
   return (
     <div className="page page--gray page--main">
@@ -22,7 +26,7 @@ const Main = ({offerCities, offersMock, activeCoords, handleCardClick, handleCar
           <section className="locations container">
             <ul className="locations__list tabs__list">
 
-              <Cities cities={offerCities}/>
+              <Cities />
 
             </ul>
           </section>
@@ -31,7 +35,7 @@ const Main = ({offerCities, offersMock, activeCoords, handleCardClick, handleCar
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberOfPlaces.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offerPlaces.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>Popular
@@ -57,7 +61,7 @@ const Main = ({offerCities, offersMock, activeCoords, handleCardClick, handleCar
               <div className="cities__places-list places__list tabs__content">
 
                 <OfferList
-                  offersMock={offersMock}
+                  offersMock={offerPlaces}
                   handleCardHover={handleCardHover}
                   handleCardClick={handleCardClick}
                   nearby={false}
@@ -84,14 +88,16 @@ const Main = ({offerCities, offersMock, activeCoords, handleCardClick, handleCar
 
 };
 
-
 Main.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  offerCities: PropTypes.array.isRequired,
   activeCoords: PropTypes.array.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   handleCardHover: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
-export default withActiveCoords(Main);
+const mapStateToProps = (state) => ({
+  city: state.city
+});
 
+export default connect(mapStateToProps)(withActiveCoords(Main));

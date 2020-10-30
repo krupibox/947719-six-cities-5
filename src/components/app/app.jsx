@@ -12,12 +12,7 @@ import offerProperties from '../../proptypes/offer-properties';
 import reviewProperties from '../../proptypes/review-properties';
 import nearbyProperties from '../../proptypes/nearby-properties';
 
-const App = ({offersMock, reviewsMock, nearbyMock, cities, getCities}) => {
-
-  // load cities thrue ActionCreator.getCities() && ActionType.GET_CITIES
-  /* eslint-disable */
-  cities.length === 0 && getCities(); // dispatch reducer 1 time if empty
-  /* eslint-enable */
+const App = ({offersMock, reviewsMock, nearbyMock}) => {
 
   return (
     <BrowserRouter>
@@ -25,7 +20,6 @@ const App = ({offersMock, reviewsMock, nearbyMock, cities, getCities}) => {
         <Route exact path="/"
           render={({history}) => (
             <Main
-              offerCities={cities}
               offersMock={offersMock}
               handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
@@ -77,17 +71,9 @@ App.propTypes = {
   offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   reviewsMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties))).isRequired,
   nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
-  getCities: PropTypes.func.isRequired,
-  cities: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => state;
 
-const mapDispatchToProps = (dispatch) => ({
-  getCities() {
-    dispatch(ActionCreator.getCities());
-  }
-});
-
 export {App}; // leave it here for testing purpose in future
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

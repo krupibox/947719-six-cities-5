@@ -1,10 +1,10 @@
 export const ActionType = {
-  GET_CITIES: `GET_CITIES`,
+  UPDATE_CITY: `UPDATE_CITY`,
 };
 
 export const ActionCreator = {
-  getCities: () => ({
-    type: ActionType.GET_CITIES,
+  updateCity: (city) => ({
+    type: ActionType.UPDATE_CITY,
+    payload: city
   }),
 };
-
