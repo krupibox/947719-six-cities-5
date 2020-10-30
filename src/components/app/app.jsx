@@ -1,7 +1,6 @@
 import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
 
 import Main from '../main/main';
 import SignIn from '../signin/signin';

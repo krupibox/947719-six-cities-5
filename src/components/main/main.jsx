@@ -10,9 +10,9 @@ import {withActiveCoords} from '../hoc/with-active-coords';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, city}) => {
+const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, activeCity}) => {
 
-  const offerPlaces = offersMock.filter((offer) => offer.city === city);
+  const offerPlaces = offersMock.filter((offer) => offer.city === activeCity);
   const offerCoords = offerPlaces.map((offer) => offer.coordinates);
 
   return (
@@ -35,7 +35,7 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, city}
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerPlaces.length} places to stay in {city}</b>
+              <b className="places__found">{offerPlaces.length} places to stay in {activeCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>Popular
@@ -93,11 +93,11 @@ Main.propTypes = {
   activeCoords: PropTypes.array.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   handleCardHover: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
+  activeCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city
+  activeCity: state.activeCity
 });
 
 export default connect(mapStateToProps)(withActiveCoords(Main));

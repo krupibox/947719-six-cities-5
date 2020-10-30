@@ -1,26 +1,32 @@
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
-const Cities = ({cities, updateCity}) => {
+const Cities = ({activeCity, offerCities, updateCity}) => {
 
   const MAX_CITIES = 6;
 
-  return cities.slice(0, MAX_CITIES).map((city, index) => (
+  return offerCities ? offerCities.slice(0, MAX_CITIES).map((city, index) => (
     <li key={`${index}-${city}`} className="locations__item">
-      <a className="locations__item-link tabs__item" href="#"
+      <a className={`locations__item-link tabs__item ${city === activeCity && `tabs__item--active`}`} href="#"
 
-        onClick = {() => updateCity(city)}>
+        onClick={() => {
+          updateCity(city);
+        }}>
 
         <span>{city}</span>
       </a>
-    </li>)
-  );
+    </li>)) : <p>There are no cities</p>;
 };
 
-Cities.propTypes = {cities: PropTypes.array.isRequired};
+Cities.propTypes = {
+  offerCities: PropTypes.array.isRequired,
+  activeCity: PropTypes.string.isRequired,
+  updateCity: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
-  cities: state.cities
+  activeCity: state.activeCity,
+  offerCities: state.offerCities
 });
 
 const mapDispatchToProps = (dispatch) => ({

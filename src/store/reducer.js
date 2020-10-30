@@ -12,16 +12,16 @@ const initialState = {
   offersMock,
   reviewsMock,
   nearbyMock,
-  cities: offerCities,
-  city: `Paris`
+  offerCities,
+  activeCity: `Paris`
 };
 
 // for updating State Props
 export const reducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case ActionType.UPDATE_CITY:
-      return updateState(state, {city: action.payload});
+    case ActionType.UPDATE_ACTIVE_CITY:
+      return updateState(state, {activeCity: action.payload});
   }
 
   return state; // send initial state at start
