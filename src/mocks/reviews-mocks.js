@@ -1,9 +1,11 @@
+const AVATAR_URL = `https://i.pravatar.cc/150?img`;
+
 export default [
   [
     {
       user: {
         id: 1,
-        avatar: `https://api.adorable.io/avatars/128/0.9912918678423130`,
+        avatar: `${AVATAR_URL}=1`,
         name: `Max`,
         isPro: true,
       },
@@ -17,7 +19,7 @@ export default [
     {
       user: {
         id: 2,
-        avatar: `https://api.adorable.io/avatars/128/0.33908914729720996`,
+        avatar: `${AVATAR_URL}=10`,
         name: `Sax`,
         isPro: false,
       },
@@ -31,7 +33,7 @@ export default [
     {
       user: {
         id: 3,
-        avatar: `https://api.adorable.io/avatars/128/0.06997580364137201`,
+        avatar: `${AVATAR_URL}=3`,
         name: `Rax`,
         isPro: true,
       },
@@ -46,7 +48,7 @@ export default [
   [{
     user: {
       id: 4,
-      avatar: `https://api.adorable.io/avatars/128/0.3963321309597061`,
+      avatar: `${AVATAR_URL}=4`,
       name: `Wax`,
       isPro: true,
     },
@@ -60,7 +62,7 @@ export default [
   [{
     user: {
       id: 4,
-      avatar: `https://api.adorable.io/avatars/128/0.1138720045992132`,
+      avatar: `${AVATAR_URL}=5`,
       name: `Tax`,
       isPro: false,
     },
@@ -74,7 +76,7 @@ export default [
   [{
     user: {
       id: 5,
-      avatar: `https://api.adorable.io/avatars/128/0.477232804299224`,
+      avatar: `${AVATAR_URL}=6`,
       name: `Bax`,
       isPro: false,
     },
@@ -88,7 +90,7 @@ export default [
   [{
     user: {
       id: 6,
-      avatar: `https://api.adorable.io/avatars/128/0.3963321309597061`,
+      avatar: `${AVATAR_URL}=7`,
       name: `Dax`,
       isPro: true,
     },
@@ -102,7 +104,7 @@ export default [
   [{
     user: {
       id: 7,
-      avatar: `https://api.adorable.io/avatars/128/0.1138720045992132`,
+      avatar: `${AVATAR_URL}=8`,
       name: `Zax`,
       isPro: false,
     },
@@ -116,7 +118,7 @@ export default [
   [{
     user: {
       id: 8,
-      avatar: `https://api.adorable.io/avatars/128/0.477232804299224`,
+      avatar: `${AVATAR_URL}=9`,
       name: `Pax`,
       isPro: false,
     },

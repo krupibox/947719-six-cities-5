@@ -1,6 +1,6 @@
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
-import ReviewsForm from '../reviews-form/reviews-form';
+import ReviewForm from '../review-form/review-form';
 import OfferList from '../offers-list/offer-list';
 import Map from '../map/map';
 
@@ -136,7 +136,7 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
 
                 <ReviewsList reviewMock={reviewMock} />
 
-                <ReviewsForm />
+                <ReviewForm />
 
               </section>
             </div>

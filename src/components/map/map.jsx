@@ -16,8 +16,7 @@ class Map extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.offerCoords = props.offerCoords;
-    this.offerId = props.onCardHover;
+    this._offerCoords = props.offerCoords;
     this._markers = [];
   }
 
@@ -39,9 +38,11 @@ class Map extends PureComponent {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     }).addTo(this._map);
 
+    this._layerGroup = Leaflet.layerGroup().addTo(this._map); // add layer to map
+
     // iterate object as an array
-    if (typeof this.offerCords === `object` && this.offerCords !== null) {
-      this._markers = Object.values(this.offerCords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._map));
+    if (typeof this._offerCoords === `object` && this._offerCoords !== null) {
+      this._markers = Object.values(this._offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup)); // add to layer instead of directly to map
     }
   }
 
@@ -61,6 +62,12 @@ class Map extends PureComponent {
         }
       });
     }
+
+    if (JSON.stringify(this.props.offerCoords) !== JSON.stringify(prevProps.offerCoords)) {
+      this._layerGroup.clearLayers();
+      this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
+    }
+
   }
 
   render() {
@@ -73,7 +80,6 @@ class Map extends PureComponent {
 Map.propTypes = {
   offerCoords: PropTypes.array.isRequired,
   activeCoords: PropTypes.array.isRequired,
-  onCardHover: PropTypes.func.isRequired,
 };
 
 export default Map;

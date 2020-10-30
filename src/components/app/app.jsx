@@ -1,12 +1,15 @@
-import {BrowserRouter, Route, Switch, Link} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+
+import {connect} from 'react-redux';
+
 import Main from '../main/main';
 import SignIn from '../signin/signin';
 import Favorites from '../favorites/favorites';
 import OfferDetails from '../offer-details/offer-details';
 
-import offerProperties from "../../proptypes/offer-properties";
-import reviewProperties from "../../proptypes/review-properties";
-import nearbyProperties from "../../proptypes/nearby-properties";
+import offerProperties from '../../proptypes/offer-properties';
+import reviewProperties from '../../proptypes/review-properties';
+import nearbyProperties from '../../proptypes/nearby-properties';
 
 const App = ({offersMock, reviewsMock, nearbyMock}) => {
 
@@ -17,7 +20,6 @@ const App = ({offersMock, reviewsMock, nearbyMock}) => {
           render={({history}) => (
             <Main
               offersMock={offersMock}
-              handleCardHover={(id) => id}
               handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
           )}
@@ -70,4 +72,7 @@ App.propTypes = {
   nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => state;
+
+export {App}; // leave it here for testing purpose in future
+export default connect(mapStateToProps)(App);
