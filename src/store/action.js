@@ -1,10 +1,10 @@
 export const ActionType = {
-  GET_MOCKS: `GET_MOCKS`,
+  GET_CITIES: `GET_CITIES`,
 };
 
 export const ActionCreator = {
-  getMocks: () => ({
-    type: ActionType.GET_MOCKS,
+  getCities: () => ({
+    type: ActionType.GET_CITIES,
   }),
 };
 
