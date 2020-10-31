@@ -9,7 +9,6 @@ export const withActiveCoords = (Component) => {
             super(props);
             this._handleCardHover = this.handleCardHover.bind(this);
             this.state = { activeCoords: [0, 0] };
-
         }
 
         handleCardHover(value) {
