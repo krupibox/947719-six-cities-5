@@ -4,31 +4,40 @@ export const withActiveCoords = (Component) => {
 
   /* eslint-disable */
 
-    return class extends PureComponent {
-        constructor(props) {
-            super(props);
-            this._handleCardHover = this.handleCardHover.bind(this);
-            this.state = { activeCoords: [0, 0] };
+  return class extends PureComponent {
+    constructor(props) {
+      super(props);
+      this._handleCardHover = this.handleCardHover.bind(this);
+      this._handleTypeClick = this.handleTypeClick.bind(this);
+      this.state = {
+        activeCoords: [0, 0],
+        sortingType: `Popular`,
+      };
+    }
 
-        }
+    handleCardHover(value) {
+      this.setState({ activeCoords: value });
+    }
 
-        handleCardHover(value) {
-            this.setState({ activeCoords: value });
-        }
-
-        // union this class with component class
-        render() {
-            return (
-                <Component
-                  {...this.props}
-                  activeCoords={this.state.activeCoords}
-                  handleCardHover={this._handleCardHover}
-                />
-              );
-        }
+    handleTypeClick(value) {
+      this.setState({sortingType: value});
     };
 
-    /* eslint-enable */
+    // union this class with component class
+    render() {
+      return (
+        <Component
+          {...this.props}
+          activeCoords={this.state.activeCoords}
+          sortingType={this.state.sortingType}
+          handleCardHover={this._handleCardHover}
+          handleTypeClick={this._handleTypeClick}
+        />
+      );
+    }
+  };
+
+  /* eslint-enable */
 
 };
 

@@ -1,9 +1,9 @@
 import {updateState} from '../utils/update-state';
 import {ActionType} from './action';
 
-import offersMock from '../mocks/offers-mocks';
-import reviewsMock from '../mocks/reviews-mocks';
-import nearbyMock from '../mocks/nearby-mocks';
+import offersMock from '../mocks/offers-mocks'; // mocks
+import reviewsMock from '../mocks/reviews-mocks'; // mocks
+import nearbyMock from '../mocks/nearby-mocks'; // mocks
 
 const offerCities = offersMock.map((offer) => offer.city);
 
