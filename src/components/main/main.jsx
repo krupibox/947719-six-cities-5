@@ -1,5 +1,4 @@
 import {connect} from 'react-redux';
-// import {ActionCreator} from '../../store/action';
 
 import Header from '../header/header';
 import Cities from '../cities/cities';
@@ -76,7 +75,9 @@ Main.propTypes = {
   activeCoords: PropTypes.array.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   handleCardHover: PropTypes.func.isRequired,
+  handleTypeClick: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
+  sortingType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
