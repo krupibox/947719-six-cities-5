@@ -11,7 +11,7 @@ import {withActiveCoords} from '../hoc/with-active-coords';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, activeCity}) => {
+const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
 
   const offerPlaces = offersMock.filter((offer) => offer.city === activeCity);
   const offerCoords = offerPlaces.map((offer) => offer.coordinates);
@@ -38,12 +38,13 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, activ
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offerPlaces.length} places to stay in {activeCity}</b>
 
-              <OffersSorting offerPlaces={offerPlaces}/>
+              <OffersSorting handleTypeClick={handleTypeClick} sortingType={sortingType}/>
 
               <div className="cities__places-list places__list tabs__content">
 
                 <OfferList
                   offersMock={offerPlaces}
+                  sortingType={sortingType}
                   handleCardHover={handleCardHover}
                   handleCardClick={handleCardClick}
                   nearby={false}
