@@ -1,5 +1,7 @@
 import {PureComponent} from "react";
 
+const SORT_TYPES = [`Popular`, `to-high`, `to-low`, `top-rated`];
+
 class OffersSorting extends PureComponent {
 
   constructor(props) {
@@ -22,11 +24,11 @@ class OffersSorting extends PureComponent {
         </svg>
       </span>
       { this.state.isOpen &&
-        <ul className="places__options places__options--custom places__options--opened">
-          <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-          <li className="places__option" tabIndex={0}>Price: low to high</li>
-          <li className="places__option" tabIndex={0}>Price: high to low</li>
-          <li className="places__option" tabIndex={0}>Top rated first</li>
+        <ul className="places__options places__options--custom places__options--opened" onClick={(evt) => console.dir(evt.target.attributes.value.nodeValue)}>
+          <li className="places__option places__option--active" tabIndex={0} value="popular">Popular</li>
+          <li className="places__option" tabIndex={0} value="to-high">Price: low to high</li>
+          <li className="places__option" tabIndex={0} value="to-low">Price: high to low</li>
+          <li className="places__option" tabIndex={0} value="top-rated">Top rated first</li>
         </ul>
       }
     </form>);
