@@ -1,10 +1,7 @@
 import {PureComponent} from "react";
 
-export const withSortToggle = (Component) => {
-
-  /* eslint-disable */
-
-  return class extends PureComponent {
+const withSortToggle = (Component) => {
+  class WithSortToggle extends PureComponent {
     constructor(props) {
       super(props);
 
@@ -18,12 +15,12 @@ export const withSortToggle = (Component) => {
     }
 
     handleToggleMenuClick() {
-      this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
+      this.setState((prevState) => ({isOpen: !prevState.isOpen}));
     }
 
     handleTypeClick(value) {
-      this.setState({ sortingType: value });
-    };
+      this.setState({sortingType: value});
+    }
 
     // union this class with component class
     render() {
@@ -36,8 +33,14 @@ export const withSortToggle = (Component) => {
         />
       );
     }
+  }
+
+  WithSortToggle.propTypes = {
+    handleTypeClick: PropTypes.func.isRequired,
   };
 
-  /* eslint-enable */
-
+  return WithSortToggle;
 };
+
+
+export default withSortToggle;

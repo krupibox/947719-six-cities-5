@@ -1,4 +1,4 @@
-import {withSortToggle} from '../hoc/with-sort-toggle';
+import withSortToggle from '../hoc/with-sort-toggle';
 
 import OfferSortType from '../../consts/offer-sort-type';
 
