@@ -6,6 +6,8 @@ import OffersSorting from '../offers-sorting/offers-sorting';
 import OfferList from '../offers-list/offer-list';
 import Map from '../map/map';
 
+import MainEmpty from '../main-empty/main-empty';
+
 import withActiveCoords from '../hoc/with-active-coords';
 
 import offerProperties from "../../proptypes/offer-properties";
@@ -18,7 +20,7 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handl
   return (
     <div className="page page--gray page--main">
 
-      <Header isSignIn={true}/>
+      <Header isSignIn={false} />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -32,40 +34,46 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handl
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerPlaces.length} places to stay in {activeCity}</b>
+          <div className={`cities__places-container${offerPlaces.length > 0 ? `` : ` cities__places-container--empty`} container`}>
+            {
+              offerPlaces.length > 0 ?
+                <section className={`${offerPlaces.length > 0 ? `cities__places places` : `cities__no-places`}`}>
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offerPlaces.length} places to stay in {activeCity}</b>
 
-              <OffersSorting handleTypeClick={handleTypeClick} sortingType={sortingType}/>
+                  <OffersSorting handleTypeClick={handleTypeClick} sortingType={sortingType} />
 
-              <div className="cities__places-list places__list tabs__content">
+                  <div className="cities__places-list places__list tabs__content">
 
-                <OfferList
-                  offersMock={offerPlaces}
-                  sortingType={sortingType}
-                  handleCardHover={handleCardHover}
-                  handleCardClick={handleCardClick}
-                  nearby={false}
-                />
+                    <OfferList
+                      offersMock={offerPlaces}
+                      sortingType={sortingType}
+                      handleCardHover={handleCardHover}
+                      handleCardClick={handleCardClick}
+                      nearby={false}
+                    />
 
-              </div>
-            </section>
+                  </div>
+                </section>
+                : <MainEmpty activeCity={activeCity} />
+            }
             <div className="cities__right-section">
-              <section className="cities__map map">
+              {
+                offerPlaces.length > 0 &&
+                <section className="cities__map map">
 
-                <Map
-                  offerCoords={offerCoords}
-                  activeCoords={activeCoords}
-                  handleCardHover={handleCardHover}
-                />
+                  <Map
+                    offerCoords={offerCoords}
+                    activeCoords={activeCoords}
+                    handleCardHover={handleCardHover}
+                  />
 
-              </section>
+                </section>
+              }
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </main></div>
   );
 
 };

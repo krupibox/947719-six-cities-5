@@ -9,7 +9,7 @@ const offerCities = offersMock.map((offer) => offer.city);
 
 // for State Props
 const initialState = {
-  offersMock,
+  offersMock: [],
   reviewsMock,
   nearbyMock,
   offerCities,
