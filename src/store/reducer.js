@@ -5,14 +5,12 @@ import offersMock from '../mocks/offers-mocks'; // mocks
 import reviewsMock from '../mocks/reviews-mocks'; // mocks
 import nearbyMock from '../mocks/nearby-mocks'; // mocks
 
-const offerCities = offersMock.map((offer) => offer.city);
-
 // for State Props
 const initialState = {
-  offersMock: [],
+  offersMock,
   reviewsMock,
   nearbyMock,
-  offerCities,
+  offerCities: [],
   activeCity: `Paris`
 };
 

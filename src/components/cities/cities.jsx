@@ -1,6 +1,8 @@
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
+// сюда импортируем функцию созданную при помощи createSelector и вставляем в maspStateToProps
+
 const Cities = ({activeCity, offerCities, updateCity}) => {
 
   const MAX_CITIES = 6;
@@ -26,7 +28,7 @@ Cities.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
-  offerCities: state.offerCities
+  offerCities: state.offersMock.map((offer) => offer.city),
 });
 
 const mapDispatchToProps = (dispatch) => ({
