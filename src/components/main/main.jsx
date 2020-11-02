@@ -6,7 +6,7 @@ import OffersSorting from '../offers-sorting/offers-sorting';
 import OfferList from '../offers-list/offer-list';
 import Map from '../map/map';
 
-import {withActiveCoords} from '../hoc/with-active-coords';
+import withActiveCoords from '../hoc/with-active-coords';
 
 import offerProperties from "../../proptypes/offer-properties";
 

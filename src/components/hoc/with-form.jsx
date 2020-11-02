@@ -1,16 +1,13 @@
 import {PureComponent} from "react";
 
 export const withForm = (Component) => {
-
-  /* eslint-disable */
-
-  return class extends PureComponent {
+  class WithForm extends PureComponent {
     constructor(props) {
       super(props);
       this._handleSubmit = this._handleSubmit.bind(this);
       this._handleFieldChange = this._handleFieldChange.bind(this);
 
-      this.state = { rating: ``, review: `` };
+      this.state = {rating: ``, review: ``};
 
     }
 
@@ -40,10 +37,11 @@ export const withForm = (Component) => {
         />
       );
     }
-  };
+  }
 
-  /* eslint-enable */
+  return WithForm;
 
 };
 
+export default withForm;
 

@@ -1,10 +1,7 @@
 import {PureComponent} from "react";
 
 export const withActiveCoords = (Component) => {
-
-  /* eslint-disable */
-
-  return class extends PureComponent {
+  class WithActiveCoords extends PureComponent {
     constructor(props) {
       super(props);
       this._handleCardHover = this.handleCardHover.bind(this);
@@ -16,12 +13,12 @@ export const withActiveCoords = (Component) => {
     }
 
     handleCardHover(value) {
-      this.setState({ activeCoords: value });
+      this.setState({activeCoords: value});
     }
 
     handleTypeClick(value) {
       this.setState({sortingType: value});
-    };
+    }
 
     // union this class with component class
     render() {
@@ -35,10 +32,10 @@ export const withActiveCoords = (Component) => {
         />
       );
     }
-  };
+  }
 
-  /* eslint-enable */
-
+  return WithActiveCoords;
 };
 
+export default withActiveCoords;
 
