@@ -1,3 +1,17 @@
+// import {NameSpace} from './reducers/root-reducer';
+import {createSelector} from 'reselect';
+
+// to main
+// export const selectOffers = (state) => state[NameSpace.DATA].offers; // example with [NameSpace]
+export const selectOffersFromState = (state) => state.offers;
+export const selectActiveCityFromState = (state) => state.activeCity;
+
+export const selectOffersByCity = createSelector(
+    selectOffersFromState,
+    selectActiveCityFromState,
+    (offers, activeCity) => offers.filter((offer) => offer.city.name === activeCity));
+
+// to sort
 export const getSortedOffers = (offers, currentSortType) => {
   switch (currentSortType) {
     case OfferSortType.PRICE_LOW_TO_HIGH:
@@ -10,5 +24,3 @@ export const getSortedOffers = (offers, currentSortType) => {
 
   return offers;
 };
-
-export const offerCities = offersMock.map((offer) => offer.city);

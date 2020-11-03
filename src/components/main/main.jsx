@@ -10,11 +10,12 @@ import MainEmpty from '../main-empty/main-empty';
 
 import withActiveCoords from '../hoc/with-active-coords';
 
+// selectors
+import {selectOffersByCity} from '../../store/selectors';
+
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offers, activeCoords, handleCardClick, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
-
-  const offerPlaces = offers.filter((offer) => offer.city.name === activeCity);
+const Main = ({offerPlaces, activeCoords, handleCardClick, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
 
   const cityCenterCoords = {
     latitude: offerPlaces[0].city.location.latitude,
@@ -91,7 +92,7 @@ const Main = ({offers, activeCoords, handleCardClick, handleCardHover, handleTyp
 };
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  offerPlaces: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   activeCoords: PropTypes.array.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   handleCardHover: PropTypes.func.isRequired,
@@ -101,7 +102,8 @@ Main.propTypes = {
 };
 
 const mapStateToProps = ({DATA, _USER}) => ({
-  activeCity: DATA.activeCity
+  activeCity: DATA.activeCity,
+  offerPlaces: selectOffersByCity(DATA),
 });
 
 export default connect(mapStateToProps)(withActiveCoords(Main));

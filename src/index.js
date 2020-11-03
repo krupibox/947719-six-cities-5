@@ -43,3 +43,4 @@ Promise.all([
   );
 });
 
+store.getState();
