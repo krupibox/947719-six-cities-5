@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+import {Route, Router as BrowserRouter, Switch, Link} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 
@@ -6,38 +6,46 @@ import Main from '../main/main';
 import SignIn from '../signin/signin';
 import Favorites from '../favorites/favorites';
 import OfferDetails from '../offer-details/offer-details';
+// import PrivateRoute from '../private-route/private-route';
+import browserHistory from "../../browser-history";
+
+import AppRoute from "../../consts/app-route";
 
 import offerProperties from '../../proptypes/offer-properties';
 import reviewProperties from '../../proptypes/review-properties';
 import nearbyProperties from '../../proptypes/nearby-properties';
 
-const App = ({offersMock, reviewsMock, nearbyMock}) => {
+const App = (props) => {
+
+  const {offers, reviewsMock, nearbyMock} = props;
 
   return (
-    <BrowserRouter>
+    // now we can recieve browserHistory as prop in component
+    <BrowserRouter history={browserHistory}>
       <Switch>
-        <Route exact path="/"
+        <Route exact path={AppRoute.ROOT}
           render={({history}) => (
             <Main
-              offersMock={offersMock}
+              offers={offers}
               handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
           )}
         />
 
         <Route exact path="/login"><SignIn /></Route>
+
         <Route exact path="/favorites"><Favorites /></Route>
 
         <Route exact path="/offer/:id?"
-          render={(props) => {
+          render={(propz) => {
 
             /* eslint-disable */
-            const indexCard = offersMock.findIndex((element) => element.id === parseInt(props.match.params.id));
+            const getOfferIndex = (offers) => offers.findIndex((element) => element.id === parseInt(propz.match.params.id));
             /* eslint-enable */
 
             return (
               <OfferDetails
-                offerMock={offersMock[indexCard]}
+                offer={offers[getOfferIndex(offers)]}
                 reviewMock={reviewsMock[0]}
                 nearbyMock={nearbyMock}
 
@@ -67,12 +75,17 @@ const App = ({offersMock, reviewsMock, nearbyMock}) => {
 };
 
 App.propTypes = {
-  offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   reviewsMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties))).isRequired,
   nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
 };
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = ({DATA, USER}) => ({
+  offers: DATA.offers,
+  reviewsMock: DATA.reviewsMock,
+  nearbyMock: DATA.nearbyMock,
+  authorizationStatus: USER.authorizationStatus,
+});
 
 export {App}; // leave it here for testing purpose in future
 export default connect(mapStateToProps)(App);

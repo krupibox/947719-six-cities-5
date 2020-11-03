@@ -3,16 +3,13 @@ import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const OfferCard = (props) => {
-
-  const {id, isPremium, price, name, images, coordinates, rating, type, handleCardClick, handleCardHover, nearby} = props;
-  const FIRST_IMAGE = images[0];
+const OfferCard = ({id, isPremium, price, title, preview_image, location, rating, type, handleCardClick, handleCardHover, nearby}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
-      onMouseEnter={() => handleCardHover(coordinates)}
+      onMouseEnter={() => handleCardHover([location.latitude, location.longitude])}
       onMouseOut={() => handleCardHover([0, 0])}
     >
 
@@ -21,7 +18,7 @@ const OfferCard = (props) => {
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
         <a href="#">
-          <img className="place-card__image" src={FIRST_IMAGE} alt="Place image" width={260} height={200} />
+          <img className="place-card__image" src={preview_image} alt="Place image" width={260} height={200} />
         </a>
       </div>
       <div className="place-card__info">
@@ -50,7 +47,7 @@ const OfferCard = (props) => {
         >
 
           <Link to={`/offer/${id}`} className={`place-card__name`}>
-            {name}
+            {title}
           </Link>
 
         </h2>

@@ -12,10 +12,21 @@ import withActiveCoords from '../hoc/with-active-coords';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
+const Main = ({offers, activeCoords, handleCardClick, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
 
-  const offerPlaces = offersMock.filter((offer) => offer.city === activeCity);
-  const offerCoords = offerPlaces.map((offer) => offer.coordinates);
+  const offerPlaces = offers.filter((offer) => offer.city.name === activeCity);
+
+  const cityCenterCoords = {
+    latitude: offerPlaces[0].city.location.latitude,
+    longitude: offerPlaces[0].city.location.longitude,
+    zoom: offerPlaces[0].city.location.zoom
+  };
+
+  const offerCoords = offerPlaces.map((offer) => [
+    offer.location.latitude,
+    offer.location.longitude,
+    offer.location.zoom
+  ]);
 
   return (
     <div className="page page--gray page--main">
@@ -46,7 +57,7 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handl
                   <div className="cities__places-list places__list tabs__content">
 
                     <OfferList
-                      offersMock={offerPlaces}
+                      offers={offerPlaces}
                       sortingType={sortingType}
                       handleCardHover={handleCardHover}
                       handleCardClick={handleCardClick}
@@ -64,6 +75,7 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handl
 
                   <Map
                     offerCoords={offerCoords}
+                    cityCenterCoords={cityCenterCoords}
                     activeCoords={activeCoords}
                     handleCardHover={handleCardHover}
                   />
@@ -79,7 +91,7 @@ const Main = ({offersMock, activeCoords, handleCardClick, handleCardHover, handl
 };
 
 Main.propTypes = {
-  offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   activeCoords: PropTypes.array.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   handleCardHover: PropTypes.func.isRequired,
@@ -88,8 +100,8 @@ Main.propTypes = {
   sortingType: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: state.activeCity
+const mapStateToProps = ({DATA, _USER}) => ({
+  activeCity: DATA.activeCity
 });
 
 export default connect(mapStateToProps)(withActiveCoords(Main));

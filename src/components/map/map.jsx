@@ -16,12 +16,14 @@ class Map extends PureComponent {
 
   constructor(props) {
     super(props);
+    this._cityCenterCoords = props.cityCenterCoords;
     this._offerCoords = props.offerCoords;
     this._markers = [];
+
   }
 
   componentDidMount() {
-    const city = [52.38333, 4.9];
+    const city = [this._cityCenterCoords.latitude, this._cityCenterCoords.longitude];
     const zoom = 12;
 
     // initialize the map and return map object
@@ -64,6 +66,12 @@ class Map extends PureComponent {
     }
 
     if (JSON.stringify(this.props.offerCoords) !== JSON.stringify(prevProps.offerCoords)) {
+
+      this._map.setView([
+        this.props.cityCenterCoords.latitude,
+        this.props.cityCenterCoords.longitude
+      ], this.props.cityCenterCoords.zoom);
+
       this._layerGroup.clearLayers();
       this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
     }

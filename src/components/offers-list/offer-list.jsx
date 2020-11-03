@@ -19,10 +19,10 @@ const getSortedOffers = (offers, currentSortType) => {
 
 const OfferList = (props) => {
 
-  const {offersMock, handleCardHover, handleCardClick, sortingType, nearby} = props;
+  const {offers, handleCardHover, handleCardClick, sortingType, nearby} = props;
 
   return (
-    getSortedOffers(offersMock, sortingType).map((offer, index) =>
+    getSortedOffers(offers, sortingType).map((offer, index) =>
       <OfferCard
         key={`${index}-${offer.id}`}
         {...offer}
@@ -36,7 +36,7 @@ const OfferList = (props) => {
 
 
 OfferList.propTypes = {
-  offersMock: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   handleCardHover: PropTypes.func.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   nearby: PropTypes.bool.isRequired,
