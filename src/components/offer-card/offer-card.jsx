@@ -3,25 +3,24 @@ import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const OfferCard = (props) => {
+/* eslint-disable */
 
-  const {id, isPremium, price, name, images, coordinates, rating, type, handleCardClick, handleCardHover, nearby} = props;
-  const FIRST_IMAGE = images[0];
+const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, location, rating, type, handleCardClick, handleCardHover, nearby}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
-      onMouseEnter={() => handleCardHover(coordinates)}
+      onMouseEnter={() => handleCardHover([location.latitude, location.longitude])}
       onMouseOut={() => handleCardHover([0, 0])}
     >
 
-      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+      {is_premium && <div className="place-card__mark"><span>Premium</span></div>}
 
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
         <a href="#">
-          <img className="place-card__image" src={FIRST_IMAGE} alt="Place image" width={260} height={200} />
+          <img className="place-card__image" src={preview_image} alt="Place image" width={260} height={200} />
         </a>
       </div>
       <div className="place-card__info">
@@ -30,7 +29,10 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button button ${is_favorite && `place-card__bookmark-button--active`}`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -50,7 +52,7 @@ const OfferCard = (props) => {
         >
 
           <Link to={`/offer/${id}`} className={`place-card__name`}>
-            {name}
+            {title}
           </Link>
 
         </h2>

@@ -1,11 +1,14 @@
+/* eslint-disable */
+
 export default {
   id: PropTypes.number.isRequired,
-  city: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  city: PropTypes.object.isRequired,
+  preview_image: PropTypes.string.isRequired,
+  // preview_image: PropTypes.arrayOf(PropTypes.string).isRequired,
   type: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
-  isPremium: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  isPremium: PropTypes.bool,
 };

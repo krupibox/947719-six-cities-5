@@ -1,20 +1,24 @@
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
-import OfferList from '../offers-list/offer-list';
-import Map from '../map/map';
+// import OfferList from '../offers-list/offer-list';
+// import Map from '../map/map';
 
 import {getStars} from '../../utils/get-stars';
+import MAX_ITEMS from '../../consts/max-items';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
 
-const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
+/* eslint-disable */
 
-  const {isPremium, price, name, images, rating} = offerMock;
+const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
 
-  const nearbyCords = nearbyMock.map((offer) => offer.coordinates);
+  const {is_premium, is_favorite, price, title, images, rating, bedrooms, max_adults, goods, description} = offer;
+  const {avatar_url, name, is_pro} = offer.host;
+
+  // const nearbyCords = nearbyMock.map((nearbyOffer) => nearbyOffer.coordinates);
 
   return (
 
@@ -28,7 +32,7 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
             <div className="property__gallery">
 
               {
-                images.map((image, index) => (
+                images.slice(0, MAX_ITEMS).map((image, index) => (
                   <div key={`${index}-${image.src}`} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Photo studio" />
                   </div>)
@@ -40,13 +44,16 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
           <div className="property__container container">
             <div className="property__wrapper">
 
-              {isPremium && <div className="property__mark"><span>Premium</span></div>}
+              {is_premium && <div className="property__mark"><span>Premium</span></div>}
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {name}
+                  {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button
+                  className={`property__bookmark-button button ${is_favorite && `property__bookmark-button--active`}`}
+                  type="button"
+                >
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -66,10 +73,10 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
                   Apartment
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {max_adults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -79,56 +86,25 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {/* TODO put data from mock*/}
-                  <li className="property__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="property__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="property__inside-item">
-                    Towels
-                  </li>
-                  <li className="property__inside-item">
-                    Heating
-                  </li>
-                  <li className="property__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="property__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="property__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="property__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="property__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="property__inside-item">
-                    Fridge
-                  </li>
+
+                  {
+                    goods.length > 0 && goods.map((good, index) => <li key={`${index}-${good}`} className="property__inside-item">{good}</li>)
+                  }
+
                 </ul>
               </div>
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" alt="Host avatar" width={74} height={74} />
+                  <div className={`property__avatar-wrapper ${is_pro && `property__avatar-wrapper--pro`} user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={avatar_url} alt="Host avatar" width={74} height={74} />
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {name}
                   </span>
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
+                  <p className="property__text">{description}</p>
                 </div>
 
               </div>
@@ -144,7 +120,7 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
 
           <section className="property__map map">
 
-            <Map {...nearbyCords}/>
+            {/* <Map {...nearbyCords}/> */}
 
           </section>
 
@@ -154,12 +130,12 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
 
-              <OfferList
+              {/* <OfferList
                 offersMock={nearbyMock}
                 handleCardHover={handleCardHover}
                 handleCardClick={handleCardClick}
                 nearby={true}
-              />
+              /> */}
 
             </div>
           </section>
@@ -171,7 +147,7 @@ const OfferDetails = ({offerMock, reviewMock, nearbyMock, handleCardHover, handl
 };
 
 OfferDetails.propTypes = {
-  offerMock: PropTypes.shape(offerProperties).isRequired,
+  offer: PropTypes.shape(offerProperties).isRequired,
   reviewMock: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
   nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
   handleCardHover: PropTypes.func.isRequired,
