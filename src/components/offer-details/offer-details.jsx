@@ -5,6 +5,7 @@ import OfferList from '../offers-list/offer-list';
 import Map from '../map/map';
 
 import {getStars} from '../../utils/get-stars';
+import MAX_ITEMS from '../../consts/max-items';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
@@ -12,9 +13,9 @@ import nearbyProperties from "../../proptypes/nearby-properties";
 
 const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
 
-  const {isPremium, price, title, images, rating, bedrooms, goods, description} = offer;
+  const {is_premium, is_favorite, price, title, images, rating, bedrooms, max_adults, goods, description} = offer;
+  const {avatar_url, name, is_pro} = offer.host;
 
-  console.log(offer);
   // const nearbyCords = nearbyMock.map((nearbyOffer) => nearbyOffer.coordinates);
 
   return (
@@ -29,7 +30,7 @@ const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCar
             <div className="property__gallery">
 
               {
-                images.map((image, index) => (
+                images.slice(0, MAX_ITEMS).map((image, index) => (
                   <div key={`${index}-${image.src}`} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Photo studio" />
                   </div>)
@@ -41,13 +42,16 @@ const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCar
           <div className="property__container container">
             <div className="property__wrapper">
 
-              {isPremium && <div className="property__mark"><span>Premium</span></div>}
+              {is_premium && <div className="property__mark"><span>Premium</span></div>}
 
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
+                <button
+                  className={`property__bookmark-button button ${is_favorite && `property__bookmark-button--active`}`}
+                  type="button"
+                >
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -70,7 +74,7 @@ const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCar
                   {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {max_adults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -90,11 +94,11 @@ const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCar
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" alt="Host avatar" width={74} height={74} />
+                  <div className={`property__avatar-wrapper ${is_pro && `property__avatar-wrapper--pro`} user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={avatar_url} alt="Host avatar" width={74} height={74} />
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {name}
                   </span>
                 </div>
                 <div className="property__description">

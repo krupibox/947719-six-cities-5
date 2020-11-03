@@ -3,7 +3,7 @@ import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const OfferCard = ({id, isPremium, price, title, preview_image, location, rating, type, handleCardClick, handleCardHover, nearby}) => {
+const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, location, rating, type, handleCardClick, handleCardHover, nearby}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
@@ -13,7 +13,7 @@ const OfferCard = ({id, isPremium, price, title, preview_image, location, rating
       onMouseOut={() => handleCardHover([0, 0])}
     >
 
-      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
+      {is_premium && <div className="place-card__mark"><span>Premium</span></div>}
 
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
@@ -27,7 +27,10 @@ const OfferCard = ({id, isPremium, price, title, preview_image, location, rating
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button button ${is_favorite && `place-card__bookmark-button--active`}`}
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
