@@ -2,6 +2,8 @@ import {PureComponent} from "react";
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+/* eslint-disable */
+                  
 const icon = Leaflet.icon({
   iconUrl: `img/pin.svg`,
   iconSize: [30, 30]

@@ -1,8 +1,8 @@
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
-import OfferList from '../offers-list/offer-list';
-import Map from '../map/map';
+// import OfferList from '../offers-list/offer-list';
+// import Map from '../map/map';
 
 import {getStars} from '../../utils/get-stars';
 import MAX_ITEMS from '../../consts/max-items';
@@ -10,6 +10,8 @@ import MAX_ITEMS from '../../consts/max-items';
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
+
+/* eslint-disable */
 
 const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
 

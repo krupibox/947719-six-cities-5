@@ -3,6 +3,8 @@ import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-properties";
 
+/* eslint-disable */
+
 const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, location, rating, type, handleCardClick, handleCardHover, nearby}) => {
 
   return (

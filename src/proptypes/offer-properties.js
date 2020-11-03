@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export default {
   id: PropTypes.number.isRequired,
   city: PropTypes.object.isRequired,
