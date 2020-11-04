@@ -5,12 +5,11 @@ import Cities from '../cities/cities';
 import OffersSorting from '../offers-sorting/offers-sorting';
 import OfferList from '../offers-list/offer-list';
 import Map from '../map/map';
-
 import MainEmpty from '../main-empty/main-empty';
 
 import withActiveCoords from '../hoc/with-active-coords';
 
-// selectors
+// reselect
 import {selectOffersByCity} from '../../store/selectors';
 
 import offerProperties from "../../proptypes/offer-properties";
@@ -32,7 +31,7 @@ const Main = ({offerPlaces, activeCoords, handleCardClick, handleCardHover, hand
   return (
     <div className="page page--gray page--main">
 
-      <Header isSignIn={false} />
+      <Header />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -101,9 +100,10 @@ Main.propTypes = {
   sortingType: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({DATA, _USER}) => ({
+const mapStateToProps = ({DATA}) => ({
   activeCity: DATA.activeCity,
   offerPlaces: selectOffersByCity(DATA),
 });
 
+export {Main};
 export default connect(mapStateToProps)(withActiveCoords(Main));

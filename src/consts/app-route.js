@@ -1,6 +1,6 @@
 const AppRoute = {
   LOGIN: `/login`,
-  RESULT: `/result`,
+  FAVORITES: `/favorites`,
   ROOT: `/`,
 };
 

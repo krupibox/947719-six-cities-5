@@ -14,7 +14,7 @@ import AuthorizationStatus from "./consts/authorization-status";
 
 // Selectors
 import {fetchOffersList} from "./store/reducers/data";
-// import {checkAuth} from "./store/reducers/user";
+import {checkAuth} from "./store/reducers/user";
 
 import {redirect} from "./store/middlewares/redirect";
 
@@ -32,7 +32,7 @@ const store = createStore(
 
 Promise.all([
   store.dispatch(fetchOffersList()),
-  // store.dispatch(checkAuth()),
+  store.dispatch(checkAuth()),
 ])
 .then(() => {
   ReactDOM.render(
@@ -42,5 +42,3 @@ Promise.all([
       document.getElementById(`root`)
   );
 });
-
-store.getState();

@@ -24,7 +24,7 @@ const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCar
 
     <div className="page">
 
-      <Header isSignIn={true} />
+      <Header />
 
       <main className="page__main page__main--property">
         <section className="property">
