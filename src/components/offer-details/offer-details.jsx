@@ -1,3 +1,5 @@
+import {connect} from 'react-redux';
+
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
@@ -18,7 +20,6 @@ const OfferDetails = ({offerId, offer, reviewMock, nearbyMock, handleCardHover, 
   const {is_premium, is_favorite, price, title, images, rating, bedrooms, max_adults, goods, description} = offer;
   const {avatar_url, name, is_pro} = offer.host;
 
-  console.log(offerId);
   // const nearbyCords = nearbyMock.map((nearbyOffer) => nearbyOffer.coordinates);
 
   return (
@@ -155,4 +156,10 @@ OfferDetails.propTypes = {
   handleCardClick: PropTypes.func.isRequired
 };
 
-export default OfferDetails;
+const mapStateToProps = ({DATA}) => ({
+  offerX: DATA.offer,
+});
+
+export {OfferDetails};
+export default connect(mapStateToProps)(OfferDetails);
+

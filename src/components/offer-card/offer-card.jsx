@@ -1,3 +1,4 @@
+import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {getStars} from '../../utils/get-stars';
 
@@ -5,7 +6,7 @@ import offerProperties from "../../proptypes/offer-properties";
 
 /* eslint-disable */
 
-const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, location, rating, type, handleCardClick, handleCardHover, nearby}) => {
+const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, location, rating, type, getOffer, handleCardHover, nearby}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
@@ -47,7 +48,7 @@ const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, lo
         </div>
         <h2 className="place-card__name"
 
-          onClick={() => handleCardClick(id)}
+          onClick={() => getOffer(id)}
 
         >
 
@@ -69,4 +70,11 @@ OfferCard.propTypes = {
   handleCardClick: PropTypes.func.isRequired,
 };
 
-export default OfferCard;
+const mapDispatchToProps = (dispatch) => ({
+  getOffer(offerId) {
+    dispatch(getOfferAction(offerId));
+  }
+});
+
+export {OfferCard};
+export default connect(null, mapDispatchToProps)(OfferCard);

@@ -29,7 +29,7 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
           render={({history}) => (
             <Main
               offers={offers}
-              handleCardClick={(id) => history.push(`/offer/${id}`)}
+              // handleCardClick={(id) => history.push(`/offer/${id}`)}
             />
           )}
         />
@@ -48,16 +48,16 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
         <Route exact path={AppRoute.FAVORITES}><Favorites /></Route>
 
         <Route exact path="/offer/:id?"
-          render={(props) => {
+          render={({match: {params: {id}}}) => {
 
             /* eslint-disable */
-            const getOfferIndex = (offers) => offers.findIndex((element) => element.id === parseInt(props.match.params.id));
+           // const getOfferIndex = (offers) => offers.findIndex((element) => element.id === parseInt(props.match.params.id));
             /* eslint-enable */
 
             return (
               <OfferDetails
-                offerId={props.match.params.id}
-                offer={offers[getOfferIndex(offers)]}
+                offerId={id}
+                offer={offers[0]}
                 reviewMock={reviewsMock[0]}
                 nearbyMock={nearbyMock}
 
@@ -66,7 +66,7 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
                   console.log(id)
                   /* eslint-enable */
                 }}
-                handleCardClick={(id) => history.push(`/offer/${id}`)}
+                // handleCardClick={(id) => history.push(`/offer/${id}`)}
               />
             );
           }}
@@ -94,7 +94,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = ({DATA, USER}) => ({
-  offer: selectOfferById(DATA),
+  // offer: selectOfferById(DATA),
   offers: DATA.offers,
   reviewsMock: DATA.reviewsMock,
   nearbyMock: DATA.nearbyMock,

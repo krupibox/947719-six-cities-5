@@ -11,6 +11,7 @@ import nearbyMock from '../../mocks/nearby-mocks'; // mocks
 
 // stateToProps
 const initialState = {
+  offer: {},
   offers: [],
   reviewsMock,
   nearbyMock,
@@ -50,7 +51,7 @@ export const updateCityAction = (activeCity) => ({
   payload: activeCity
 });
 
-// Selectors (async thunk func) (1)
+// Async thunk functions (1)
 export const fetchOffersList = () => (dispatch, getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
