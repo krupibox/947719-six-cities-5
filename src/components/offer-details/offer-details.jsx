@@ -13,11 +13,12 @@ import nearbyProperties from "../../proptypes/nearby-properties";
 
 /* eslint-disable */
 
-const OfferDetails = ({offer, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
+const OfferDetails = ({offerId, offer, reviewMock, nearbyMock, handleCardHover, handleCardClick}) => {
 
   const {is_premium, is_favorite, price, title, images, rating, bedrooms, max_adults, goods, description} = offer;
   const {avatar_url, name, is_pro} = offer.host;
 
+  console.log(offerId);
   // const nearbyCords = nearbyMock.map((nearbyOffer) => nearbyOffer.coordinates);
 
   return (

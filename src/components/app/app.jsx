@@ -12,6 +12,9 @@ import browserHistory from "../../browser-history";
 import AppRoute from "../../consts/app-route";
 import AuthorizationStatus from "../../consts/authorization-status";
 
+// reselect
+// import {selectOffersByCity} from '../../store/selectors';
+
 import offerProperties from '../../proptypes/offer-properties';
 import reviewProperties from '../../proptypes/review-properties';
 import nearbyProperties from '../../proptypes/nearby-properties';
@@ -53,6 +56,7 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
 
             return (
               <OfferDetails
+                offerId={props.match.params.id}
                 offer={offers[getOfferIndex(offers)]}
                 reviewMock={reviewsMock[0]}
                 nearbyMock={nearbyMock}
@@ -90,6 +94,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = ({DATA, USER}) => ({
+  offer: selectOfferById(DATA),
   offers: DATA.offers,
   reviewsMock: DATA.reviewsMock,
   nearbyMock: DATA.nearbyMock,

@@ -10,8 +10,8 @@ const PrivateRoute = (props) => {
 
   return (
     <Route
-      path={path}
       exact={exact}
+      path={path}
       render={(routeProps) => {
         return (
           authorizationStatus === AuthorizationStatus.AUTH
