@@ -7,11 +7,13 @@ import AppRoute from "../../consts/app-route";
 // stateToProps
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationEmail: ``,
 };
 
 // Actions
 export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  SAVE_AUTHORIZATION_EMAIL: `SAVE_AUTHORIZATION_EMAIL`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
 };
 
@@ -19,6 +21,11 @@ export const ActionType = {
 export const requireAuthorization = (status) => ({
   type: ActionType.REQUIRED_AUTHORIZATION,
   payload: status,
+});
+
+export const saveAuthorizationData = (authorizationEmail) => ({
+  type: ActionType.SAVE_AUTHORIZATION_EMAIL,
+  payload: authorizationEmail,
 });
 
 export const redirectToRoute = (url) => ({
@@ -35,11 +42,15 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     })
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+// {login: this.loginRef.current.value, password: this.passwordRef.current.value}
+// destructuring to {login: email, password}
+export const login = ({login: email, password}) => (dispatch, getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH))) // if ok change auth status
-    .then(() => dispatch(redirectToRoute(AppRoute.RESULT)))
+    .then(() => dispatch(saveAuthorizationData(email))) // if ok change auth status
+    .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
 );
+
 
 // Reducer (mapDispatchToProps for updating stateToProps) (3)
 export const user = (state = initialState, action) => {
@@ -47,6 +58,10 @@ export const user = (state = initialState, action) => {
     case ActionType.REQUIRED_AUTHORIZATION:
       return updateState(state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.SAVE_AUTHORIZATION_EMAIL:
+      return updateState(state, {
+        authorizationEmail: action.payload,
       });
   }
 

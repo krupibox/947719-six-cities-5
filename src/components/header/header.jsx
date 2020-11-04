@@ -1,41 +1,53 @@
+import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
+import AppRoute from '../../consts/app-route';
 
-const Header = ({isSignIn}) => {
+import AuthorizationStatus from "../../consts/authorization-status";
+
+const Header = ({authorizationStatus, authorizationEmail}) => {
 
   return (
-
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link to="/" className={`header__logo-link`}>
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
+            <Link className="header__logo-link header__logo-link--active" to={AppRoute.ROOT}>
+              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#">
+                <Link
+                  className="header__nav-link header__nav-link--profile"
+
+                  // to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}
+                  to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.ROOT : AppRoute.LOGIN}
+                >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-
-                  {isSignIn ? <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    : <span className="header__login">Sign in</span> }
-
-                </a>
+                  <span className="header__user-name user__name">
+                    {authorizationStatus === AuthorizationStatus.AUTH ? authorizationEmail : `Sign in`}
+                  </span>
+                </Link>
               </li>
             </ul>
           </nav>
         </div>
       </div>
     </header>
-
   );
 };
 
 Header.propTypes = {
-  isSignIn: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  authorizationEmail: PropTypes.string.isRequired,
 };
 
-export default React.memo(Header);
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  authorizationEmail: USER.authorizationEmail,
+});
 
+export {Header};
+export default connect(mapStateToProps)(React.memo(Header));
