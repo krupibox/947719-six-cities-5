@@ -28,8 +28,6 @@ class Map extends PureComponent {
     const city = [this._cityCenterCoords.latitude, this._cityCenterCoords.longitude];
     const zoom = 12;
 
-    console.log(this.props);
-
     // initialize the map and return map object
     this._map = Leaflet.map(`map`, {
       center: city,
@@ -50,6 +48,8 @@ class Map extends PureComponent {
     if (typeof this._offerCoords === `object` && this._offerCoords !== null) {
       this._markers = Object.values(this._offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup)); // add to layer instead of directly to map
     }
+
+    Leaflet.marker(this.props.activeCoords, {icon}).addTo(this._layerGroup).setIcon(iconActive);
   }
 
   componentWillUnmount() {

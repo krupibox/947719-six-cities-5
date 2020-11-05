@@ -3,17 +3,15 @@ import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-/* eslint-disable */
-
 const OfferCard = (props) => {
 
-  const {id, is_premium: isPremium, is_favorite: isFavorite, price, title, preview_image: previewImage, location, rating, type, getOffer, handleCardHover, nearby} = props;
+  const {id, is_premium: isPremium, is_favorite: isFavorite, price, title, preview_image: previewImage, location: {latitude, longitude}, rating, type, handleCardHover, nearby} = props;
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
-      onMouseEnter={() => handleCardHover([location.latitude, location.longitude])}
+      onMouseEnter={() => handleCardHover([latitude, longitude])}
       onMouseOut={() => handleCardHover([0, 0])}
     >
 
@@ -21,7 +19,7 @@ const OfferCard = (props) => {
 
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
-        <a href="#">
+        <a href="">
           <img className="place-card__image" src={previewImage} alt="Place image" width={260} height={200} />
         </a>
       </div>
@@ -49,7 +47,11 @@ const OfferCard = (props) => {
         </div>
         <h2 className="place-card__name">
 
-          <Link to={`/offer/${id}`} className={`place-card__name`}>{title}</Link>
+          {
+
+            nearby ? <a href="" className='place-card__name'>{title}</a>
+              : <Link to={`/offer/${id}`} className='place-card__name'>{title}</Link>
+          }
 
         </h2>
         <p className="place-card__type">{type}</p>

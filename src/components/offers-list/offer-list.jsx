@@ -6,8 +6,6 @@ import offerProperties from "../../proptypes/offer-properties";
 
 const OfferList = ({offers, handleCardHover, handleCardClick, sortingType, nearby}) => {
 
-  console.log(`OfferList`, offers);
-
   const sortedOffers = getSortedOffers(offers, sortingType);
 
   return (
