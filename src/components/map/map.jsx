@@ -28,6 +28,8 @@ class Map extends PureComponent {
     const city = [this._cityCenterCoords.latitude, this._cityCenterCoords.longitude];
     const zoom = 12;
 
+    console.log(this.props);
+
     // initialize the map and return map object
     this._map = Leaflet.map(`map`, {
       center: city,

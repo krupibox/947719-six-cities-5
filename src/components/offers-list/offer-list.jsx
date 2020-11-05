@@ -6,8 +6,12 @@ import offerProperties from "../../proptypes/offer-properties";
 
 const OfferList = ({offers, handleCardHover, handleCardClick, sortingType, nearby}) => {
 
+  console.log(`OfferList`, offers);
+
+  const sortedOffers = getSortedOffers(offers, sortingType);
+
   return (
-    getSortedOffers(offers, sortingType).map((offer, index) =>
+    sortedOffers.map((offer, index) =>
       <OfferCard
         key={`${index}-${offer.id}`}
         {...offer}

@@ -4,41 +4,59 @@ import {connect} from 'react-redux';
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
-// import OfferList from '../offers-list/offer-list';
-// import Map from '../map/map';
+import OfferList from '../offers-list/offer-list';
+import Map from '../map/map';
 
 import {getStars} from '../../utils/get-stars';
 import MAX_ITEMS from '../../consts/max-items';
 
-// Thunk function
+// Thunk functions
 import {fetchOffer} from "../../store/reducers/data";
+import {fetchNearby} from "../../store/reducers/data";
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
 
+const getPlaces = (places) => {
+  return places.map((place) => [
+    place.location.latitude,
+    place.location.longitude,
+    place.location.zoom
+  ]);
+};
+
+const getCoordinates = (places) => {
+  return {
+    cityCenter: {
+      latitude: places[0].city.location.latitude,
+      longitude: places[0].city.location.longitude,
+      zoom: places[0].city.location.zoom
+    },
+    places: getPlaces(places),
+  };
+};
+
 class OfferDetails extends PureComponent {
 
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount() {
-    this.props.getOffer(this.props.offerId);
+    const {offerId} = this.props;
+    this.props.getOffer(offerId);
+    this.props.getNearby(offerId);
   }
-
-  // const nearbyCords = nearbyMock.map((nearbyOffer) => nearbyOffer.coordinates);
 
   render() {
 
-    // const {offer, offerX, reviewMock, nearbyMock, handleCardHover, handleCardClick, getOffer} = this.props;
+    // offer and nearby are not initial in state
+    const {offer, nearby} = this.props;
 
-    if (!this.props.offer.id) {
-      return null;
+    if (!offer || !nearby) {
+      return (<p>Loading...</p>);
     }
-
-    const {offer, reviewMock} = this.props;
 
     const {is_premium: isPremium, is_favorite: isFavorite, price, title, images, rating, bedrooms, max_adults: maxAdults, goods, description, host: {avatar_url: avatarUrl, name, is_pro: isPro}, location} = offer;
 
@@ -91,13 +109,13 @@ class OfferDetails extends PureComponent {
                 <ul className="property__features">
                   {/* TODO put data from mock*/}
                   <li className="property__feature property__feature--entire">
-                Apartment
+                    Apartment
                   </li>
                   <li className="property__feature property__feature--bedrooms">
                     {bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                Max {maxAdults} adults
+                    Max {maxAdults} adults
                   </li>
                 </ul>
                 <div className="property__price">
@@ -131,7 +149,7 @@ class OfferDetails extends PureComponent {
                 </div>
                 <section className="property__reviews reviews">
 
-                  <ReviewsList reviewMock={reviewMock} />
+                  {/* <ReviewsList reviewMock={reviewMock} /> */}
 
                   <ReviewForm />
 
@@ -141,7 +159,12 @@ class OfferDetails extends PureComponent {
 
             <section className="property__map map">
 
-              {/* <Map {...nearbyCords}/> */}
+              <Map
+                offerCoords={getCoordinates(nearby).places}
+                cityCenterCoords={getCoordinates(nearby).cityCenter}
+                activeCoords={[]}
+                handleCardHover={() => { }}
+              />
 
             </section>
 
@@ -151,12 +174,12 @@ class OfferDetails extends PureComponent {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
 
-                {/* <OfferList
-              offersMock={nearbyMock}
-              handleCardHover={handleCardHover}
-              handleCardClick={handleCardClick}
-              nearby={true}
-            /> */}
+                <OfferList
+                  offers={nearby}
+                  handleCardHover={() => { }}
+                  handleCardClick={() => { }}
+                  nearby={true}
+                />
 
               </div>
             </section>
@@ -169,19 +192,24 @@ class OfferDetails extends PureComponent {
 
 OfferDetails.propTypes = {
   offer: PropTypes.shape(offerProperties).isRequired,
-  reviewMock: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
-  nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+  nearby: PropTypes.shape(nearbyProperties).isRequired,
+  review: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+  getOffer: PropTypes.func.isRequired,
   // handleCardHover: PropTypes.func.isRequired,
   // handleCardClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({DATA}) => ({
   offer: DATA.offer,
+  nearby: DATA.nearby,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getOffer(offerId) {
     dispatch(fetchOffer(offerId));
+  },
+  getNearby(offerId) {
+    dispatch(fetchNearby(offerId));
   }
 });
 

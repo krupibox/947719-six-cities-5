@@ -12,14 +12,11 @@ import browserHistory from "../../browser-history";
 import AppRoute from "../../consts/app-route";
 import AuthorizationStatus from "../../consts/authorization-status";
 
-// reselect
-// import {selectOffersByCity} from '../../store/selectors';
-
 import offerProperties from '../../proptypes/offer-properties';
 import reviewProperties from '../../proptypes/review-properties';
 import nearbyProperties from '../../proptypes/nearby-properties';
 
-const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
+const App = ({offers, authorizationStatus}) => {
 
   return (
     // now we can recieve browserHistory as prop in component
@@ -50,23 +47,9 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
         <Route exact path="/offer/:id?"
           render={({match: {params: {id}}}) => {
 
-            /* eslint-disable */
-           // const getOfferIndex = (offers) => offers.findIndex((element) => element.id === parseInt(props.match.params.id));
-            /* eslint-enable */
-
             return (
               <OfferDetails
-                offerId={parseInt(id, 10)}
-                offer={offers[0]}
-                reviewMock={reviewsMock[0]}
-                nearbyMock={nearbyMock}
-
-                handleCardHover={(id) => {
-                  /* eslint-disable */
-                  console.log(id)
-                  /* eslint-enable */
-                }}
-                // handleCardClick={(id) => history.push(`/offer/${id}`)}
+                offerId={id}
               />
             );
           }}
@@ -88,16 +71,11 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  reviewsMock: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.shape(reviewProperties))).isRequired,
-  nearbyMock: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({DATA, USER}) => ({
-  // offer: selectOfferById(DATA),
   offers: DATA.offers,
-  reviewsMock: DATA.reviewsMock,
-  nearbyMock: DATA.nearbyMock,
   authorizationStatus: USER.authorizationStatus,
   authorizationEmail: USER.authorizationEmail,
 });

@@ -5,7 +5,9 @@ import offerProperties from "../../proptypes/offer-properties";
 
 /* eslint-disable */
 
-const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, location, rating, type, getOffer, handleCardHover, nearby}) => {
+const OfferCard = (props) => {
+
+  const {id, is_premium: isPremium, is_favorite: isFavorite, price, title, preview_image: previewImage, location, rating, type, getOffer, handleCardHover, nearby} = props;
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
@@ -15,12 +17,12 @@ const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, lo
       onMouseOut={() => handleCardHover([0, 0])}
     >
 
-      {is_premium && <div className="place-card__mark"><span>Premium</span></div>}
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
         <a href="#">
-          <img className="place-card__image" src={preview_image} alt="Place image" width={260} height={200} />
+          <img className="place-card__image" src={previewImage} alt="Place image" width={260} height={200} />
         </a>
       </div>
       <div className="place-card__info">
@@ -30,7 +32,7 @@ const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, lo
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${is_favorite && `place-card__bookmark-button--active`}`}
+            className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
