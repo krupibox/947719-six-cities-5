@@ -1,9 +1,8 @@
 import {updateState} from '../../utils/update-state';
 
-import APIRoute from "../../consts/api-route";
-import FIRST_CITY from "../../consts/first-city";
-import MAX_CITIES from "../../consts/max-cities";
-
+import APIRoute from '../../consts/api-route';
+import FIRST_CITY from '../../consts/first-city';
+import {getUniqueCities} from '../../utils/get-unique-cities';
 
 // import offersMock from '../../mocks/offers-mocks'; // mocks
 import reviewsMock from '../../mocks/reviews-mocks'; // mocks
@@ -27,14 +26,11 @@ export const ActionType = {
   UPDATE_ACTIVE_CITY: `UPDATE_ACTIVE_CITY`,
 };
 
-
 // ActionCreators (mapDispatchToProps) (2)
 export const loadOffersAction = (offers) => ({
   type: ActionType.LOAD_OFFERS,
   payload: offers,
 });
-
-const getUniqueCities = (offers) => [...new Set(offers.map((offer) => offer.city.name))].slice(0, MAX_CITIES);
 
 export const getCitiesAction = (offers) => ({
   type: ActionType.GET_CITIES,
@@ -58,6 +54,19 @@ export const fetchOffersList = () => (dispatch, getState, api) => (
       dispatch(loadOffersAction(data));
       dispatch(getCitiesAction(data));
       dispatch(getFirstCityAction(getState().DATA.offerCities[FIRST_CITY]));
+    }) // normal redux dispatch
+);
+
+//  example with getState: api.get(APIRoute.HOTELS`:${getState().DATA.offerId}`)
+export const fetchOffer = (id) => (dispatch, getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}`)
+    .then(({data}) => {
+
+      console.log(id);
+      console.log(data);
+      // dispatch(loadOffersAction(data));
+      // dispatch(getCitiesAction(data));
+      // dispatch(getFirstCityAction(getState().DATA.offerCities[FIRST_CITY]));
     }) // normal redux dispatch
 );
 

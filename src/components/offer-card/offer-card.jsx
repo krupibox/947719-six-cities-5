@@ -2,6 +2,9 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {getStars} from '../../utils/get-stars';
 
+// Thunk function
+import {fetchOffer} from "../../store/reducers/data";
+
 import offerProperties from "../../proptypes/offer-properties";
 
 /* eslint-disable */
@@ -72,7 +75,7 @@ OfferCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   getOffer(offerId) {
-    dispatch(getOfferAction(offerId));
+    dispatch(fetchOffer(offerId));
   }
 });
 

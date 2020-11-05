@@ -12,7 +12,7 @@ import rootReducer from "./store/reducers/root-reducer";
 import {requireAuthorization} from "./store/reducers/user";
 import AuthorizationStatus from "./consts/authorization-status";
 
-// Selectors
+// Thunk functions
 import {fetchOffersList} from "./store/reducers/data";
 import {checkAuth} from "./store/reducers/user";
 
