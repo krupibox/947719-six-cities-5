@@ -20,6 +20,7 @@ const initialState = {
 
 // Actions
 export const ActionType = {
+  LOAD_OFFER: `LOAD_OFFER`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   GET_CITIES: `GET_CITIES`,
   GET_FIRST_CITY: `GET_FIRST_CITY`,
@@ -27,6 +28,11 @@ export const ActionType = {
 };
 
 // ActionCreators (mapDispatchToProps) (2)
+export const loadOfferAction = (offer) => ({
+  type: ActionType.LOAD_OFFER,
+  payload: offer,
+});
+
 export const loadOffersAction = (offers) => ({
   type: ActionType.LOAD_OFFERS,
   payload: offers,
@@ -47,6 +53,11 @@ export const updateCityAction = (activeCity) => ({
   payload: activeCity
 });
 
+export const getOfferAction = (offerId) => ({
+  type: ActionType.GET_OFFER,
+  payload: fetchOffer(offerId)
+});
+
 // Async thunk functions (1)
 export const fetchOffersList = () => (dispatch, getState, api) => (
   api.get(APIRoute.HOTELS)
@@ -58,15 +69,13 @@ export const fetchOffersList = () => (dispatch, getState, api) => (
 );
 
 //  example with getState: api.get(APIRoute.HOTELS`:${getState().DATA.offerId}`)
-export const fetchOffer = (id) => (dispatch, getState, api) => (
-  api.get(`${APIRoute.HOTELS}/${id}`)
+export const fetchOffer = (offerId) => (dispatch, getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${offerId}`)
     .then(({data}) => {
+      dispatch(loadOfferAction(data));
+      // console.log(`getState().DATA.offer`, getState().DATA.offer);
+      // here the rest: nearby, favorites etc
 
-      console.log(id);
-      console.log(data);
-      // dispatch(loadOffersAction(data));
-      // dispatch(getCitiesAction(data));
-      // dispatch(getFirstCityAction(getState().DATA.offerCities[FIRST_CITY]));
     }) // normal redux dispatch
 );
 
@@ -74,6 +83,8 @@ export const fetchOffer = (id) => (dispatch, getState, api) => (
 export const data = (state = initialState, action) => {
 
   switch (action.type) {
+    case ActionType.LOAD_OFFER:
+      return updateState(state, {offer: action.payload});
     case ActionType.LOAD_OFFERS:
       return updateState(state, {offers: action.payload});
     case ActionType.GET_CITIES:

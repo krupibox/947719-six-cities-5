@@ -56,7 +56,7 @@ const App = ({offers, reviewsMock, nearbyMock, authorizationStatus}) => {
 
             return (
               <OfferDetails
-                offerId={id}
+                offerId={parseInt(id, 10)}
                 offer={offers[0]}
                 reviewMock={reviewsMock[0]}
                 nearbyMock={nearbyMock}

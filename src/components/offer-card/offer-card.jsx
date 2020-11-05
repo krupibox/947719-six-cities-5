@@ -1,9 +1,5 @@
-import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {getStars} from '../../utils/get-stars';
-
-// Thunk function
-import {fetchOffer} from "../../store/reducers/data";
 
 import offerProperties from "../../proptypes/offer-properties";
 
@@ -49,15 +45,9 @@ const OfferCard = ({id, is_premium, is_favorite, price, title, preview_image, lo
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <h2 className="place-card__name"
+        <h2 className="place-card__name">
 
-          onClick={() => getOffer(id)}
-
-        >
-
-          <Link to={`/offer/${id}`} className={`place-card__name`}>
-            {title}
-          </Link>
+          <Link to={`/offer/${id}`} className={`place-card__name`}>{title}</Link>
 
         </h2>
         <p className="place-card__type">{type}</p>
@@ -73,11 +63,4 @@ OfferCard.propTypes = {
   handleCardClick: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getOffer(offerId) {
-    dispatch(fetchOffer(offerId));
-  }
-});
-
-export {OfferCard};
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default OfferCard;
