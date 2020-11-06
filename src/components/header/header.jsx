@@ -4,7 +4,9 @@ import AppRoute from '../../consts/app-route';
 
 import AuthorizationStatus from "../../consts/authorization-status";
 
-const Header = ({authorizationStatus, authorizationEmail}) => {
+const Header = ({authorizationStatus, authorizationInfo}) => {
+
+  console.log(authorizationInfo);
 
   return (
     <header className="header">
@@ -27,7 +29,9 @@ const Header = ({authorizationStatus, authorizationEmail}) => {
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">
-                    {authorizationStatus === AuthorizationStatus.AUTH ? authorizationEmail : `Sign in`}
+
+                    {authorizationStatus === AuthorizationStatus.AUTH ? authorizationInfo.email : `Sign in`}
+
                   </span>
                 </Link>
               </li>
@@ -41,12 +45,12 @@ const Header = ({authorizationStatus, authorizationEmail}) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  authorizationEmail: PropTypes.string.isRequired,
+  authorizationInfo: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
-  authorizationEmail: USER.authorizationEmail,
+  authorizationInfo: USER.authorizationInfo,
 });
 
 export {Header};

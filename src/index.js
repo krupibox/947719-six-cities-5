@@ -32,7 +32,7 @@ const store = createStore(
 
 Promise.all([
   store.dispatch(fetchOffersList()),
-  // store.dispatch(checkAuth()),
+  store.dispatch(checkAuth()),
 ])
 .then(() => {
   ReactDOM.render(

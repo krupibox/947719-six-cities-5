@@ -7,13 +7,13 @@ import AppRoute from "../../consts/app-route";
 // stateToProps
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  authorizationEmail: ``,
+  authorizationInfo: {},
 };
 
 // Actions
 export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
-  SAVE_AUTHORIZATION_EMAIL: `SAVE_AUTHORIZATION_EMAIL`,
+  SAVE_AUTHORIZATION_DATA: `SAVE_AUTHORIZATION_DATA`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
 };
 
@@ -23,9 +23,9 @@ export const requireAuthorization = (status) => ({
   payload: status,
 });
 
-export const saveAuthorizationData = (authorizationEmail) => ({
-  type: ActionType.SAVE_AUTHORIZATION_EMAIL,
-  payload: authorizationEmail,
+export const saveAuthorizationData = (info) => ({
+  type: ActionType.SAVE_AUTHORIZATION_DATA,
+  payload: info,
 });
 
 export const redirectToRoute = (url) => ({
@@ -35,23 +35,25 @@ export const redirectToRoute = (url) => ({
 
 // Selectors (async thunk func) (1)
 export const checkAuth = () => (dispatch, _getState, api) => (
-  // api.get(APIRoute.LOGIN) // temporary
-  api.get(APIRoute.LOGIN, {email: `Oliver.conner@gmail.com`, password: `12345678`})
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH))) // normal redux dispatch
-    .catch((err) => {
+  api.get(APIRoute.LOGIN)
+    .then(({data}) => {
+      dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      dispatch(saveAuthorizationData(data)); // delete then
+    }).catch((err) => {
       throw err;
     })
 );
 
 // {login: this.loginRef.current.value, password: this.passwordRef.current.value}
 // destructuring to {login: email, password}
-export const login = ({login: email, password}) => (dispatch, getState, api) => (
+export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH))) // if ok change auth status
-    .then(() => dispatch(saveAuthorizationData(email))) // if ok change auth status
-    .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
+    .then(({data}) => {
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(saveAuthorizationData(data));
+      dispatch(redirectToRoute(AppRoute.ROOT));
+    })
 );
-
 
 // Reducer (mapDispatchToProps for updating stateToProps) (3)
 export const user = (state = initialState, action) => {
@@ -60,9 +62,9 @@ export const user = (state = initialState, action) => {
       return updateState(state, {
         authorizationStatus: action.payload,
       });
-    case ActionType.SAVE_AUTHORIZATION_EMAIL:
+    case ActionType.SAVE_AUTHORIZATION_DATA:
       return updateState(state, {
-        authorizationEmail: action.payload,
+        authorizationInfo: action.payload,
       });
   }
 
