@@ -1,11 +1,9 @@
 import {Link} from "react-router-dom";
 import {getStars} from '../../utils/get-stars';
 
-import offerProperties from "../../proptypes/offer-properties";
+import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = (props) => {
-
-  const {id, is_premium: isPremium, is_favorite: isFavorite, price, title, preview_image: previewImage, location: {latitude, longitude}, rating, type, handleCardHover, nearby} = props;
+const OfferCard = ({id, is_premium: isPremium, is_favorite: isFavorite, price, title, preview_image: previewImage, location: {latitude, longitude}, rating, type, handleCardHover, nearby}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
@@ -61,10 +59,5 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = offerProperties;
-
-OfferCard.propTypes = {
-  handleCardHover: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func.isRequired,
-};
 
 export default OfferCard;

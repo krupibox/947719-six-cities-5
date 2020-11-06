@@ -1,16 +1,15 @@
-import reviewProperties from "../../proptypes/review-properties";
 import {getStars} from '../../utils/get-stars';
+import {getFormatDate} from '../../utils/get-format-date';
 
-const Reviews = (props) => {
+import reviewProperties from "../../proptypes/review-properties";
 
-  const {avatar, name} = props.user;
-  const {rating, text} = props.comment;
+const Reviews = ({user: {avatar_url: avatarUrl, name}, comment: text, date, rating}) => {
 
   return (<>
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={avatar} alt="Reviews avatar" width={54} height={54} />
+          <img className="reviews__avatar user__avatar" src={avatarUrl} alt="Reviews avatar" width={54} height={54} />
         </div>
         <span className="reviews__user-name">
           {name}
@@ -26,12 +25,12 @@ const Reviews = (props) => {
         <p className="reviews__text">
           {text}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime="2019-04-24">{getFormatDate(date)}</time>
       </div>
     </li>
   </>);
 };
 
-Reviews.propTypes = reviewProperties;
+Reviews.propTypes = PropTypes.arrayOf(reviewProperties).isRequired;
 
 export default Reviews;

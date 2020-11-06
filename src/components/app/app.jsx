@@ -12,11 +12,7 @@ import browserHistory from "../../browser-history";
 import AppRoute from "../../consts/app-route";
 import AuthorizationStatus from "../../consts/authorization-status";
 
-import offerProperties from '../../proptypes/offer-properties';
-import reviewProperties from '../../proptypes/review-properties';
-import nearbyProperties from '../../proptypes/nearby-properties';
-
-const App = ({offers, authorizationStatus}) => {
+const App = ({authorizationStatus}) => {
 
   return (
     // now we can recieve browserHistory as prop in component
@@ -24,10 +20,7 @@ const App = ({offers, authorizationStatus}) => {
       <Switch>
         <Route exact path={AppRoute.ROOT}
           render={({history}) => (
-            <Main
-              offers={offers}
-              // handleCardClick={(id) => history.push(`/offer/${id}`)}
-            />
+            <Main />
           )}
         />
 
@@ -70,12 +63,10 @@ const App = ({offers, authorizationStatus}) => {
 };
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({DATA, USER}) => ({
-  offers: DATA.offers,
+const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
   authorizationEmail: USER.authorizationEmail,
 });

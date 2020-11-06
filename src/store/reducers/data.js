@@ -5,14 +5,12 @@ import FIRST_CITY from '../../consts/first-city';
 import {getUniqueCities} from '../../utils/get-unique-cities';
 
 // import offersMock from '../../mocks/offers-mocks'; // mocks
-import reviewsMock from '../../mocks/reviews-mocks'; // mocks
-import nearbyMock from '../../mocks/nearby-mocks'; // mocks
+// import reviewsMock from '../../mocks/reviews-mocks'; // mocks
+// import nearbyMock from '../../mocks/nearby-mocks'; // mocks
 
 // stateToProps
 const initialState = {
   offers: [],
-  reviewsMock,
-  nearbyMock,
   offerCities: [],
   activeCity: ``
 };
@@ -22,6 +20,7 @@ export const ActionType = {
   LOAD_OFFER: `LOAD_OFFER`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
+  LOAD_REVIEWS: `LOAD_REVIEWS`,
   GET_CITIES: `GET_CITIES`,
   GET_FIRST_CITY: `GET_FIRST_CITY`,
   UPDATE_ACTIVE_CITY: `UPDATE_ACTIVE_CITY`,
@@ -33,14 +32,19 @@ export const loadOfferAction = (offer) => ({
   payload: offer,
 });
 
+export const loadOffersAction = (offers) => ({
+  type: ActionType.LOAD_OFFERS,
+  payload: offers,
+});
+
 export const loadNearbyAction = (nearby) => ({
   type: ActionType.LOAD_NEARBY,
   payload: nearby
 });
 
-export const loadOffersAction = (offers) => ({
-  type: ActionType.LOAD_OFFERS,
-  payload: offers,
+export const loadReviewsAction = (reviews) => ({
+  type: ActionType.LOAD_REVIEWS,
+  payload: reviews
 });
 
 export const getCitiesAction = (offers) => ({
@@ -76,11 +80,17 @@ export const fetchOffer = (offerId) => (dispatch, _getState, api) => (
     }) // normal redux dispatch
 );
 
-export const fetchNearby = (offerId) => (dispatch, getState, api) => (
+export const fetchNearby = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}/nearby`)
   .then(({data}) => {
     dispatch(loadNearbyAction(data));
-    // console.log(`getState().DATA)`, getState().DATA);
+  })
+);
+
+export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.REVIEWS}/${offerId}`)
+  .then(({data}) => {
+    dispatch(loadReviewsAction(data));
   })
 );
 
@@ -94,6 +104,8 @@ export const data = (state = initialState, action) => {
       return updateState(state, {offers: action.payload});
     case ActionType.LOAD_NEARBY:
       return updateState(state, {nearby: action.payload});
+    case ActionType.LOAD_REVIEWS:
+      return updateState(state, {reviews: action.payload});
     case ActionType.GET_CITIES:
       return updateState(state, {offerCities: action.payload});
     case ActionType.GET_FIRST_CITY:

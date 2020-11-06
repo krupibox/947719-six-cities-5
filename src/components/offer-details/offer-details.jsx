@@ -6,36 +6,24 @@ import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 import OfferList from '../offers-list/offer-list';
 import Map from '../map/map';
+import Host from '../offer-details/host';
 
 import {getStars} from '../../utils/get-stars';
+import {getCoordinates} from '../../utils/get-coordinates';
 import MAX_ITEMS from '../../consts/max-items';
 
 // Thunk functions
 import {fetchOffer} from "../../store/reducers/data";
 import {fetchNearby} from "../../store/reducers/data";
+import {fetchReviews} from "../../store/reducers/data";
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
 
-const getPlaces = (places) => {
-  return places.map((place) => [
-    place.location.latitude,
-    place.location.longitude,
-    place.location.zoom
-  ]);
-};
-
-const getCoordinates = (places) => {
-  return {
-    cityCenter: {
-      latitude: places[0].city.location.latitude,
-      longitude: places[0].city.location.longitude,
-      zoom: places[0].city.location.zoom
-    },
-    places: getPlaces(places),
-  };
-};
+import offerMock from '../../mocks/offer-mock';
+import nearbyMock from '../../mocks/nearby-mock';
+import reviewMock from '../../mocks/review-mock';
 
 class OfferDetails extends PureComponent {
 
@@ -47,18 +35,20 @@ class OfferDetails extends PureComponent {
     const {offerId} = this.props;
     this.props.getOffer(offerId);
     this.props.getNearby(offerId);
+    this.props.getReviews(offerId);
   }
 
   render() {
-
     // offer and nearby are not initial in state
-    const {offer, nearby} = this.props;
+    const {offer, nearby, reviews} = this.props;
 
-    if (!offer || !nearby) {
+    // console.log(offer);
+
+    if (!offer || !nearby || !reviews) {
       return (<p>Loading...</p>);
     }
 
-    const {is_premium: isPremium, is_favorite: isFavorite, price, title, images, rating, bedrooms, max_adults: maxAdults, goods, description, host: {avatar_url: avatarUrl, name, is_pro: isPro}, location: {latitude, longitude}} = offer;
+    const {is_premium: isPremium, is_favorite: isFavorite, price, title, images, rating, bedrooms, max_adults: maxAdults, goods, description, host, location: {latitude, longitude}} = offer;
 
     return (
       <div className="page">
@@ -127,29 +117,17 @@ class OfferDetails extends PureComponent {
                   <ul className="property__inside-list">
 
                     {
-                      goods.length > 0 && goods.map((good, index) => <li key={`${index}-${good}`} className="property__inside-item">{good}</li>)
+                      goods && goods.map((good, index) => <li key={`${index}-${good}`} className="property__inside-item">{good}</li>)
                     }
 
                   </ul>
                 </div>
-                <div className="property__host">
-                  <h2 className="property__host-title">Meet the host</h2>
-                  <div className="property__host-user user">
-                    <div className={`property__avatar-wrapper ${isPro && `property__avatar-wrapper--pro`} user__avatar-wrapper`}>
-                      <img className="property__avatar user__avatar" src={avatarUrl} alt="Host avatar" width={74} height={74} />
-                    </div>
-                    <span className="property__user-name">
-                      {name}
-                    </span>
-                  </div>
-                  <div className="property__description">
-                    <p className="property__text">{description}</p>
-                  </div>
 
-                </div>
+                <Host description={description} {...host}/>
+
                 <section className="property__reviews reviews">
 
-                  {/* <ReviewsList reviewMock={reviewMock} /> */}
+                  <ReviewsList reviews={reviews} />
 
                   <ReviewForm />
 
@@ -171,6 +149,7 @@ class OfferDetails extends PureComponent {
             </section>
 
           </section>
+
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
@@ -190,24 +169,34 @@ class OfferDetails extends PureComponent {
               </div>
             </section>
           </div>
+
+
         </main>
       </div>
     );
   }
 }
 
+OfferDetails.defaultProps = {
+  offer: offerMock,
+  nearby: nearbyMock,
+  reviews: reviewMock,
+};
+
 OfferDetails.propTypes = {
   offer: PropTypes.shape(offerProperties).isRequired,
-  nearby: PropTypes.shape(nearbyProperties).isRequired,
-  review: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+  nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+  offerId: PropTypes.string.isRequired,
   getOffer: PropTypes.func.isRequired,
-  // handleCardHover: PropTypes.func.isRequired,
-  // handleCardClick: PropTypes.func.isRequired
+  getNearby: PropTypes.func.isRequired,
+  getReviews: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({DATA}) => ({
   offer: DATA.offer,
   nearby: DATA.nearby,
+  reviews: DATA.reviews,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -216,6 +205,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getNearby(offerId) {
     dispatch(fetchNearby(offerId));
+  },
+  getReviews(offerId) {
+    dispatch(fetchReviews(offerId));
   }
 });
 
