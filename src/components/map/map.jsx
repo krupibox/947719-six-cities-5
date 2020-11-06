@@ -3,7 +3,7 @@ import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 /* eslint-disable */
-                  
+
 const icon = Leaflet.icon({
   iconUrl: `img/pin.svg`,
   iconSize: [30, 30]
@@ -20,6 +20,7 @@ class Map extends PureComponent {
     super(props);
     this._cityCenterCoords = props.cityCenterCoords;
     this._offerCoords = props.offerCoords;
+    this._activeOfferDetailsCoords = props.activeCoords;
     this._markers = [];
 
   }
@@ -44,12 +45,12 @@ class Map extends PureComponent {
 
     this._layerGroup = Leaflet.layerGroup().addTo(this._map); // add layer to map
 
-    // iterate object as an array
     if (typeof this._offerCoords === `object` && this._offerCoords !== null) {
-      this._markers = Object.values(this._offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup)); // add to layer instead of directly to map
+      this._markers = Object.values(this._offerCoords).map((coordinates) => Leaflet.marker(coordinates, { icon }).addTo(this._layerGroup));
+
+      Leaflet.marker(this.props.activeCoords, { icon }).addTo(this._layerGroup); // for OfferDetail map initial marker
     }
 
-    Leaflet.marker(this.props.activeCoords, {icon}).addTo(this._layerGroup).setIcon(iconActive);
   }
 
   componentWillUnmount() {
@@ -57,6 +58,7 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+
     // need to check if the previous state and the current state are different !important
     if (this.props.activeCoords !== prevProps.activeCoords) {
       this._markers.map((marker) => {
@@ -70,21 +72,24 @@ class Map extends PureComponent {
     }
 
     if (JSON.stringify(this.props.offerCoords) !== JSON.stringify(prevProps.offerCoords)) {
-
+      // for city center coords
       this._map.setView([
         this.props.cityCenterCoords.latitude,
         this.props.cityCenterCoords.longitude
       ], this.props.cityCenterCoords.zoom);
 
       this._layerGroup.clearLayers();
-      this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
+      this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, { icon }).addTo(this._layerGroup));
     }
 
+    if (this._activeOfferDetailsCoords !== prevProps._activeOfferDetailsCoords) {
+      Leaflet.marker(this._activeOfferDetailsCoords, { icon }).addTo(this._layerGroup).setIcon(iconActive);  // for OfferDetail map. Set market to active
+    }
   }
 
   render() {
     return (
-      <div id="map" style={{height: `100%`}}></div>
+      <div id="map" style={{ height: `100%` }}></div>
     );
   }
 }

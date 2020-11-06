@@ -42,8 +42,6 @@ class OfferDetails extends PureComponent {
     // offer and nearby are not initial in state
     const {offer, nearby, reviews} = this.props;
 
-    // console.log(offer);
-
     if (!offer || !nearby || !reviews) {
       return (<p>Loading...</p>);
     }
@@ -97,7 +95,6 @@ class OfferDetails extends PureComponent {
                   <span className="property__rating-value rating__value">4.8</span>
                 </div>
                 <ul className="property__features">
-                  {/* TODO put data from mock*/}
                   <li className="property__feature property__feature--entire">
                     Apartment
                   </li>
@@ -141,9 +138,7 @@ class OfferDetails extends PureComponent {
                 offerCoords={getCoordinates(nearby).places}
                 cityCenterCoords={getCoordinates(nearby).cityCenter}
                 activeCoords={[latitude, longitude]}
-                handleCardHover={(evt) => {
-                  evt.preventDefault();
-                }}
+                handleCardHover={() => {}}
               />
 
             </section>

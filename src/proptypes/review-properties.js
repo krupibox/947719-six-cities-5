@@ -1,5 +1,5 @@
 export default {
-  text: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
 };
