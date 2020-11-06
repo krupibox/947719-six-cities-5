@@ -19,19 +19,20 @@ const App = ({authorizationStatus}) => {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}
-          render={({history}) => (
+          render={() => (
             <Main />
           )}
         />
 
-        <PrivateRoute exact to={AppRoute.ROOT}
+        {/* <Route exac path={AppRoute.LOGIN}> <SignIn /></Route> */}
+        {/* 2:09 private routing, lection 7 */}
+
+        <PrivateRoute
+          exact to={AppRoute.ROOT}
           path={AppRoute.LOGIN}
           require={authorizationStatus === AuthorizationStatus.NO_AUTH}
-          render={() => (
-            <SignIn
-              goBack={history.goBack}
-            />
-          )}
+          // require must be true
+          render={(history) => (<SignIn goBack={history.goBack} />)} // renderProp
         >
         </PrivateRoute>
 

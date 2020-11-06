@@ -6,8 +6,6 @@ import AuthorizationStatus from "../../consts/authorization-status";
 
 const Header = ({authorizationStatus, authorizationInfo}) => {
 
-  console.log(authorizationInfo);
-
   return (
     <header className="header">
       <div className="container">
@@ -45,7 +43,7 @@ const Header = ({authorizationStatus, authorizationInfo}) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  authorizationInfo: PropTypes.string.isRequired,
+  authorizationInfo: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({USER}) => ({
