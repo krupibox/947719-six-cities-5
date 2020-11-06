@@ -36,9 +36,8 @@ export const redirectToRoute = (url) => ({
 // Selectors (async thunk func) (1)
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({data}) => {
+    .then(() => {
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
-      dispatch(saveAuthorizationData(data)); // delete then
     }).catch((err) => {
       throw err;
     })

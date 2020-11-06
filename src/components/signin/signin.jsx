@@ -10,6 +10,8 @@ class SignIn extends PureComponent {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.loginRef = createRef();
     this.passwordRef = createRef();
 
