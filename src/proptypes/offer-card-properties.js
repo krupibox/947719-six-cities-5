@@ -5,7 +5,7 @@ const cityProperties = {
 
 export default {
   city: PropTypes.shape(cityProperties).isRequired,
-  previewImage: PropTypes.number.isRequired,
+  previewImage: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   type: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,

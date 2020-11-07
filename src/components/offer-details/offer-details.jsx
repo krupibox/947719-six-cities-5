@@ -46,7 +46,7 @@ class OfferDetails extends PureComponent {
       return (<p>Loading...</p>);
     }
 
-    const {is_premium: isPremium, is_favorite: isFavorite, price, title, images, rating, bedrooms, max_adults: maxAdults, goods, description, host, location: {latitude, longitude}} = offer;
+    const {is_premium: isPremium, is_favorite: isFavorite, price, title, images, rating, bedrooms, max_adults: maxAdults, goods, description, host, location} = offer;
 
     return (
       <div className="page">
@@ -137,7 +137,8 @@ class OfferDetails extends PureComponent {
               <Map
                 offerCoords={getCoordinates(nearby).places}
                 cityCenterCoords={getCoordinates(nearby).cityCenter}
-                activeCoords={[latitude, longitude]}
+                activeCoords={[0, 0]}
+                currentCoords = {location}
                 handleCardHover={() => {}}
               />
 
