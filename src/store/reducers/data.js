@@ -96,15 +96,16 @@ export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
   })
 );
 
-// Post data
+// Post review data
 export const sendReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
-  dispatch(setRequestAction({type: `review`, status: RequestStatus.PENDING, offerId}));
+  dispatch(setRequestAction({status: RequestStatus.PENDING}));
   return api.post(`${APIRoute.REVIEWS}/${offerId}`, {comment: review, rating})
       .then(({data}) => {
         dispatch(loadReviewsAction(data));
+        dispatch(setRequestAction({status: RequestStatus.SUCCESS}));
       })
       .catch(() => {
-        console.log(`failed`);
+        dispatch(setRequestAction({status: RequestStatus.FAILURE}));
       });
 };
 

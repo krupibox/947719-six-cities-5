@@ -1,6 +1,8 @@
 import {PureComponent} from "react";
 import {connect} from 'react-redux';
 
+import {RequestStatus} from '../../consts/request-status';
+
 import {sendReview} from '../../store/reducers/data';
 
 export const withForm = (Component) => {
@@ -10,6 +12,14 @@ export const withForm = (Component) => {
       this._handleSubmit = this._handleSubmit.bind(this);
       this._handleFieldChange = this._handleFieldChange.bind(this);
       this.state = {rating: ``, review: ``};
+    }
+
+    componentDidUpdate() {
+      const {requestStatus} = this.props;
+
+      if (requestStatus === RequestStatus.SUCCESS) {
+        console.log(`success`);
+      }
     }
 
     _handleSubmit(evt) {
@@ -28,7 +38,7 @@ export const withForm = (Component) => {
     _handleFieldChange(evt) {
       const {name, value} = evt.target;
 
-      // name - it's keys
+      // this name - it's keys for value
       this.setState({
         [name]: value
       });
@@ -50,8 +60,13 @@ export const withForm = (Component) => {
 
   WithForm.propTypes = {
     offerId: PropTypes.string.isRequired,
+    requestStatus: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
+
+  const mapStateToProps = ({REQUEST}) => ({
+    requestStatus: REQUEST.status,
+  });
 
   const mapDispatchToProps = (dispatch) => ({
     onSubmit(data) {
@@ -59,7 +74,7 @@ export const withForm = (Component) => {
     },
   });
 
-  return connect(null, mapDispatchToProps)(WithForm);
+  return connect(mapStateToProps, mapDispatchToProps)(WithForm);
 };
 
 export default withForm;
