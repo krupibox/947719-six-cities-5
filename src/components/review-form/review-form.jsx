@@ -5,10 +5,17 @@ import {ReviewLimit} from '../../consts/review-limit';
 
 const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, status}) => {
 
-  const {pending} = status;
+  const {pending, failure} = status;
+
+  console.log(rating);
 
   return (<>
-    <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
+    <form
+      className={`reviews__form${failure ? ` reviews__form--error` : ``} form`}
+      action="#"
+      method="post"
+      onSubmit={handleSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
       <ReviewStars handleFieldChange={handleFieldChange} status={status} rating={rating}/>

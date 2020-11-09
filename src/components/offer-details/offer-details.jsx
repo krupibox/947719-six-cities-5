@@ -127,13 +127,12 @@ class OfferDetails extends PureComponent {
 
                   <ReviewsList reviews={reviews} />
 
-                  { authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm />}
+                  { authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm offerId={this.props.offerId}/>}
                   {/* <ReviewForm offerId={this.props.offerId}/> */}
 
                 </section>
               </div>
             </div>
-
             <section className="property__map map">
 
               <Map
@@ -145,7 +144,6 @@ class OfferDetails extends PureComponent {
               />
 
             </section>
-
           </section>
 
           <div className="container">
@@ -167,7 +165,6 @@ class OfferDetails extends PureComponent {
               </div>
             </section>
           </div>
-
 
         </main>
       </div>
