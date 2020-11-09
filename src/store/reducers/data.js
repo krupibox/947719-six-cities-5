@@ -72,7 +72,6 @@ export const fetchOffersList = () => (dispatch, getState, api) => (
     }) // normal redux dispatch
 );
 
-//  example with getState: api.get(APIRoute.HOTELS`:${getState().DATA.offerId}`)
 export const fetchOffer = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}`)
     .then(({data}) => {
@@ -93,6 +92,17 @@ export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
     dispatch(loadReviewsAction(data));
   })
 );
+
+// Post data
+export const sendReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
+  return api.post(`${APIRoute.REVIEWS}/${offerId}`, {comment: review, rating})
+      .then(({data}) => {
+        dispatch(loadReviewsAction(data));
+      })
+      .catch(() => {
+        console.log(`failed`);
+      });
+};
 
 // Reducer (for updating stateToProps) (3)
 export const data = (state = initialState, action) => {
