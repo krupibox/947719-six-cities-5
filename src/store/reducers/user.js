@@ -1,5 +1,8 @@
 import {updateState} from '../../utils/update-state';
 
+// Model
+import ModelUser from '../../models/model-user';
+
 import AuthorizationStatus from "../../consts/authorization-status";
 import APIRoute from "../../consts/api-route";
 import AppRoute from "../../consts/app-route";
@@ -36,8 +39,9 @@ export const redirectToRoute = (url) => ({
 // Selectors (async thunk func) (1)
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => {
+    .then(({data}) => {
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      dispatch(saveAuthorizationData(ModelUser.parseUser(data)));
     }).catch((err) => {
       throw err;
     })
@@ -49,7 +53,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(saveAuthorizationData(data));
+      dispatch(saveAuthorizationData(ModelUser.parseUser(data)));
       dispatch(redirectToRoute(AppRoute.ROOT));
     })
 );
