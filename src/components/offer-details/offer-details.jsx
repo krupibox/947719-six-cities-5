@@ -11,6 +11,7 @@ import Host from '../offer-details/host';
 import {getStars} from '../../utils/get-stars';
 import {getCoordinates} from '../../utils/get-coordinates';
 import MAX_ITEMS from '../../consts/max-items';
+import AuthorizationStatus from "../../consts/authorization-status";
 
 // Thunk functions
 import {fetchOffer} from "../../store/reducers/data";
@@ -40,7 +41,7 @@ class OfferDetails extends PureComponent {
 
   render() {
     // offer and nearby are not initial in state
-    const {offer, nearby, reviews} = this.props;
+    const {offer, nearby, reviews, authorizationStatus} = this.props;
 
     if (!offer || !nearby || !reviews) {
       return (<p>Loading...</p>);
@@ -126,7 +127,7 @@ class OfferDetails extends PureComponent {
 
                   <ReviewsList reviews={reviews} />
 
-                  <ReviewForm />
+                  { authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm />}
 
                 </section>
               </div>
@@ -183,16 +184,18 @@ OfferDetails.propTypes = {
   offer: PropTypes.shape(offerProperties).isRequired,
   nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.string.isRequired,
   getOffer: PropTypes.func.isRequired,
   getNearby: PropTypes.func.isRequired,
   getReviews: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({DATA}) => ({
+const mapStateToProps = ({USER, DATA}) => ({
   offer: DATA.offer,
   nearby: DATA.nearby,
   reviews: DATA.reviews,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
