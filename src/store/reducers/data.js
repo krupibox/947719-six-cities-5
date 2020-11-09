@@ -1,12 +1,15 @@
 import {updateState} from '../../utils/update-state';
 
-import APIRoute from '../../consts/api-route';
-import FIRST_CITY from '../../consts/first-city';
-import {getUniqueCities} from '../../utils/get-unique-cities';
+import {APIRoute} from '../../consts/api-route';
+import {FIRST_CITY} from '../../consts/first-city';
 
-// import offersMock from '../../mocks/offers-mocks'; // mocks
-// import reviewsMock from '../../mocks/reviews-mocks'; // mocks
-// import nearbyMock from '../../mocks/nearby-mocks'; // mocks
+// Request
+import {setRequest as setRequestAction} from '../reducers/request';
+
+import {RequestStatus} from '../../consts/request-status';
+
+
+import {getUniqueCities} from '../../utils/get-unique-cities';
 
 // stateToProps
 const initialState = {
@@ -95,6 +98,7 @@ export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
 
 // Post data
 export const sendReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
+  dispatch(setRequestAction({type: `review`, status: RequestStatus.PENDING, offerId}));
   return api.post(`${APIRoute.REVIEWS}/${offerId}`, {comment: review, rating})
       .then(({data}) => {
         dispatch(loadReviewsAction(data));

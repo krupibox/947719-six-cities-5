@@ -10,8 +10,8 @@ import Host from '../offer-details/host';
 
 import {getStars} from '../../utils/get-stars';
 import {getCoordinates} from '../../utils/get-coordinates';
-import MAX_ITEMS from '../../consts/max-items';
-import AuthorizationStatus from "../../consts/authorization-status";
+import {MAX_ITEMS} from '../../consts/max-items';
+import {AuthorizationStatus} from "../../consts/authorization-status";
 
 // Thunk functions
 import {fetchOffer} from "../../store/reducers/data";

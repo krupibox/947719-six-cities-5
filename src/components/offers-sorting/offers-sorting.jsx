@@ -1,6 +1,6 @@
 import withSortToggle from '../hoc/with-sort-toggle';
 
-import OfferSortType from '../../consts/offer-sort-type';
+import {SortType} from '../../consts/sort-type';
 
 const OffersSorting = ({isOpen, sortingType, handleTypeClick, handleToggleMenuClick}) => {
 
@@ -18,7 +18,7 @@ const OffersSorting = ({isOpen, sortingType, handleTypeClick, handleToggleMenuCl
         }}
       >
 
-        {Object.values(OfferSortType).map((item, index) =>
+        {Object.values(SortType).map((item, index) =>
           <li key={`${index}-${item}`}
             className={`places__option ${sortingType === item && `places__option--active`}`}
             tabIndex={0}>{item}

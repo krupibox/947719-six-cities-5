@@ -1,8 +1,8 @@
 import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 
-import AuthorizationStatus from "../../consts/authorization-status";
-import AppRoute from "../../consts/app-route";
+import {AuthorizationStatus} from "../../consts/authorization-status";
+import {AppRoute} from "../../consts/app-route";
 
 
 const PrivateRoute = (props) => {

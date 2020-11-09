@@ -1,8 +1,8 @@
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import AppRoute from '../../consts/app-route';
+import {AppRoute} from '../../consts/app-route';
 
-import AuthorizationStatus from "../../consts/authorization-status";
+import {AuthorizationStatus} from "../../consts/authorization-status";
 
 const Header = ({authorizationStatus, authorizationInfo}) => {
 

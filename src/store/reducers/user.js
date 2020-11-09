@@ -3,9 +3,9 @@ import {updateState} from '../../utils/update-state';
 // Model
 import ModelUser from '../../models/model-user';
 
-import AuthorizationStatus from "../../consts/authorization-status";
-import APIRoute from "../../consts/api-route";
-import AppRoute from "../../consts/app-route";
+import {AuthorizationStatus} from "../../consts/authorization-status";
+import {APIRoute} from "../../consts/api-route";
+import {AppRoute} from "../../consts/app-route";
 
 // stateToProps
 const initialState = {

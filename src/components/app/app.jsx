@@ -7,7 +7,7 @@ import OfferDetails from '../offer-details/offer-details';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from "../../browser-history"; // send history as prop to router
 
-import AppRoute from "../../consts/app-route";
+import {AppRoute} from "../../consts/app-route";
 
 const App = () => {
 
