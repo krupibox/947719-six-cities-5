@@ -2,7 +2,7 @@ import {PureComponent} from "react";
 import {connect} from 'react-redux';
 
 import {RequestStatus} from '../../consts/request-status';
-
+import {setRequest} from '../../store/reducers/request';
 import {sendReview} from '../../store/reducers/data';
 
 export const withForm = (Component) => {
@@ -11,14 +11,16 @@ export const withForm = (Component) => {
       super(props);
       this._handleSubmit = this._handleSubmit.bind(this);
       this._handleFieldChange = this._handleFieldChange.bind(this);
+      this._handleFormClear = this._handleFormClear.bind(this);
       this.state = {rating: ``, review: ``};
     }
 
     componentDidUpdate() {
-      const {requestStatus} = this.props;
+      const {requestStatus, onFormClear} = this.props;
 
       if (requestStatus === RequestStatus.SUCCESS) {
-        console.log(`success`);
+        this._handleFormClear();
+        onFormClear();
       }
     }
 
@@ -44,13 +46,22 @@ export const withForm = (Component) => {
       });
     }
 
+    _handleFormClear() {
+      this.setState({rating: ``, review: ``});
+    }
+
     // union this class with component class
     render() {
+
+      const statusPending = this.props.requestStatus === RequestStatus.PENDING;
+      const statusFailure = this.props.requestStatus === RequestStatus.FAILURE;
+
       return (
         <Component
           {...this.props} // important for props from parent
           rating={this.state.rating}
           review={this.state.review}
+          status={{pending: statusPending, failure: statusFailure}}
           handleSubmit={this._handleSubmit}
           handleFieldChange={this._handleFieldChange}
         />
@@ -62,6 +73,7 @@ export const withForm = (Component) => {
     offerId: PropTypes.string.isRequired,
     requestStatus: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onFormClear: PropTypes.func.isRequired,
   };
 
   const mapStateToProps = ({REQUEST}) => ({
@@ -71,6 +83,9 @@ export const withForm = (Component) => {
   const mapDispatchToProps = (dispatch) => ({
     onSubmit(data) {
       dispatch(sendReview(data));
+    },
+    onFormClear() {
+      dispatch(setRequest({status: RequestStatus.INITIAL}));
     },
   });
 

@@ -1,5 +1,6 @@
 export const RequestStatus = {
   PENDING: `PENDING`,
   SUCCESS: `SUCCESS`,
-  FAILURE: `FAILURE`
+  FAILURE: `FAILURE`,
+  INITIAL: `INITIAL`
 };

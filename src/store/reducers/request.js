@@ -1,8 +1,10 @@
 import {updateState} from '../../utils/update-state';
 
+import {RequestStatus} from '../../consts/request-status';
+
 // stateToProps
 const initialState = {
-  status: ``,
+  status: RequestStatus.INITIAL,
 };
 
 // Actions

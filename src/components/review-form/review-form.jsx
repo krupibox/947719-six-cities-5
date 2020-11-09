@@ -3,20 +3,22 @@ import ReviewStars from './review-stars';
 
 import {ReviewLimit} from '../../consts/review-limit';
 
-const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, pendingStatus}) => {
+const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, status}) => {
+
+  const {pending} = status;
 
   return (<>
     <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
-      <ReviewStars handleFieldChange={handleFieldChange}/>
+      <ReviewStars handleFieldChange={handleFieldChange} status={status} rating={rating}/>
 
       <textarea
         onChange={handleFieldChange}
         className="reviews__textarea form__textarea"
         id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved" value={review}
-        disabled={pendingStatus}
+        disabled={pending}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -26,7 +28,7 @@ const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, pendingSta
           className="reviews__submit form__submit button"
           type="submit"
           disabled={!rating || review.length < ReviewLimit.MIN_LENGTH
-            || review.length > ReviewLimit.MAX_LENGTH || pendingStatus}>
+            || review.length > ReviewLimit.MAX_LENGTH || pending}>
               Submit</button>
       </div>
     </form>
@@ -36,6 +38,7 @@ const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, pendingSta
 ReviewForm.propTypes = {
   rating: PropTypes.string.isRequired,
   review: PropTypes.string.isRequired,
+  status: PropTypes.shape(PropTypes.bool.isRequired).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleFieldChange: PropTypes.func.isRequired,
 };
