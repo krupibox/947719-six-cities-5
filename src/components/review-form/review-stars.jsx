@@ -2,9 +2,9 @@ import React from 'react';
 
 import {ratings} from '../../consts/ratings';
 
-const ReviewStars = ({handleFieldChange, status, rating}) => {
+const ReviewStars = ({handleFieldChange, status}) => {
 
-  const {pending} = status;
+  const {pending, rating} = status;
 
   return (<>
     <div className="reviews__rating-form form__rating">

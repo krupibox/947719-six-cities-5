@@ -127,8 +127,8 @@ class OfferDetails extends PureComponent {
 
                   <ReviewsList reviews={reviews} />
 
-                  {/* { authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm />} */}
-                  <ReviewForm offerId={this.props.offerId}/>
+                  { authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm />}
+                  {/* <ReviewForm offerId={this.props.offerId}/> */}
 
                 </section>
               </div>
