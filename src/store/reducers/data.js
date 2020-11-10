@@ -100,7 +100,7 @@ export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
 );
 
 // Post review data
-export const sendReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
+export const postReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
   dispatch(setRequestAction({status: RequestStatus.PENDING}));
   return api.post(`${APIRoute.REVIEWS}/${offerId}`, {comment: review, rating})
       .then(({data}) => {
@@ -109,6 +109,19 @@ export const sendReview = ({review, rating, offerId}) => (dispatch, _getState, a
       })
       .catch(() => {
         dispatch(setRequestAction({status: RequestStatus.FAILURE}));
+      });
+};
+
+export const postFavorite = (offerId, favoriteStatus) => (dispatch, _getState, api) => {
+  const status = favoriteStatus ?
+    api.post(`${APIRoute.FAVORITE}/${offerId}/0`, {'hotel_id': offerId, "status": `0`})
+      .then(({data}) => {
+        console.log(data); dispatch(fetchOffersList());
+      })
+    :
+    api.post(`${APIRoute.FAVORITE}/${offerId}/1`, {'hotel_id': offerId, "status": `1`})
+      .then(({data}) => {
+        console.log(data); dispatch(fetchOffersList());
       });
 };
 

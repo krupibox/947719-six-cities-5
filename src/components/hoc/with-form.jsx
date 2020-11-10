@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {RequestStatus} from '../../consts/request-status';
 import {setRequest} from '../../store/reducers/request';
-import {sendReview} from '../../store/reducers/data';
+import {postReview} from '../../store/reducers/data';
 
 export const withForm = (Component) => {
   class WithForm extends PureComponent {
@@ -82,7 +82,7 @@ export const withForm = (Component) => {
 
   const mapDispatchToProps = (dispatch) => ({
     onSubmit(data) {
-      dispatch(sendReview(data));
+      dispatch(postReview(data));
     },
     onFormClear() {
       dispatch(setRequest({status: RequestStatus.INITIAL}));

@@ -18,7 +18,7 @@ export const setRequest = ({status}) => ({
   payload: {status}
 });
 
-// Async thunk functions sendReview in reducer/data.js (1)
+// Async thunk functions postReview in reducer/data.js (1)
 
 // Reducer (for updating stateToProps) (3)
 export const request = (state = initialState, action) => {

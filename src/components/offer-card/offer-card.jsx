@@ -1,14 +1,15 @@
 import {Link} from "react-router-dom";
+import {connect} from 'react-redux';
 
 import {AppRoute} from "../../consts/app-route";
 
 import {getStars} from '../../utils/get-stars';
 
+import {postFavorite} from '../../store/reducers/data';
+
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = (props) => {
-
-  const {id, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby} = props;
+const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby, onFavoriteClick}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
@@ -35,7 +36,7 @@ const OfferCard = (props) => {
           <button
             className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
             type="button"
-            // onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true, nearbyFor)}
+            onClick={() => onFavoriteClick(offerId, isFavorite)}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
@@ -51,7 +52,7 @@ const OfferCard = (props) => {
         </div>
         <h2 className="place-card__name">
           {
-            <Link to={`${AppRoute.OFFER}/${id}`} className='place-card__name'>{title}</Link>
+            <Link to={`${AppRoute.OFFER}/${offerId}`} className='place-card__name'>{title}</Link>
           }
         </h2>
         <p className="place-card__type">{type}</p>
@@ -62,4 +63,10 @@ const OfferCard = (props) => {
 
 OfferCard.propTypes = offerProperties;
 
-export default OfferCard;
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(offerId, status) {
+    dispatch(postFavorite(offerId, status));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(OfferCard);
