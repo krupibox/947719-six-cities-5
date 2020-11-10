@@ -8,14 +8,14 @@ import offerProperties from "../../proptypes/offer-card-properties";
 
 const OfferCard = (props) => {
 
-  const {id, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, handleCardHover, nearby} = props;
+  const {id, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby} = props;
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
-      onMouseEnter={handleCardHover ? () => handleCardHover([latitude, longitude]) : null}
-      onMouseOut={handleCardHover ? () => handleCardHover([0, 0]) : null}
+      onMouseEnter={onCardHover ? () => onCardHover([latitude, longitude]) : null}
+      onMouseOut={onCardHover ? () => onCardHover([0, 0]) : null}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
@@ -35,6 +35,7 @@ const OfferCard = (props) => {
           <button
             className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
             type="button"
+            // onClick={(evt) => onFavoriteClick(evt, id, favorite ? false : true, nearbyFor)}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {ratings} from '../../consts/ratings';
 
-const ReviewStars = ({handleFieldChange, rating, status}) => {
+const ReviewStars = ({onFieldChange, rating, status}) => {
 
   const {pending} = status;
 
@@ -18,7 +18,7 @@ const ReviewStars = ({handleFieldChange, rating, status}) => {
           type="radio"
           checked={index === rating}
           disabled={pending}
-          onChange={handleFieldChange}
+          onChange={onFieldChange}
         />
         <label
           className="reviews__rating-label form__rating-label"
@@ -36,7 +36,7 @@ const ReviewStars = ({handleFieldChange, rating, status}) => {
 };
 
 ReviewStars.propTypes = {
-  handleFieldChange: PropTypes.func.isRequired,
+  onFieldChange: PropTypes.func.isRequired,
   status: PropTypes.shape(PropTypes.bool.isRequired).isRequired,
   rating: PropTypes.string.isRequired,
 };

@@ -3,7 +3,7 @@ import ReviewStars from './review-stars';
 
 import {ReviewLimit} from '../../consts/review-limit';
 
-const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, status}) => {
+const ReviewForm = ({rating, review, onSubmit, onFieldChange, status}) => {
 
   const {pending, failure} = status;
 
@@ -12,14 +12,14 @@ const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, status}) =
       className={`reviews__form${failure ? ` reviews__form--error` : ``} form`}
       action="#"
       method="post"
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
-      <ReviewStars handleFieldChange={handleFieldChange} status={status} rating={rating}/>
+      <ReviewStars onFieldChange={onFieldChange} status={status} rating={rating}/>
 
       <textarea
-        onChange={handleFieldChange}
+        onChange={onFieldChange}
         className="reviews__textarea form__textarea"
         id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved" value={review}
@@ -44,8 +44,8 @@ ReviewForm.propTypes = {
   rating: PropTypes.string.isRequired,
   review: PropTypes.string.isRequired,
   status: PropTypes.shape(PropTypes.bool.isRequired).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  handleFieldChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onFieldChange: PropTypes.func.isRequired,
 };
 
 export default withForm(ReviewForm);

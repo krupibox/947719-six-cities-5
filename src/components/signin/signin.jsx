@@ -87,6 +87,9 @@ SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
+
+// TODO push history to prev page
+
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
     dispatch(login(authData));

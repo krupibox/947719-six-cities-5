@@ -62,8 +62,8 @@ export const withForm = (Component) => {
           rating={this.state.rating}
           review={this.state.review}
           status={{pending: statusPending, failure: statusFailure}}
-          handleSubmit={this._handleSubmit}
-          handleFieldChange={this._handleFieldChange}
+          onSubmit={this._handleSubmit}
+          onFieldChange={this._handleFieldChange}
         />
       );
     }

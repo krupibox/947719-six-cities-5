@@ -140,7 +140,7 @@ class OfferDetails extends PureComponent {
                 cityCenterCoords={getCoordinates(nearby).cityCenter}
                 activeCoords={[0, 0]}
                 currentCoords = {location}
-                handleCardHover={() => {}}
+                onCardHover={() => {}}
               />
 
             </section>

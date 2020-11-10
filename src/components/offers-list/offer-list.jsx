@@ -2,7 +2,7 @@ import OfferCard from '../offer-card/offer-card';
 
 import getSortedOffers from '../../utils/get-sorted-offers';
 
-const OfferList = ({offers, handleCardHover, sortingType, nearby}) => {
+const OfferList = ({offers, onCardHover, sortingType, nearby}) => {
 
   const sortedOffers = getSortedOffers(offers, sortingType);
 
@@ -11,7 +11,7 @@ const OfferList = ({offers, handleCardHover, sortingType, nearby}) => {
       <OfferCard
         key={`${index}-${offer.id}`}
         {...offer}
-        handleCardHover={handleCardHover}
+        onCardHover={onCardHover}
         nearby={nearby}
       />)
   );

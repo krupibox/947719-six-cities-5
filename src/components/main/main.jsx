@@ -18,7 +18,7 @@ import offerMock from '../../mocks/offer-mock';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offers, activeCoords, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
+const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -44,14 +44,14 @@ const Main = ({offers, activeCoords, handleCardHover, handleTypeClick, activeCit
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{offers.length} places to stay in {activeCity}</b>
 
-                  <OffersSorting handleTypeClick={handleTypeClick} sortingType={sortingType} />
+                  <OffersSorting onTypeClick={onTypeClick} sortingType={sortingType} />
 
                   <div className="cities__places-list places__list tabs__content">
 
                     <OfferList
                       offers={offers}
                       sortingType={sortingType}
-                      handleCardHover={handleCardHover}
+                      onCardHover={onCardHover}
                       nearby={false}
                     />
 
@@ -69,7 +69,7 @@ const Main = ({offers, activeCoords, handleCardHover, handleTypeClick, activeCit
                     cityCenterCoords={getCoordinates(offers).cityCenter}
                     activeCoords={activeCoords}
                     currentCoords = {null}
-                    handleCardHover={handleCardHover}
+                    onCardHover={onCardHover}
                   />
 
                 </section>
@@ -89,8 +89,8 @@ Main.defaultProps = {
 Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
   activeCoords: PropTypes.array.isRequired,
-  handleCardHover: PropTypes.func.isRequired,
-  handleTypeClick: PropTypes.func.isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  onTypeClick: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   sortingType: PropTypes.string.isRequired,
 };

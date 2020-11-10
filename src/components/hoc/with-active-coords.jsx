@@ -27,8 +27,8 @@ export const withActiveCoords = (Component) => {
           {...this.props}
           activeCoords={this.state.activeCoords}
           sortingType={this.state.sortingType}
-          handleCardHover={this._handleCardHover}
-          handleTypeClick={this._handleTypeClick}
+          onCardHover={this._handleCardHover}
+          onTypeClick={this._handleTypeClick}
         />
       );
     }
