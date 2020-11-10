@@ -17,4 +17,4 @@ const OfferList = ({offers, onCardHover, sortingType, nearby}) => {
   );
 };
 
-export default OfferList;
+export default React.memo(OfferList);

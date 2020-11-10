@@ -112,16 +112,27 @@ export const postReview = ({review, rating, offerId}) => (dispatch, _getState, a
       });
 };
 
-export const postFavorite = (offerId, favoriteStatus) => (dispatch, _getState, api) => {
+// TODO Favorite
+export const postFavorite = (offerId, favoriteStatus) => (dispatch, getState, api) => {
   const status = favoriteStatus ?
-    api.post(`${APIRoute.FAVORITE}/${offerId}/0`, {'hotel_id': offerId, "status": `0`})
+    api.post(`${APIRoute.FAVORITE}/${offerId}/0`, {'hotel_id': offerId, 'status': `0`})
       .then(({data}) => {
-        console.log(data); dispatch(fetchOffersList());
+
+        const offers = getState().DATA.offers;
+        let index = offers.findIndex((offer) => offer.id === data.id);
+        offers[index] = data;
+
+        dispatch(loadOffersAction(offers));
+
       })
     :
-    api.post(`${APIRoute.FAVORITE}/${offerId}/1`, {'hotel_id': offerId, "status": `1`})
+    api.post(`${APIRoute.FAVORITE}/${offerId}/1`, {'hotel_id': offerId, 'status': `1`})
       .then(({data}) => {
-        console.log(data); dispatch(fetchOffersList());
+        const offers = getState().DATA.offers;
+        let index = offers.findIndex((offer) => offer.id === data.id);
+        offers[index] = data;
+
+        dispatch(loadOffersAction(offers));
       });
 };
 
