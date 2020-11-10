@@ -2,6 +2,7 @@ import {updateState} from '../../utils/update-state';
 
 import {APIRoute} from '../../consts/api-route';
 import {FIRST_CITY} from '../../consts/first-city';
+import {MAX_REVIEWS} from '../../consts/max-reviews';
 
 // Request
 import {setRequest as setRequestAction} from '../reducers/request';
@@ -122,7 +123,7 @@ export const data = (state = initialState, action) => {
     case ActionType.LOAD_NEARBY:
       return updateState(state, {nearby: action.payload});
     case ActionType.LOAD_REVIEWS:
-      return updateState(state, {reviews: action.payload});
+      return updateState(state, {reviews: action.payload.slice(0, MAX_REVIEWS).sort((a, b) => b.id - a.id)});
     case ActionType.GET_CITIES:
       return updateState(state, {offerCities: action.payload});
     case ActionType.GET_FIRST_CITY:
