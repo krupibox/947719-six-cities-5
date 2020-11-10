@@ -24,7 +24,7 @@ const App = () => {
           render={() => (<SignIn />)}>
         </PrivateRoute>
 
-        <Route exact path={`${AppRoute.OFFER}/:id?`}
+        <Route exact path={`${AppRoute.OFFER}/:id`}
           render={({match: {params: {id}}}) => (<OfferDetails offerId={id} />)}>
         </Route>
 
@@ -33,7 +33,7 @@ const App = () => {
 
         <Route render={() => (<>
           <h1>404</h1><p>Page not found</p>
-          <Link to="/">Go to main page</Link>
+          <Link to="/"><b>Go to main page</b></Link>
         </>)}>
         </Route>
 

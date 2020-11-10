@@ -47,7 +47,7 @@ class OfferDetails extends PureComponent {
       return (<p>Loading...</p>);
     }
 
-    const {is_premium: isPremium, is_favorite: isFavorite, price, title, images, rating, bedrooms, max_adults: maxAdults, goods, description, host, location} = offer;
+    const {isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host, location} = offer;
 
     return (
       <div className="page">
@@ -153,12 +153,6 @@ class OfferDetails extends PureComponent {
 
                 <OfferList
                   offers={nearby}
-                  handleCardHover={(evt) => {
-                    evt.preventDefault();
-                  }}
-                  handleCardClick={(evt) => {
-                    evt.preventDefault();
-                  }}
                   nearby={true}
                 />
 

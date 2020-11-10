@@ -6,8 +6,10 @@ import {FIRST_CITY} from '../../consts/first-city';
 // Request
 import {setRequest as setRequestAction} from '../reducers/request';
 
-import {RequestStatus} from '../../consts/request-status';
+// Models
+import ModelOffer from '../../models/model-offer';
 
+import {RequestStatus} from '../../consts/request-status';
 
 import {getUniqueCities} from '../../utils/get-unique-cities';
 
@@ -32,17 +34,17 @@ export const ActionType = {
 // ActionCreators (mapDispatchToProps) (2)
 export const loadOfferAction = (offer) => ({
   type: ActionType.LOAD_OFFER,
-  payload: offer,
+  payload: ModelOffer.parseOffer(offer),
 });
 
 export const loadOffersAction = (offers) => ({
   type: ActionType.LOAD_OFFERS,
-  payload: offers,
+  payload: ModelOffer.parseOffers(offers), // because async vs thunk on promise
 });
 
 export const loadNearbyAction = (nearby) => ({
   type: ActionType.LOAD_NEARBY,
-  payload: nearby
+  payload: ModelOffer.parseOffers(nearby)
 });
 
 export const loadReviewsAction = (reviews) => ({

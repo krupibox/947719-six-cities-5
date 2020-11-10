@@ -28,7 +28,7 @@ export const requireAuthorization = (status) => ({
 
 export const saveAuthorizationData = (info) => ({
   type: ActionType.SAVE_AUTHORIZATION_DATA,
-  payload: info,
+  payload: ModelUser.parse(info),
 });
 
 export const redirectToRoute = (url) => ({
@@ -41,7 +41,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
-      dispatch(saveAuthorizationData(ModelUser.parseUser(data)));
+      dispatch(saveAuthorizationData(data));
     }).catch((err) => {
       throw err;
     })
@@ -53,7 +53,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(saveAuthorizationData(ModelUser.parseUser(data)));
+      dispatch(saveAuthorizationData(data));
       dispatch(redirectToRoute(AppRoute.ROOT));
     })
 );

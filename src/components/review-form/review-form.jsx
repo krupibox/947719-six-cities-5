@@ -7,8 +7,6 @@ const ReviewForm = ({rating, review, handleSubmit, handleFieldChange, status}) =
 
   const {pending, failure} = status;
 
-  console.log(rating);
-
   return (<>
     <form
       className={`reviews__form${failure ? ` reviews__form--error` : ``} form`}

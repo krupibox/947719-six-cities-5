@@ -7,7 +7,7 @@ class ModelUser {
     this.isPro = data[`is_pro`];
   }
 
-  static parseUser(data) {
+  static parse(data) {
     return new this(data);
   }
 }

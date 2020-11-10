@@ -52,7 +52,6 @@ const Main = ({offers, activeCoords, handleCardHover, handleTypeClick, activeCit
                       offers={offers}
                       sortingType={sortingType}
                       handleCardHover={handleCardHover}
-                      // handleCardClick={handleCardClick}
                       nearby={false}
                     />
 
@@ -69,6 +68,7 @@ const Main = ({offers, activeCoords, handleCardHover, handleTypeClick, activeCit
                     offerCoords={getCoordinates(offers).places}
                     cityCenterCoords={getCoordinates(offers).cityCenter}
                     activeCoords={activeCoords}
+                    currentCoords = {null}
                     handleCardHover={handleCardHover}
                   />
 

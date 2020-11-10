@@ -87,7 +87,7 @@ Map.propTypes = {
   offerCoords: PropTypes.array.isRequired,
   cityCenterCoords: PropTypes.object.isRequired,
   activeCoords: PropTypes.array.isRequired,
-  currentCoords: PropTypes.object.isRequired,
+  currentCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired])
 };
 
 export default Map;

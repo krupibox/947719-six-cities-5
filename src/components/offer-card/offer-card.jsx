@@ -1,23 +1,28 @@
 import {Link} from "react-router-dom";
+
+import {AppRoute} from "../../consts/app-route";
+
 import {getStars} from '../../utils/get-stars';
 
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = ({id, is_premium: isPremium, is_favorite: isFavorite, price, title, preview_image: previewImage, location: {latitude, longitude}, rating, type, handleCardHover, nearby}) => {
+const OfferCard = (props) => {
+
+  const {id, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, handleCardHover, nearby} = props;
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
 
       // all attributes set here
-      onMouseEnter={() => handleCardHover([latitude, longitude])}
-      onMouseOut={() => handleCardHover([0, 0])}
+      onMouseEnter={handleCardHover ? () => handleCardHover([latitude, longitude]) : null}
+      onMouseOut={handleCardHover ? () => handleCardHover([0, 0]) : null}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
 
       <div className={`${nearby ? `near-places__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
 
-        <a href="">
+        <a href="#">
           <img className="place-card__image" src={previewImage} alt="Place image" width={260} height={200} />
         </a>
       </div>
@@ -44,13 +49,9 @@ const OfferCard = ({id, is_premium: isPremium, is_favorite: isFavorite, price, t
           </div>
         </div>
         <h2 className="place-card__name">
-
           {
-
-            nearby ? <a href="" className='place-card__name'>{title}</a>
-              : <Link to={`/offer/${id}`} className='place-card__name'>{title}</Link>
+            <Link to={`${AppRoute.OFFER}/${id}`} className='place-card__name'>{title}</Link>
           }
-
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
