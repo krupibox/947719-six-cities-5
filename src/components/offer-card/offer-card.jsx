@@ -4,12 +4,13 @@ import {connect} from 'react-redux';
 import {AppRoute} from "../../consts/app-route";
 
 import {getStars} from '../../utils/get-stars';
+import {AuthorizationStatus} from "../../consts/authorization-status";
 
 import {postFavorite} from '../../store/reducers/data';
 
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby, onFavoriteClick}) => {
+const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby, onFavoriteClick, authorizationStatus}) => {
 
   return (
     <article className={`${nearby && `near-places__card` || `cities__place-card`} place-card`}
@@ -33,16 +34,27 @@ const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewIma
             <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button
-            className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
-            type="button"
-            onClick={() => onFavoriteClick(offerId, isFavorite)}
-          >
-            <svg className="place-card__bookmark-icon" width={18} height={19}>
-              <use xlinkHref="#icon-bookmark" />
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+
+          {
+            authorizationStatus === AuthorizationStatus.AUTH ?
+              <button
+                className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
+                type="button"
+                onClick={() => onFavoriteClick(offerId, isFavorite)}
+              >
+                <svg className="place-card__bookmark-icon" width={18} height={19}>
+                  <use xlinkHref="#icon-bookmark" />
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </button> :
+              <Link to={AppRoute.LOGIN} className={`place-card__bookmark-button button`}>
+                <svg className="place-card__bookmark-icon" width={18} height={19}>
+                  <use xlinkHref="#icon-bookmark" />
+                </svg>
+                <span className="visually-hidden">To bookmarks</span>
+              </Link>
+          }
+
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -61,7 +73,15 @@ const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewIma
   );
 };
 
-OfferCard.propTypes = offerProperties;
+OfferCard.propTypes = {
+  offerProperties,
+  authorizationStatus: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus,
+  authorizationInfo: USER.authorizationInfo,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onFavoriteClick(offerId, status) {
@@ -69,4 +89,4 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(OfferCard);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferCard);
