@@ -17,6 +17,7 @@ import {getUniqueCities} from '../../utils/get-unique-cities';
 // stateToProps
 const initialState = {
   offers: [],
+  favorites: [],
   offerCities: [],
   activeCity: ``
 };
@@ -27,6 +28,7 @@ export const ActionType = {
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
   GET_CITIES: `GET_CITIES`,
   GET_FIRST_CITY: `GET_FIRST_CITY`,
   UPDATE_ACTIVE_CITY: `UPDATE_ACTIVE_CITY`,
@@ -51,6 +53,11 @@ export const loadNearbyAction = (nearby) => ({
 export const loadReviewsAction = (reviews) => ({
   type: ActionType.LOAD_REVIEWS,
   payload: reviews
+});
+
+export const loadFavoritesAction = (favorites) => ({
+  type: ActionType.LOAD_FAVORITES,
+  payload: ModelOffer.parseOffers(favorites)
 });
 
 export const getCitiesAction = (offers) => ({
@@ -99,6 +106,13 @@ export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
   })
 );
 
+export const fetchFavorites = () => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.FAVORITE}`)
+  .then(({data}) => {
+    dispatch(loadFavoritesAction(data));
+  })
+);
+
 // Post review data
 export const postReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
   dispatch(setRequestAction({status: RequestStatus.PENDING}));
@@ -114,16 +128,19 @@ export const postReview = ({review, rating, offerId}) => (dispatch, _getState, a
 
 // TODO Favorite
 export const postFavorite = (offerId, favoriteStatus) => (dispatch, getState, api) => {
+
   const status = favoriteStatus ?
     api.post(`${APIRoute.FAVORITE}/${offerId}/0`, {'hotel_id': offerId, 'status': `0`})
       .then(({data}) => {
+
 
         const offers = getState().DATA.offers;
         let index = offers.findIndex((offer) => offer.id === data.id);
         offers[index] = data;
 
+        dispatch(loadOfferAction(data));
         dispatch(loadOffersAction(offers));
-
+        dispatch(fetchFavorites());
       })
     :
     api.post(`${APIRoute.FAVORITE}/${offerId}/1`, {'hotel_id': offerId, 'status': `1`})
@@ -132,7 +149,9 @@ export const postFavorite = (offerId, favoriteStatus) => (dispatch, getState, ap
         let index = offers.findIndex((offer) => offer.id === data.id);
         offers[index] = data;
 
+        dispatch(loadOfferAction(data));
         dispatch(loadOffersAction(offers));
+        dispatch(fetchFavorites());
       });
 };
 
@@ -148,6 +167,8 @@ export const data = (state = initialState, action) => {
       return updateState(state, {nearby: action.payload});
     case ActionType.LOAD_REVIEWS:
       return updateState(state, {reviews: action.payload.slice(0, MAX_REVIEWS).sort((a, b) => b.id - a.id)});
+    case ActionType.LOAD_FAVORITES:
+      return updateState(state, {favorites: action.payload});
     case ActionType.GET_CITIES:
       return updateState(state, {offerCities: action.payload});
     case ActionType.GET_FIRST_CITY:

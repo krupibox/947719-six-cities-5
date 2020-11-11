@@ -1,4 +1,5 @@
 import {PureComponent} from "react";
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
 import Header from '../header/header';
@@ -11,12 +12,14 @@ import Host from '../offer-details/host';
 import {getStars} from '../../utils/get-stars';
 import {getCoordinates} from '../../utils/get-coordinates';
 import {MAX_ITEMS} from '../../consts/max-items';
-import {AuthorizationStatus} from "../../consts/authorization-status";
+import {AuthorizationStatus} from '../../consts/authorization-status';
+import {AppRoute} from '../../consts/app-route';
 
 // Thunk functions
-import {fetchOffer} from "../../store/reducers/data";
-import {fetchNearby} from "../../store/reducers/data";
-import {fetchReviews} from "../../store/reducers/data";
+import {fetchOffer} from '../../store/reducers/data';
+import {fetchNearby} from '../../store/reducers/data';
+import {fetchReviews} from '../../store/reducers/data';
+import {postFavorite} from '../../store/reducers/data';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
@@ -41,13 +44,13 @@ class OfferDetails extends PureComponent {
 
   render() {
     // offer and nearby are not initial in state
-    const {offer, nearby, reviews, authorizationStatus} = this.props;
+    const {offer, nearby, reviews, authorizationStatus, onFavoriteClick} = this.props;
 
     if (!offer || !nearby || !reviews) {
       return (<p>Loading...</p>);
     }
 
-    const {isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host, location} = offer;
+    const {id: offerId, isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host, location} = offer;
 
     return (
       <div className="page">
@@ -78,16 +81,26 @@ class OfferDetails extends PureComponent {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <button
-                    className={`property__bookmark-button button ${isFavorite && `property__bookmark-button--active`}`}
-                    type="button"
-                  >
-                    <svg className="property__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  {authorizationStatus === AuthorizationStatus.AUTH ?
+                    <button
+                      className={`property__bookmark-button button ${isFavorite && `property__bookmark-button--active`}`}
+                      type="button"
+                      onClick={() => onFavoriteClick(offerId, isFavorite)}
+                    >
+                      <svg className="property__bookmark-icon" width={31} height={33}>
+                        <use xlinkHref="#icon-bookmark" />
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button> :
+                    <Link to={AppRoute.LOGIN} className={`property__bookmark-button button`}>
+                      <svg className="property__bookmark-icon" width={31} height={33}>
+                        <use xlinkHref="#icon-bookmark" />
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </Link>
+                  }
                 </div>
+
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
                     <span style={{width: `${getStars(rating)}%`}} />
@@ -154,6 +167,7 @@ class OfferDetails extends PureComponent {
                 <OfferList
                   offers={nearby}
                   nearby={true}
+                  favorites={false}
                 />
 
               </div>
@@ -181,6 +195,7 @@ OfferDetails.propTypes = {
   getOffer: PropTypes.func.isRequired,
   getNearby: PropTypes.func.isRequired,
   getReviews: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({USER, DATA}) => ({
@@ -199,7 +214,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getReviews(offerId) {
     dispatch(fetchReviews(offerId));
-  }
+  },
+  onFavoriteClick(offerId, status) {
+    dispatch(postFavorite(offerId, status));
+  },
 });
 
 export {OfferDetails};

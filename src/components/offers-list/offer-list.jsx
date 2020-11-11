@@ -2,7 +2,7 @@ import OfferCard from '../offer-card/offer-card';
 
 import getSortedOffers from '../../utils/get-sorted-offers';
 
-const OfferList = ({offers, onCardHover, sortingType, nearby}) => {
+const OfferList = ({offers, onCardHover, sortingType, nearby, favorite}) => {
 
   const sortedOffers = getSortedOffers(offers, sortingType);
 
@@ -13,6 +13,7 @@ const OfferList = ({offers, onCardHover, sortingType, nearby}) => {
         {...offer}
         onCardHover={onCardHover}
         nearby={nearby}
+        favorite={favorite}
       />)
   );
 };

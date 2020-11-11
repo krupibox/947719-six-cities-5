@@ -53,6 +53,7 @@ const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sorti
                       sortingType={sortingType}
                       onCardHover={onCardHover}
                       nearby={false}
+                      favorite={false}
                     />
 
                   </div>

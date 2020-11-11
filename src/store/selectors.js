@@ -11,3 +11,6 @@ export const selectOffersByCity = createSelector(
     selectActiveCityFromState,
     (offers, activeCity) => offers.filter((offer) => offer.city.name === activeCity)
 );
+
+// Favorites
+export const selectFavorites = (state) => state.favorites;
