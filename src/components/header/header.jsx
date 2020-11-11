@@ -21,7 +21,7 @@ const Header = ({authorizationStatus, authorizationInfo}) => {
                 <Link
                   className="header__nav-link header__nav-link--profile"
 
-                  to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.ROOT : AppRoute.LOGIN}
+                  to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>

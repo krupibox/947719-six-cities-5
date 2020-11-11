@@ -73,8 +73,9 @@ const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewIma
   );
 };
 
+OfferCard.propTypes = offerProperties;
+
 OfferCard.propTypes = {
-  offerProperties,
   authorizationStatus: PropTypes.string.isRequired,
 };
 

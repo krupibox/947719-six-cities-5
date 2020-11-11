@@ -20,16 +20,17 @@ const App = () => {
           render={() => (<Main />)}>
         </Route>
 
-        <PrivateRoute exact path={AppRoute.LOGIN}
-          render={() => (<SignIn />)}>
-        </PrivateRoute>
+        <Route exact path={AppRoute.LOGIN}
+          render={({history}) => (<SignIn goBack={history.goBack}/>)}>
+        </Route>
 
         <Route exact path={`${AppRoute.OFFER}/:id`}
           render={({match: {params: {id}}}) => (<OfferDetails offerId={id} />)}>
         </Route>
 
-        <Route exact path={AppRoute.FAVORITES}><Favorites />
-        </Route>
+        <PrivateRoute exact path={AppRoute.FAVORITES}
+          render={() => (<Favorites />)}>
+        </PrivateRoute>
 
         <Route render={() => (<>
           <h1>404</h1><p>Page not found</p>
