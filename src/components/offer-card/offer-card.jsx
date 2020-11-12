@@ -9,14 +9,21 @@ import {AuthorizationStatus} from "../../consts/authorization-status";
 // Thunk
 import {postFavorite} from '../../store/reducers/data';
 
+import {setActiveOffer} from '../../store/reducers/data';
+
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus}) => {
+const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, setOfferId, activeOffer}) => {
+
+  const {id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type} = offer;
 
   return (
     <article className={`${nearby ? `near-places__card` : ``} ${favorite ? `favorites__card` : `cities__place-card`} place-card`}
 
-      onMouseEnter={onCardHover ? () => onCardHover([latitude, longitude]) : null}
+      onMouseEnter={onCardHover ? () => {
+        onCardHover([latitude, longitude]);
+        setOfferId(offerId);
+      } : null}
       onMouseOut={onCardHover ? () => onCardHover([0, 0]) : null}
     >
 
@@ -46,7 +53,7 @@ const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewIma
               <button
                 className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
                 type="button"
-                onClick={() => onFavoriteClick(offerId, isFavorite)}
+                onClick={() => onFavoriteClick(activeOffer, isFavorite)}
               >
                 <svg className="place-card__bookmark-icon" width={18} height={19}>
                   <use xlinkHref="#icon-bookmark" />
@@ -85,12 +92,17 @@ OfferCard.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
+const mapStateToProps = ({DATA, USER}) => ({
   authorizationStatus: USER.authorizationStatus,
   authorizationInfo: USER.authorizationInfo,
+  // offer: DATA.offer,
+  activeOffer: DATA.activeOffer
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  setOfferId(offerId) {
+    dispatch(setActiveOffer(offerId));
+  },
   onFavoriteClick(offerId, status) {
     dispatch(postFavorite(offerId, status));
   },

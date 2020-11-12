@@ -4,15 +4,13 @@ import getSortedOffers from '../../utils/get-sorted-offers';
 
 const OfferList = ({offers, onCardHover, sortingType, nearby, favorite}) => {
 
-  console.log(offers);
-
   const sortedOffers = getSortedOffers(offers, sortingType);
 
   return (
     sortedOffers.map((offer, index) =>
       <OfferCard
         key={`${index}-${offer.id}`}
-        {...offer}
+        offer={offer}
         onCardHover={onCardHover}
         nearby={nearby}
         favorite={favorite}

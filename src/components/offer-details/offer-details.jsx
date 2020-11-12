@@ -40,7 +40,7 @@ class OfferDetails extends PureComponent {
   componentDidMount() {
     const {offerId} = this.props;
     this.props.getOffer(offerId);
-    this.props.setActiveOffer(offerId);
+    this.props.setOfferId(offerId);
     this.props.getNearby(offerId);
     this.props.getReviews(offerId);
   }
@@ -197,6 +197,7 @@ OfferDetails.propTypes = {
   getOffer: PropTypes.func.isRequired,
   getNearby: PropTypes.func.isRequired,
   getReviews: PropTypes.func.isRequired,
+  setOfferId: PropTypes.func.isRequired,
   onFavoriteClick: PropTypes.func.isRequired,
 };
 
@@ -211,7 +212,7 @@ const mapDispatchToProps = (dispatch) => ({
   getOffer(offerId) {
     dispatch(fetchOffer(offerId));
   },
-  setActiveOffer(offerId) {
+  setOfferId(offerId) {
     dispatch(setActiveOffer(offerId));
   },
   getNearby(offerId) {

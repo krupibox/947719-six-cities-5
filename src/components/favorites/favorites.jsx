@@ -59,7 +59,7 @@ class Favorites extends PureComponent {
                             {offers.map((offer, index) =>
                               <OfferCard
                                 key={`${index}-${offer.id}`}
-                                {...offer}
+                                offer={offer}
                                 onCardHover={() => { }}
                                 favorite={true}
                               />

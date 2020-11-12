@@ -20,13 +20,15 @@ const initialState = {
   favorites: [],
   cities: [],
   activeCity: ``,
-  activeOffer: ``
+  activeOffer: ``,
+  activeCoords: ``
 };
 
 // Actions
 export const ActionType = {
   LOAD_OFFER: `LOAD_OFFER`,
   SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`,
+  SET_ACTIVE_OFFER_COORDS: `SET_ACTIVE_OFFER_COORDS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
   UPDATE_NEARBY: `UPDATE_NEARBY`,
@@ -46,6 +48,11 @@ export const loadOfferAction = (offer) => ({
 export const setActiveOffer = (offerId) => ({
   type: ActionType.SET_ACTIVE_OFFER,
   payload: offerId,
+});
+
+export const setActiveOfferCoords = (location) => ({
+  type: ActionType.SET_ACTIVE_OFFER_COORDS,
+  payload: location,
 });
 
 export const loadOffersAction = (offers) => ({
@@ -95,14 +102,14 @@ export const fetchOffersList = () => (dispatch, getState, api) => (
       dispatch(loadOffersAction(data));
       dispatch(getCitiesAction(data));
       dispatch(getFirstCityAction(getState().DATA.cities[FIRST_CITY]));
-    }) // normal redux dispatch
+    })
 );
 
 export const fetchOffer = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}`)
     .then(({data}) => {
       dispatch(loadOfferAction(data));
-    }) // normal redux dispatch
+    })
 );
 
 export const fetchNearby = (offerId) => (dispatch, _getState, api) => (
@@ -139,11 +146,9 @@ export const postReview = ({review, rating, offerId}) => (dispatch, _getState, a
       });
 };
 
-
 const updateFavorite = (dispatch, state, api, id, status) => {
-  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, 'status': {status}})
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, status})
   .then(({data}) => {
-
     let offers = state().DATA.offers;
     let index = offers.findIndex((offer) => offer.id === data.id);
     offers = [...offers.slice(0, index), data, ...offers.slice(index + 1)];
@@ -155,6 +160,7 @@ const updateFavorite = (dispatch, state, api, id, status) => {
   });
 };
 
+// TODO offers or nearby
 // Post Favorite data
 export const postFavorite = (offerId, favoriteStatus) => (dispatch, getState, api) => {
   const STATUS = {true: `0`, false: `1`};
@@ -170,6 +176,8 @@ export const data = (state = initialState, action) => {
       return updateState(state, {offer: action.payload});
     case ActionType.SET_ACTIVE_OFFER:
       return updateState(state, {activeOffer: action.payload});
+    case ActionType.SET_ACTIVE_OFFER_COORDS:
+      return updateState(state, {activeCoords: action.payload});
     case ActionType.LOAD_OFFERS:
       return updateState(state, {offers: action.payload});
     case ActionType.LOAD_NEARBY:
