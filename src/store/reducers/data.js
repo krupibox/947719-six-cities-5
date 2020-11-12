@@ -20,14 +20,15 @@ const initialState = {
   favorites: [],
   cities: [],
   activeCity: ``,
-  // activeOffer: ``,
+  activeOfferId: ``,
   activeCoords: ``
 };
 
 // Actions
 export const ActionType = {
   LOAD_OFFER: `LOAD_OFFER`,
-  SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`,
+  SET_ACTIVE_OFFER_ID: `SET_ACTIVE_OFFER_ID`,
+  SET_ACTIVE_OFFER_COORDS: `SET_ACTIVE_OFFER_COORDS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
   UPDATE_NEARBY: `UPDATE_NEARBY`,
@@ -44,9 +45,14 @@ export const loadOfferAction = (offer) => ({
   payload: ModelOffer.parseOffer(offer),
 });
 
-export const setActiveOffer = (offerId) => ({
-  type: ActionType.SET_ACTIVE_OFFER,
+export const setActiveOfferId = (offerId) => ({
+  type: ActionType.SET_ACTIVE_OFFER_ID,
   payload: offerId,
+});
+
+export const setActiveOfferCoords = (location) => ({
+  type: ActionType.SET_ACTIVE_OFFER_COORDS,
+  payload: location,
 });
 
 export const loadOffersAction = (offers) => ({
@@ -144,7 +150,7 @@ const updateFavorite = (dispatch, state, api, id, status, nearby) => {
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, status})
   .then(({data}) => {
     if (nearby) {
-      dispatch(fetchNearby(state().DATA.activeOffer));
+      dispatch(fetchNearby(state().DATA.activeOfferId));
 
       return;
     }
@@ -173,8 +179,10 @@ export const data = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFER:
       return updateState(state, {offer: action.payload});
-    case ActionType.SET_ACTIVE_OFFER:
-      return updateState(state, {activeOffer: action.payload});
+    case ActionType.SET_ACTIVE_OFFER_ID:
+      return updateState(state, {activeOfferId: action.payload});
+    case ActionType.SET_ACTIVE_OFFER_COORDS:
+      return updateState(state, {activeCoords: action.payload});
     case ActionType.LOAD_OFFERS:
       return updateState(state, {offers: action.payload});
     case ActionType.LOAD_NEARBY:

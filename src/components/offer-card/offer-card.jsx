@@ -9,11 +9,12 @@ import {AuthorizationStatus} from "../../consts/authorization-status";
 // Thunk
 import {postFavorite} from '../../store/reducers/data';
 
-import {setActiveOffer} from '../../store/reducers/data';
+import {setActiveOfferId} from '../../store/reducers/data';
+import {setActiveOfferCoords} from '../../store/reducers/data';
 
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus}) => {
+const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, setOfferId, setOfferCoords}) => {
 
   const {id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type} = offer;
 
@@ -22,7 +23,8 @@ const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, autho
 
       onMouseEnter={onCardHover ? () => {
         onCardHover([latitude, longitude]);
-        // setOfferId(offerId);
+        setOfferId(offerId);
+        setOfferCoords(offer.location);
       } : null}
       onMouseOut={onCardHover ? () => onCardHover([0, 0]) : null}
     >
@@ -92,15 +94,17 @@ OfferCard.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({DATA, USER}) => ({
+const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
   authorizationInfo: USER.authorizationInfo,
-  activeOffer: DATA.activeOffer
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setOfferId(offerId) {
-    dispatch(setActiveOffer(offerId));
+    dispatch(setActiveOfferId(offerId));
+  },
+  setOfferCoords(offer) {
+    dispatch(setActiveOfferCoords(offer));
   },
   onFavoriteClick(offerId, status, nearby) {
     dispatch(postFavorite(offerId, status, nearby));

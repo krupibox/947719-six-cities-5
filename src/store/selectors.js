@@ -5,7 +5,6 @@ import {createSelector} from 'reselect';
 // export const selectOffers = (state) => state[NameSpace.DATA].offers; // example with [NameSpace]
 export const selectOffersFromState = (state) => state.offers;
 export const selectActiveCityFromState = (state) => state.activeCity;
-export const selectNearby = (state) => state.nearby;
 
 export const selectUniqFavoriteCitiesFromState = (state) => [...new Set(state.favorites.map((offer) => offer.city.name))];
 export const selectFavoriteOffersFromState = (state) => state.favorites;
