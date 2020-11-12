@@ -18,7 +18,7 @@ import {getUniqueCities} from '../../utils/get-unique-cities';
 const initialState = {
   offers: [],
   favorites: [],
-  offerCities: [],
+  cities: [],
   activeCity: ``
 };
 
@@ -81,7 +81,7 @@ export const fetchOffersList = () => (dispatch, getState, api) => (
     .then(({data}) => {
       dispatch(loadOffersAction(data));
       dispatch(getCitiesAction(data));
-      dispatch(getFirstCityAction(getState().DATA.offerCities[FIRST_CITY]));
+      dispatch(getFirstCityAction(getState().DATA.cities[FIRST_CITY]));
     }) // normal redux dispatch
 );
 
@@ -170,7 +170,7 @@ export const data = (state = initialState, action) => {
     case ActionType.LOAD_FAVORITES:
       return updateState(state, {favorites: action.payload});
     case ActionType.GET_CITIES:
-      return updateState(state, {offerCities: action.payload});
+      return updateState(state, {cities: action.payload});
     case ActionType.GET_FIRST_CITY:
       return updateState(state, {activeCity: action.payload});
     case ActionType.UPDATE_ACTIVE_CITY:

@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
 import {updateCityAction} from '../../store/reducers/data';
 
-const Cities = ({activeCity, offerCities, updateCity}) => {
+const Cities = ({activeCity, cities, updateCity}) => {
 
-  return offerCities ? offerCities.map((city, index) => (
+  return cities ? cities.map((city, index) => (
     <li key={`${index}-${city}`} className="locations__item">
       <a
         className={`locations__item-link tabs__item ${city === activeCity && `tabs__item--active`}`} href="#"
@@ -15,14 +15,14 @@ const Cities = ({activeCity, offerCities, updateCity}) => {
 };
 
 Cities.propTypes = {
-  offerCities: PropTypes.array.isRequired,
+  cities: PropTypes.array.isRequired,
   activeCity: PropTypes.string.isRequired,
   updateCity: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({DATA, _USER}) => ({
   activeCity: DATA.activeCity,
-  offerCities: DATA.offerCities,
+  cities: DATA.cities,
 });
 
 const mapDispatchToProps = (dispatch) => ({

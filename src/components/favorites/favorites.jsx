@@ -22,24 +22,41 @@ class Favorites extends PureComponent {
 
   render() {
 
+    const {favorites} = this.props;
+    const favoriteCities = [...new Set(favorites.map((offer) => offer.city.name))];
+    const isFavorite = favoriteCities.length === 0;
+
+    const favoriteSorted = favorites.reduce((total, offer) => {
+
+      favoriteCities.forEach((city) => {
+        total[city] = total[city] || []; // init array
+
+        if (city === offer.city.name) {
+          total[city].push(offer);
+        }
+      });
+
+      return total;
+    }, []);
+
     return (
-      <div className={`page ${isEmpty ? `page--favorites-empty` : ``}`}>
+      <div className={`page ${isFavorite ? `page--favorites-empty` : ``}`}>
 
         <Header isSignIn={true}/>
 
-        <main className={`page__main page__main--favorites ${isEmpty ? `page__main--favorites--empty` : ``}`}>
+        <main className={`page__main page__main--favorites ${isFavorite ? `page__main--favorites--empty` : ``}`}>
           <div className="page__favorites-container container">
 
-            <section className={`favorites ${isEmpty ? `favorites--empty` : ``}`}>
-              {isEmpty ? <h1 className="visually-hidden">Favorites (empty)</h1> : <h1 className="favorites__title">Saved listing</h1>}
+            <section className={`favorites ${isFavorite ? `favorites--empty` : ``}`}>
+              {isFavorite ? <h1 className="visually-hidden">Favorites (empty)</h1> : <h1 className="favorites__title">Saved listing</h1>}
               {
-                isEmpty ?
+                isFavorite ?
                   <div className="favorites__status-wrapper">
                     <b className="favorites__status">Nothing yet saved.</b>
                     <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
                   </div> :
                   <ul className="favorites__list">
-                    {Object.entries(groupCities).map(([city, offers]) => {
+                    {Object.entries(favoriteSorted).map(([city, offers]) => {
                       return (
                         <li className="favorites__locations-items" key={city}>
                           <div className="favorites__locations locations locations--current">
