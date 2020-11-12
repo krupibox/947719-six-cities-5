@@ -4,6 +4,8 @@ import getSortedOffers from '../../utils/get-sorted-offers';
 
 const OfferList = ({offers, onCardHover, sortingType, nearby, favorite}) => {
 
+  console.log(offers);
+
   const sortedOffers = getSortedOffers(offers, sortingType);
 
   return (

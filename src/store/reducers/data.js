@@ -19,14 +19,17 @@ const initialState = {
   offers: [],
   favorites: [],
   cities: [],
-  activeCity: ``
+  activeCity: ``,
+  activeOffer: ``
 };
 
 // Actions
 export const ActionType = {
   LOAD_OFFER: `LOAD_OFFER`,
+  SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
+  UPDATE_NEARBY: `UPDATE_NEARBY`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOAD_FAVORITES: `LOAD_FAVORITES`,
   GET_CITIES: `GET_CITIES`,
@@ -40,14 +43,24 @@ export const loadOfferAction = (offer) => ({
   payload: ModelOffer.parseOffer(offer),
 });
 
+export const setActiveOffer = (offerId) => ({
+  type: ActionType.SET_ACTIVE_OFFER,
+  payload: offerId,
+});
+
 export const loadOffersAction = (offers) => ({
   type: ActionType.LOAD_OFFERS,
-  payload: ModelOffer.parseOffers(offers), // because async vs thunk on promise
+  payload: ModelOffer.parseOffers(offers),
 });
 
 export const loadNearbyAction = (nearby) => ({
   type: ActionType.LOAD_NEARBY,
   payload: ModelOffer.parseOffers(nearby)
+});
+
+export const updateNearbyAction = (nearby) => ({
+  type: ActionType.UPDATE_NEARBY,
+  payload: nearby
 });
 
 export const loadReviewsAction = (reviews) => ({
@@ -95,8 +108,6 @@ export const fetchOffer = (offerId) => (dispatch, _getState, api) => (
 export const fetchNearby = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}/nearby`)
   .then(({data}) => {
-
-    console.log(offerId);
     dispatch(loadNearbyAction(data));
   })
 );
@@ -133,13 +144,14 @@ const updateFavorite = (dispatch, state, api, id, status) => {
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, 'status': {status}})
   .then(({data}) => {
 
-    const offers = state().DATA.offers;
+    let offers = state().DATA.offers;
     let index = offers.findIndex((offer) => offer.id === data.id);
-    offers[index] = data;
+    offers = [...offers.slice(0, index), data, ...offers.slice(index + 1)];
 
     dispatch(loadOfferAction(data));
     dispatch(loadOffersAction(offers));
     dispatch(fetchFavorites());
+    dispatch(fetchNearby(state().DATA.activeOffer));
   });
 };
 
@@ -156,9 +168,13 @@ export const data = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFER:
       return updateState(state, {offer: action.payload});
+    case ActionType.SET_ACTIVE_OFFER:
+      return updateState(state, {activeOffer: action.payload});
     case ActionType.LOAD_OFFERS:
       return updateState(state, {offers: action.payload});
     case ActionType.LOAD_NEARBY:
+      return updateState(state, {nearby: action.payload});
+    case ActionType.UPDATE_NEARBY:
       return updateState(state, {nearby: action.payload});
     case ActionType.LOAD_REVIEWS:
       return updateState(state, {reviews: action.payload.slice(0, MAX_REVIEWS).sort((a, b) => b.id - a.id)});

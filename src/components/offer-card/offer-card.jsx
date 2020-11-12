@@ -11,7 +11,7 @@ import {postFavorite} from '../../store/reducers/data';
 
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby, favorite, offerDetailId, onFavoriteClick, authorizationStatus}) => {
+const OfferCard = ({id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus}) => {
 
   return (
     <article className={`${nearby ? `near-places__card` : ``} ${favorite ? `favorites__card` : `cities__place-card`} place-card`}

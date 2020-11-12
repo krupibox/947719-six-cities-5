@@ -70,7 +70,7 @@ class Map extends PureComponent {
       this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
     }
 
-    if (this.props.currentCoords) {
+    if (this.props.currentCoords !== null && JSON.stringify(this.props.currentCoords) === JSON.stringify(prevProps.currentCoords)) {
       const {latitude, longitude} = this.props.currentCoords;
       Leaflet.marker([latitude, longitude], {icon}).addTo(this._layerGroup).setIcon(iconActive);
     }

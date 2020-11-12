@@ -21,7 +21,7 @@ import {fetchNearby} from '../../store/reducers/data';
 import {fetchReviews} from '../../store/reducers/data';
 import {postFavorite} from '../../store/reducers/data';
 
-import {selectNearby} from '../../store/selectors';
+import {setActiveOffer} from '../../store/reducers/data';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
@@ -40,6 +40,7 @@ class OfferDetails extends PureComponent {
   componentDidMount() {
     const {offerId} = this.props;
     this.props.getOffer(offerId);
+    this.props.setActiveOffer(offerId);
     this.props.getNearby(offerId);
     this.props.getReviews(offerId);
   }
@@ -154,7 +155,7 @@ class OfferDetails extends PureComponent {
                 offerCoords={getCoordinates(nearby).places}
                 cityCenterCoords={getCoordinates(nearby).cityCenter}
                 activeCoords={[0, 0]}
-                currentCoords = {location}
+                currentCoords={location}
                 onCardHover={() => {}}
               />
 
@@ -201,7 +202,7 @@ OfferDetails.propTypes = {
 
 const mapStateToProps = ({USER, DATA}) => ({
   offer: DATA.offer,
-  nearby: selectNearby(DATA),
+  nearby: DATA.nearby,
   reviews: DATA.reviews,
   authorizationStatus: USER.authorizationStatus,
 });
@@ -209,6 +210,9 @@ const mapStateToProps = ({USER, DATA}) => ({
 const mapDispatchToProps = (dispatch) => ({
   getOffer(offerId) {
     dispatch(fetchOffer(offerId));
+  },
+  setActiveOffer(offerId) {
+    dispatch(setActiveOffer(offerId));
   },
   getNearby(offerId) {
     dispatch(fetchNearby(offerId));
