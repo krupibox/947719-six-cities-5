@@ -5,8 +5,11 @@ import {connect} from 'react-redux';
 import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
 
-// Thunk functions
+// Thunk
 import {fetchFavorites} from "../../store/reducers/data";
+
+// Reselect
+import {selectFavoritesByCity} from '../../store/selectors';
 
 import {AppRoute} from '../../consts/app-route';
 
@@ -23,28 +26,14 @@ class Favorites extends PureComponent {
   render() {
 
     const {favorites} = this.props;
-    const favoriteCities = [...new Set(favorites.map((offer) => offer.city.name))];
-    const isFavorite = favoriteCities.length === 0;
-
-    const favoriteSorted = favorites.reduce((total, offer) => {
-
-      favoriteCities.forEach((city) => {
-        total[city] = total[city] || []; // init array
-
-        if (city === offer.city.name) {
-          total[city].push(offer);
-        }
-      });
-
-      return total;
-    }, []);
+    const isFavorite = Object.keys(favorites).length === 0;
 
     return (
       <div className={`page ${isFavorite ? `page--favorites-empty` : ``}`}>
 
-        <Header isSignIn={true}/>
+        <Header isSignIn={true} />
 
-        <main className={`page__main page__main--favorites ${isFavorite ? `page__main--favorites--empty` : ``}`}>
+        <main className={`page__main page__main--favorites ${isFavorite && `page__main--favorites--empty`}`}>
           <div className="page__favorites-container container">
 
             <section className={`favorites ${isFavorite ? `favorites--empty` : ``}`}>
@@ -56,7 +45,7 @@ class Favorites extends PureComponent {
                     <p className="favorites__status-description">Save properties to narrow down search or plan yor future trips.</p>
                   </div> :
                   <ul className="favorites__list">
-                    {Object.entries(favoriteSorted).map(([city, offers]) => {
+                    {Object.entries(favorites).map(([city, offers]) => {
                       return (
                         <li className="favorites__locations-items" key={city}>
                           <div className="favorites__locations locations locations--current">
@@ -71,7 +60,7 @@ class Favorites extends PureComponent {
                               <OfferCard
                                 key={`${index}-${offer.id}`}
                                 {...offer}
-                                onCardHover={() =>{}}
+                                onCardHover={() => { }}
                                 favorite={true}
                               />
                             )}
@@ -82,7 +71,6 @@ class Favorites extends PureComponent {
                   </ul>
               }
             </section>
-
 
           </div>
         </main>
@@ -99,12 +87,12 @@ class Favorites extends PureComponent {
 }
 
 Favorites.propTypes = {
-  favorites: PropTypes.array.isRequired,
+  favorites: PropTypes.object.isRequired,
   getFavorites: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({DATA}) => ({
-  favorites: DATA.favorites
+  favorites: selectFavoritesByCity(DATA),
 });
 
 const mapDispatchToProps = (dispatch) => ({

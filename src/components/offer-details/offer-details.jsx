@@ -15,11 +15,13 @@ import {MAX_ITEMS} from '../../consts/max-items';
 import {AuthorizationStatus} from '../../consts/authorization-status';
 import {AppRoute} from '../../consts/app-route';
 
-// Thunk functions
+// Thunk
 import {fetchOffer} from '../../store/reducers/data';
 import {fetchNearby} from '../../store/reducers/data';
 import {fetchReviews} from '../../store/reducers/data';
 import {postFavorite} from '../../store/reducers/data';
+
+import {selectNearby} from '../../store/selectors';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
@@ -43,7 +45,6 @@ class OfferDetails extends PureComponent {
   }
 
   render() {
-    // offer and nearby are not initial in state
     const {offer, nearby, reviews, authorizationStatus, onFavoriteClick} = this.props;
 
     if (!offer || !nearby || !reviews) {
@@ -140,8 +141,9 @@ class OfferDetails extends PureComponent {
 
                   <ReviewsList reviews={reviews} />
 
-                  { authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm offerId={this.props.offerId}/>}
-                  {/* <ReviewForm offerId={this.props.offerId}/> */}
+                  {
+                    authorizationStatus === AuthorizationStatus.AUTH && <ReviewForm offerId={this.props.offerId}/>
+                  }
 
                 </section>
               </div>
@@ -167,7 +169,6 @@ class OfferDetails extends PureComponent {
                 <OfferList
                   offers={nearby}
                   nearby={true}
-                  favorites={false}
                 />
 
               </div>
@@ -200,7 +201,7 @@ OfferDetails.propTypes = {
 
 const mapStateToProps = ({USER, DATA}) => ({
   offer: DATA.offer,
-  nearby: DATA.nearby,
+  nearby: selectNearby(DATA),
   reviews: DATA.reviews,
   authorizationStatus: USER.authorizationStatus,
 });

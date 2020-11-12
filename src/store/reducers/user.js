@@ -42,13 +42,11 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
       dispatch(saveAuthorizationData(data));
-    }).catch((err) => {
-      throw err;
+    }).catch(() => {
+      dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
     })
 );
 
-// {login: this.loginRef.current.value, password: this.passwordRef.current.value}
-// destructuring to {login: email, password}
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {

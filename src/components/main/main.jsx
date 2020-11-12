@@ -11,7 +11,7 @@ import withActiveCoords from '../hoc/with-active-coords';
 
 import {getCoordinates} from '../../utils/get-coordinates';
 
-// reselect
+// Reselect
 import {selectOffersByCity} from '../../store/selectors';
 
 import offerMock from '../../mocks/offer-mock';

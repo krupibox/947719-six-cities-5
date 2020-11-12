@@ -95,6 +95,8 @@ export const fetchOffer = (offerId) => (dispatch, _getState, api) => (
 export const fetchNearby = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}/nearby`)
   .then(({data}) => {
+
+    console.log(offerId);
     dispatch(loadNearbyAction(data));
   })
 );
@@ -113,7 +115,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
   })
 );
 
-// Post review data
+// Post Review data
 export const postReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
   dispatch(setRequestAction({status: RequestStatus.PENDING}));
   return api.post(`${APIRoute.REVIEWS}/${offerId}`, {comment: review, rating})
@@ -126,33 +128,26 @@ export const postReview = ({review, rating, offerId}) => (dispatch, _getState, a
       });
 };
 
-// TODO Favorite
+
+const updateFavorite = (dispatch, state, api, id, status) => {
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, 'status': {status}})
+  .then(({data}) => {
+
+    const offers = state().DATA.offers;
+    let index = offers.findIndex((offer) => offer.id === data.id);
+    offers[index] = data;
+
+    dispatch(loadOfferAction(data));
+    dispatch(loadOffersAction(offers));
+    dispatch(fetchFavorites());
+  });
+};
+
+// Post Favorite data
 export const postFavorite = (offerId, favoriteStatus) => (dispatch, getState, api) => {
+  const STATUS = {true: `0`, false: `1`};
 
-  const status = favoriteStatus ?
-    api.post(`${APIRoute.FAVORITE}/${offerId}/0`, {'hotel_id': offerId, 'status': `0`})
-      .then(({data}) => {
-
-
-        const offers = getState().DATA.offers;
-        let index = offers.findIndex((offer) => offer.id === data.id);
-        offers[index] = data;
-
-        dispatch(loadOfferAction(data));
-        dispatch(loadOffersAction(offers));
-        dispatch(fetchFavorites());
-      })
-    :
-    api.post(`${APIRoute.FAVORITE}/${offerId}/1`, {'hotel_id': offerId, 'status': `1`})
-      .then(({data}) => {
-        const offers = getState().DATA.offers;
-        let index = offers.findIndex((offer) => offer.id === data.id);
-        offers[index] = data;
-
-        dispatch(loadOfferAction(data));
-        dispatch(loadOffersAction(offers));
-        dispatch(fetchFavorites());
-      });
+  updateFavorite(dispatch, getState, api, offerId, STATUS[favoriteStatus]);
 };
 
 // Reducer (for updating stateToProps) (3)
