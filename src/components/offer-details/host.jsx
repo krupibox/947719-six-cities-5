@@ -23,4 +23,4 @@ const Host = ({description, name, is_pro: isPro, avatar_url: avatarUrl}) => {
 
 Host.propTypes = hostProperties;
 
-export default Host;
+export default React.memo(Host);

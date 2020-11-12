@@ -13,7 +13,7 @@ import {setActiveOffer} from '../../store/reducers/data';
 
 import offerProperties from "../../proptypes/offer-card-properties";
 
-const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, setOfferId, activeOffer}) => {
+const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus}) => {
 
   const {id: offerId, isPremium, isFavorite, price, title, previewImage, location: {latitude, longitude}, rating, type} = offer;
 
@@ -22,7 +22,7 @@ const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, autho
 
       onMouseEnter={onCardHover ? () => {
         onCardHover([latitude, longitude]);
-        setOfferId(offerId);
+        // setOfferId(offerId);
       } : null}
       onMouseOut={onCardHover ? () => onCardHover([0, 0]) : null}
     >
@@ -53,7 +53,7 @@ const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, autho
               <button
                 className={`place-card__bookmark-button button ${isFavorite && `place-card__bookmark-button--active`}`}
                 type="button"
-                onClick={() => onFavoriteClick(activeOffer, isFavorite)}
+                onClick={() => onFavoriteClick(offerId, isFavorite, nearby)}
               >
                 <svg className="place-card__bookmark-icon" width={18} height={19}>
                   <use xlinkHref="#icon-bookmark" />
@@ -95,7 +95,6 @@ OfferCard.propTypes = {
 const mapStateToProps = ({DATA, USER}) => ({
   authorizationStatus: USER.authorizationStatus,
   authorizationInfo: USER.authorizationInfo,
-  // offer: DATA.offer,
   activeOffer: DATA.activeOffer
 });
 
@@ -103,8 +102,8 @@ const mapDispatchToProps = (dispatch) => ({
   setOfferId(offerId) {
     dispatch(setActiveOffer(offerId));
   },
-  onFavoriteClick(offerId, status) {
-    dispatch(postFavorite(offerId, status));
+  onFavoriteClick(offerId, status, nearby) {
+    dispatch(postFavorite(offerId, status, nearby));
   },
 });
 

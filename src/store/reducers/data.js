@@ -20,7 +20,7 @@ const initialState = {
   favorites: [],
   cities: [],
   activeCity: ``,
-  activeOffer: ``,
+  // activeOffer: ``,
   activeCoords: ``
 };
 
@@ -28,7 +28,6 @@ const initialState = {
 export const ActionType = {
   LOAD_OFFER: `LOAD_OFFER`,
   SET_ACTIVE_OFFER: `SET_ACTIVE_OFFER`,
-  SET_ACTIVE_OFFER_COORDS: `SET_ACTIVE_OFFER_COORDS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
   UPDATE_NEARBY: `UPDATE_NEARBY`,
@@ -48,11 +47,6 @@ export const loadOfferAction = (offer) => ({
 export const setActiveOffer = (offerId) => ({
   type: ActionType.SET_ACTIVE_OFFER,
   payload: offerId,
-});
-
-export const setActiveOfferCoords = (location) => ({
-  type: ActionType.SET_ACTIVE_OFFER_COORDS,
-  payload: location,
 });
 
 export const loadOffersAction = (offers) => ({
@@ -146,26 +140,31 @@ export const postReview = ({review, rating, offerId}) => (dispatch, _getState, a
       });
 };
 
-const updateFavorite = (dispatch, state, api, id, status) => {
+const updateFavorite = (dispatch, state, api, id, status, nearby) => {
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, status})
   .then(({data}) => {
+    if (nearby) {
+      dispatch(fetchNearby(state().DATA.activeOffer));
+
+      return;
+    }
+
     let offers = state().DATA.offers;
-    let index = offers.findIndex((offer) => offer.id === data.id);
+    const index = offers.findIndex((offer) => offer.id === data.id);
     offers = [...offers.slice(0, index), data, ...offers.slice(index + 1)];
 
     dispatch(loadOfferAction(data));
     dispatch(loadOffersAction(offers));
-    dispatch(fetchFavorites());
-    dispatch(fetchNearby(state().DATA.activeOffer));
+    dispatch(fetchFavorites()); // effect on favorites page
+
   });
 };
 
-// TODO offers or nearby
 // Post Favorite data
-export const postFavorite = (offerId, favoriteStatus) => (dispatch, getState, api) => {
+export const postFavorite = (offerId, favoriteStatus, nearby) => (dispatch, getState, api) => {
   const STATUS = {true: `0`, false: `1`};
 
-  updateFavorite(dispatch, getState, api, offerId, STATUS[favoriteStatus]);
+  updateFavorite(dispatch, getState, api, offerId, STATUS[favoriteStatus], nearby);
 };
 
 // Reducer (for updating stateToProps) (3)
@@ -176,8 +175,6 @@ export const data = (state = initialState, action) => {
       return updateState(state, {offer: action.payload});
     case ActionType.SET_ACTIVE_OFFER:
       return updateState(state, {activeOffer: action.payload});
-    case ActionType.SET_ACTIVE_OFFER_COORDS:
-      return updateState(state, {activeCoords: action.payload});
     case ActionType.LOAD_OFFERS:
       return updateState(state, {offers: action.payload});
     case ActionType.LOAD_NEARBY:

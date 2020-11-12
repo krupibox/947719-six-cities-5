@@ -21,4 +21,4 @@ ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties))
 };
 
-export default ReviewsList;
+export default React.memo(ReviewsList);
