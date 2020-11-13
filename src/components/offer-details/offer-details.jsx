@@ -29,7 +29,7 @@ import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
 
 // import offerMock from '../../mocks/offer-mock';
-import nearbyMock from '../../mocks/nearby-mock';
+// import nearbyMock from '../../mocks/nearby-mock';
 import reviewMock from '../../mocks/review-mock';
 
 class OfferDetails extends PureComponent {
@@ -48,8 +48,6 @@ class OfferDetails extends PureComponent {
     this.props.getReviews(offerId);
   }
 
-
-  // OFFER COORDS ACTIVE
   componentDidUpdate(prevProps) {
     if (this.props.offerId !== prevProps.offerId) {
       this.props.getOffer(this.props.offerId);
@@ -57,18 +55,16 @@ class OfferDetails extends PureComponent {
     }
 
     this._currentCoords = this.props.offer.location; // (2)
-
   }
 
   render() {
-    const {offer, nearby, reviews, authorizationStatus, onFavoriteClick, activeCoords} = this.props;
+    const {offer, nearby, reviews, authorizationStatus, onFavoriteClick} = this.props;
 
     if (!offer || !nearby || !reviews) {
       return (<p>Loading...</p>);
     }
 
     const {id: offerId, isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host} = offer;
-
 
     return (
       <div className="page">
@@ -168,9 +164,9 @@ class OfferDetails extends PureComponent {
             <section className="property__map map">
 
               <Map
-                offerCoords={getCoordinates(nearby).places}
-                cityCenterCoords={getCoordinates(nearby).cityCenter}
-                activeCoords={[]}
+                offerCoords={getCoordinates(this.props.nearby).places}
+                cityCenterCoords={getCoordinates(this.props.nearby).cityCenter}
+                activeCoords={null}
                 currentCoords={this._currentCoords}
                 onCardHover={() => {}}
               />
@@ -202,7 +198,11 @@ OfferDetails.defaultProps = {
   offer: {
     city: {
       name: ``,
-      location: {},
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 13
+      }
     },
     previewImage: ``,
     images: [],
@@ -210,7 +210,11 @@ OfferDetails.defaultProps = {
     price: 0,
     rating: 0,
     title: ``,
-    location: {},
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 13
+    },
     host: {
       id: 0,
       name: ``,
@@ -222,34 +226,43 @@ OfferDetails.defaultProps = {
   activeCoords: {},
   currentCoords: {},
 
-  // nearby: [{
-  //   city: {
-  //     name: ``,
-  //     location: {},
-  //   },
-  //   previewImage: ``,
-  //   images: [],
-  //   type: ``,
-  //   price: 0,
-  //   rating: 0,
-  //   title: ``,
-  //   location: {},
-  //   host: {
-  //     id: 0,
-  //     name: ``,
-  //     isPro: false,
-  //     avatarUrl: ``,
-  //     description: ``,
-  //   }
-  // }],
+  nearby: [{
+    city: {
+      name: ``,
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 13
+      }
+    },
+    previewImage: ``,
+    images: [],
+    type: ``,
+    price: 0,
+    rating: 0,
+    title: ``,
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 13
+    },
+    host: {
+      id: 0,
+      name: ``,
+      isPro: false,
+      avatarUrl: ``,
+      description: ``,
+    }
+  }],
+
+  reviews: reviewMock,
   // offer: offerMock,
   // nearby: nearbyMock,
-  reviews: reviewMock,
 };
 
 OfferDetails.propTypes = {
   offer: PropTypes.shape(offerProperties).isRequired,
-  // nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+  nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.string.isRequired,
@@ -267,7 +280,6 @@ const mapStateToProps = ({USER, DATA}) => ({
   nearby: DATA.nearby,
   reviews: DATA.reviews,
   authorizationStatus: USER.authorizationStatus,
-  activeCoords: DATA.activeCoords
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -89,7 +89,7 @@ Main.defaultProps = {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  activeCoords: PropTypes.array.isRequired,
+  activeCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
   onCardHover: PropTypes.func.isRequired,
   onTypeClick: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
