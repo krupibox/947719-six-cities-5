@@ -1,9 +1,10 @@
 const getPlaces = (places) => {
-  return places.map((place) => [
-    place.location.latitude,
-    place.location.longitude,
-    place.location.zoom
-  ]);
+
+  return places.map((place) => ({
+    latitude: place.location.latitude,
+    longitude: place.location.longitude,
+    zoom: place.location.zoom
+  }));
 };
 
 export const getCoordinates = (places) => {

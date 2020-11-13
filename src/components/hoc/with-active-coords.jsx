@@ -7,7 +7,7 @@ export const withActiveCoords = (Component) => {
       this._handleCardHover = this.handleCardHover.bind(this);
       this._handleTypeClick = this.handleTypeClick.bind(this);
       this.state = {
-        activeCoords: [0, 0],
+        activeCoords: null,
         sortingType: `Popular`,
       };
     }

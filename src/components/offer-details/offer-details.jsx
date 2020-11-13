@@ -28,7 +28,7 @@ import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
 
-import offerMock from '../../mocks/offer-mock';
+// import offerMock from '../../mocks/offer-mock';
 import nearbyMock from '../../mocks/nearby-mock';
 import reviewMock from '../../mocks/review-mock';
 
@@ -36,6 +36,7 @@ class OfferDetails extends PureComponent {
 
   constructor(props) {
     super(props);
+    this._currentCoords = {}; // (1)
   }
 
   componentDidMount() {
@@ -52,7 +53,11 @@ class OfferDetails extends PureComponent {
   componentDidUpdate(prevProps) {
     if (this.props.offerId !== prevProps.offerId) {
       this.props.getOffer(this.props.offerId);
+      this.props.getReviews(this.props.offerId);
     }
+
+    this._currentCoords = this.props.offer.location; // (2)
+
   }
 
   render() {
@@ -165,8 +170,8 @@ class OfferDetails extends PureComponent {
               <Map
                 offerCoords={getCoordinates(nearby).places}
                 cityCenterCoords={getCoordinates(nearby).cityCenter}
-                activeCoords={[0, 0]}
-                currentCoords={activeCoords}
+                activeCoords={[]}
+                currentCoords={this._currentCoords}
                 onCardHover={() => {}}
               />
 
@@ -194,18 +199,61 @@ class OfferDetails extends PureComponent {
 }
 
 OfferDetails.defaultProps = {
-  offer: offerMock,
-  nearby: nearbyMock,
+  offer: {
+    city: {
+      name: ``,
+      location: {},
+    },
+    previewImage: ``,
+    images: [],
+    type: ``,
+    price: 0,
+    rating: 0,
+    title: ``,
+    location: {},
+    host: {
+      id: 0,
+      name: ``,
+      isPro: false,
+      avatarUrl: ``,
+      description: ``,
+    }
+  },
+  activeCoords: {},
+  currentCoords: {},
+
+  // nearby: [{
+  //   city: {
+  //     name: ``,
+  //     location: {},
+  //   },
+  //   previewImage: ``,
+  //   images: [],
+  //   type: ``,
+  //   price: 0,
+  //   rating: 0,
+  //   title: ``,
+  //   location: {},
+  //   host: {
+  //     id: 0,
+  //     name: ``,
+  //     isPro: false,
+  //     avatarUrl: ``,
+  //     description: ``,
+  //   }
+  // }],
+  // offer: offerMock,
+  // nearby: nearbyMock,
   reviews: reviewMock,
 };
 
 OfferDetails.propTypes = {
   offer: PropTypes.shape(offerProperties).isRequired,
-  nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+  // nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
   offerId: PropTypes.string.isRequired,
-  activeCoords: PropTypes.string.isRequired,
+  activeCoords: PropTypes.object.isRequired,
   setOfferCoords: PropTypes.func.isRequired,
   getOffer: PropTypes.func.isRequired,
   getNearby: PropTypes.func.isRequired,
