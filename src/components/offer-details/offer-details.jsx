@@ -22,7 +22,8 @@ import {fetchReviews} from '../../store/reducers/data';
 import {postFavorite} from '../../store/reducers/data';
 
 import {setActiveOfferId} from '../../store/reducers/data';
-import {setActiveOfferCoords} from '../../store/reducers/data';
+
+import {selectNearbyFromState} from '../../store/selectors';
 
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
@@ -40,10 +41,9 @@ class OfferDetails extends PureComponent {
   }
 
   componentDidMount() {
-    const {offerId, offer} = this.props;
+    const {offerId} = this.props;
     this.props.getOffer(offerId);
     this.props.setOfferId(offerId);
-    this.props.setOfferCoords(offer.location);
     this.props.getNearby(offerId);
     this.props.getReviews(offerId);
   }
@@ -53,17 +53,13 @@ class OfferDetails extends PureComponent {
       this.props.getOffer(this.props.offerId);
       this.props.getReviews(this.props.offerId);
     }
-
-    this._currentCoords = this.props.offer.location; // (2)
   }
 
-  render() {
+  _renderContent() {
+
+    console.log(this.props);
+
     const {offer, nearby, reviews, authorizationStatus, onFavoriteClick} = this.props;
-
-    if (!offer || !nearby || !reviews) {
-      return (<p>Loading...</p>);
-    }
-
     const {id: offerId, isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host} = offer;
 
     return (
@@ -164,10 +160,10 @@ class OfferDetails extends PureComponent {
             <section className="property__map map">
 
               <Map
-                offerCoords={getCoordinates(this.props.nearby).places}
-                cityCenterCoords={getCoordinates(this.props.nearby).cityCenter}
+                offerCoords={getCoordinates(nearby).places}
+                cityCenterCoords={getCoordinates(nearby).cityCenter}
                 activeCoords={null}
-                currentCoords={this._currentCoords}
+                currentCoords={this.props.offer.location}
                 onCardHover={() => {}}
               />
 
@@ -192,92 +188,31 @@ class OfferDetails extends PureComponent {
       </div>
     );
   }
+
+  render() {
+    return (this.props.offer && this.props.nearby && this.props.reviews ? this._renderContent() : <p>Loading...</p>);
+  }
 }
 
-OfferDetails.defaultProps = {
-  offer: {
-    city: {
-      name: ``,
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 13
-      }
-    },
-    previewImage: ``,
-    images: [],
-    type: ``,
-    price: 0,
-    rating: 0,
-    title: ``,
-    location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 13
-    },
-    host: {
-      id: 0,
-      name: ``,
-      isPro: false,
-      avatarUrl: ``,
-      description: ``,
-    }
-  },
-  activeCoords: {},
-  currentCoords: {},
-
-  nearby: [{
-    city: {
-      name: ``,
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 13
-      }
-    },
-    previewImage: ``,
-    images: [],
-    type: ``,
-    price: 0,
-    rating: 0,
-    title: ``,
-    location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 13
-    },
-    host: {
-      id: 0,
-      name: ``,
-      isPro: false,
-      avatarUrl: ``,
-      description: ``,
-    }
-  }],
-
-  reviews: reviewMock,
-  // offer: offerMock,
-  // nearby: nearbyMock,
-};
-
-OfferDetails.propTypes = {
-  offer: PropTypes.shape(offerProperties).isRequired,
-  nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  offerId: PropTypes.string.isRequired,
-  activeCoords: PropTypes.object.isRequired,
-  setOfferCoords: PropTypes.func.isRequired,
-  getOffer: PropTypes.func.isRequired,
-  getNearby: PropTypes.func.isRequired,
-  getReviews: PropTypes.func.isRequired,
-  setOfferId: PropTypes.func.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
-};
+// TODO props
+// OfferDetails.propTypes = {
+//   offer: PropTypes.shape(offerProperties).isRequired,
+//   nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+//   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+//   authorizationStatus: PropTypes.string.isRequired,
+//   offerId: PropTypes.string.isRequired,
+//   activeCoords: PropTypes.object.isRequired,
+//   setOfferCoords: PropTypes.func.isRequired,
+//   getOffer: PropTypes.func.isRequired,
+//   getNearby: PropTypes.func.isRequired,
+//   getReviews: PropTypes.func.isRequired,
+//   setOfferId: PropTypes.func.isRequired,
+//   onFavoriteClick: PropTypes.func.isRequired,
+// };
 
 const mapStateToProps = ({USER, DATA}) => ({
   offer: DATA.offer,
-  nearby: DATA.nearby,
+  nearby: selectNearbyFromState(DATA),
   reviews: DATA.reviews,
   authorizationStatus: USER.authorizationStatus,
 });
@@ -288,9 +223,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setOfferId(offerId) {
     dispatch(setActiveOfferId(offerId));
-  },
-  setOfferCoords(offer) {
-    dispatch(setActiveOfferCoords(offer));
   },
   getNearby(offerId) {
     dispatch(fetchNearby(offerId));

@@ -9,6 +9,7 @@ export const selectActiveCityFromState = (state) => state.activeCity;
 export const selectUniqFavoriteCitiesFromState = (state) => [...new Set(state.favorites.map((offer) => offer.city.name))];
 export const selectFavoriteOffersFromState = (state) => state.favorites;
 
+export const selectNearbyFromState = (state) => state.nearby;
 
 // Favorites
 export const selectOffersByCity = createSelector(
