@@ -1,7 +1,6 @@
-const APIRoute = {
+export const APIRoute = {
   HOTELS: `/hotels`,
+  REVIEWS: `/comments`,
+  FAVORITE: `/favorite`,
   LOGIN: `/login`,
 };
-
-export default APIRoute;
-

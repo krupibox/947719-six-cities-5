@@ -1,10 +1,10 @@
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import AppRoute from '../../consts/app-route';
+import {AppRoute} from '../../consts/app-route';
 
-import AuthorizationStatus from "../../consts/authorization-status";
+import {AuthorizationStatus} from "../../consts/authorization-status";
 
-const Header = ({authorizationStatus, authorizationEmail}) => {
+const Header = ({authorizationStatus, authorizationInfo}) => {
 
   return (
     <header className="header">
@@ -21,13 +21,14 @@ const Header = ({authorizationStatus, authorizationEmail}) => {
                 <Link
                   className="header__nav-link header__nav-link--profile"
 
-                  // to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}
-                  to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.ROOT : AppRoute.LOGIN}
+                  to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   <span className="header__user-name user__name">
-                    {authorizationStatus === AuthorizationStatus.AUTH ? authorizationEmail : `Sign in`}
+
+                    {authorizationStatus === AuthorizationStatus.AUTH ? authorizationInfo.email : `Sign in`}
+
                   </span>
                 </Link>
               </li>
@@ -41,12 +42,12 @@ const Header = ({authorizationStatus, authorizationEmail}) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  authorizationEmail: PropTypes.string.isRequired,
+  authorizationInfo: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
-  authorizationEmail: USER.authorizationEmail,
+  authorizationInfo: USER.authorizationInfo,
 });
 
 export {Header};

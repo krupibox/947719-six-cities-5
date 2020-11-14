@@ -23,8 +23,14 @@ module.exports = {
                     loader: 'babel-loader',
                 },
             },
-            { test: /\.css$/, use: ["style-loader","css-loader"] },
-            { test: /\.(png|svg|jpg)$/, use: [ 'file-loader' ] },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: ['file-loader'],
+            },
         ],
     },
     plugins: [

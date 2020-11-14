@@ -3,13 +3,6 @@ const cityProperties = {
   location: PropTypes.object.isRequired,
 };
 
-const hostProperties = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  isPro: PropTypes.bool.isRequired,
-  avatarUrl: PropTypes.string.isRequired,
-};
-
 export default {
   city: PropTypes.shape(cityProperties).isRequired,
   previewImage: PropTypes.string.isRequired,
@@ -19,6 +12,5 @@ export default {
   rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   location: PropTypes.object.isRequired,
-  host: PropTypes.shape(hostProperties).isRequired,
   isPremium: PropTypes.bool,
 };

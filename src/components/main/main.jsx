@@ -9,24 +9,16 @@ import MainEmpty from '../main-empty/main-empty';
 
 import withActiveCoords from '../hoc/with-active-coords';
 
-// reselect
+import {getCoordinates} from '../../utils/get-coordinates';
+
+// Reselect
 import {selectOffersByCity} from '../../store/selectors';
+
+import offerMock from '../../mocks/offer-mock';
 
 import offerProperties from "../../proptypes/offer-properties";
 
-const Main = ({offerPlaces, activeCoords, handleCardClick, handleCardHover, handleTypeClick, activeCity, sortingType}) => {
-
-  const cityCenterCoords = {
-    latitude: offerPlaces[0].city.location.latitude,
-    longitude: offerPlaces[0].city.location.longitude,
-    zoom: offerPlaces[0].city.location.zoom
-  };
-
-  const offerCoords = offerPlaces.map((offer) => [
-    offer.location.latitude,
-    offer.location.longitude,
-    offer.location.zoom
-  ]);
+const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -45,23 +37,23 @@ const Main = ({offerPlaces, activeCoords, handleCardClick, handleCardHover, hand
           </section>
         </div>
         <div className="cities">
-          <div className={`cities__places-container${offerPlaces.length > 0 ? `` : ` cities__places-container--empty`} container`}>
+          <div className={`cities__places-container${offers.length > 0 ? `` : ` cities__places-container--empty`} container`}>
             {
-              offerPlaces.length > 0 ?
-                <section className={`${offerPlaces.length > 0 ? `cities__places places` : `cities__no-places`}`}>
+              offers.length > 0 ?
+                <section className={`${offers.length > 0 ? `cities__places places` : `cities__no-places`}`}>
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offerPlaces.length} places to stay in {activeCity}</b>
+                  <b className="places__found">{offers.length} places to stay in {activeCity}</b>
 
-                  <OffersSorting handleTypeClick={handleTypeClick} sortingType={sortingType} />
+                  <OffersSorting onTypeClick={onTypeClick} sortingType={sortingType} />
 
                   <div className="cities__places-list places__list tabs__content">
 
                     <OfferList
-                      offers={offerPlaces}
+                      offers={offers}
                       sortingType={sortingType}
-                      handleCardHover={handleCardHover}
-                      handleCardClick={handleCardClick}
+                      onCardHover={onCardHover}
                       nearby={false}
+                      favorite={false}
                     />
 
                   </div>
@@ -70,14 +62,15 @@ const Main = ({offerPlaces, activeCoords, handleCardClick, handleCardHover, hand
             }
             <div className="cities__right-section">
               {
-                offerPlaces.length > 0 &&
+                offers.length > 0 &&
                 <section className="cities__map map">
 
                   <Map
-                    offerCoords={offerCoords}
-                    cityCenterCoords={cityCenterCoords}
+                    offerCoords={getCoordinates(offers).places}
+                    cityCenterCoords={getCoordinates(offers).cityCenter}
                     activeCoords={activeCoords}
-                    handleCardHover={handleCardHover}
+                    currentCoords = {null}
+                    onCardHover={onCardHover}
                   />
 
                 </section>
@@ -90,19 +83,22 @@ const Main = ({offerPlaces, activeCoords, handleCardClick, handleCardHover, hand
 
 };
 
+Main.defaultProps = {
+  offer: offerMock,
+};
+
 Main.propTypes = {
-  offerPlaces: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  activeCoords: PropTypes.array.isRequired,
-  handleCardClick: PropTypes.func.isRequired,
-  handleCardHover: PropTypes.func.isRequired,
-  handleTypeClick: PropTypes.func.isRequired,
+  offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
+  activeCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
+  onCardHover: PropTypes.func.isRequired,
+  onTypeClick: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
   sortingType: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({DATA}) => ({
   activeCity: DATA.activeCity,
-  offerPlaces: selectOffersByCity(DATA),
+  offers: selectOffersByCity(DATA),
 });
 
 export {Main};

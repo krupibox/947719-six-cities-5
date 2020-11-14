@@ -7,7 +7,7 @@ export const withActiveCoords = (Component) => {
       this._handleCardHover = this.handleCardHover.bind(this);
       this._handleTypeClick = this.handleTypeClick.bind(this);
       this.state = {
-        activeCoords: [0, 0],
+        activeCoords: null,
         sortingType: `Popular`,
       };
     }
@@ -27,8 +27,8 @@ export const withActiveCoords = (Component) => {
           {...this.props}
           activeCoords={this.state.activeCoords}
           sortingType={this.state.sortingType}
-          handleCardHover={this._handleCardHover}
-          handleTypeClick={this._handleTypeClick}
+          onCardHover={this._handleCardHover}
+          onTypeClick={this._handleTypeClick}
         />
       );
     }

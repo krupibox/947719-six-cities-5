@@ -2,82 +2,90 @@ import {PureComponent} from "react";
 import Leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-/* eslint-disable */
-                  
-const icon = Leaflet.icon({
-  iconUrl: `img/pin.svg`,
-  iconSize: [30, 30]
+const LeafIcon = Leaflet.Icon.extend({
+  options: {iconSize: [30, 30]}
 });
 
-const iconActive = Leaflet.icon({
-  iconUrl: `img/pin-active.svg`,
-  iconSize: [30, 30]
-});
+const iconDefault = new LeafIcon({iconUrl: `img/pin.svg`});
+const iconActive = new LeafIcon({iconUrl: `img/pin-active.svg`});
 
 class Map extends PureComponent {
 
   constructor(props) {
     super(props);
-    this._cityCenterCoords = props.cityCenterCoords;
-    this._offerCoords = props.offerCoords;
-    this._markers = [];
+  }
 
+  _setCurrentMarker(nextCoords) {
+    if (nextCoords !== null) {
+      Leaflet.marker([
+        nextCoords.latitude,
+        nextCoords.longitude
+      ]).setIcon(iconActive)
+        .addTo(this._layerGroup);
+    }
+  }
+
+  _setMarker(prevCoords) {
+    if (prevCoords !== null) {
+      Leaflet.marker([
+        prevCoords.latitude,
+        prevCoords.longitude
+      ]).setIcon(iconDefault)
+        .addTo(this._layerGroup);
+    }
   }
 
   componentDidMount() {
-    const city = [this._cityCenterCoords.latitude, this._cityCenterCoords.longitude];
-    const zoom = 12;
 
-    // initialize the map and return map object
+    const {latitude, longitude, zoom} = this.props.cityCenterCoords;
+    this._city = [latitude, longitude];
+    this._zoom = zoom;
+
     this._map = Leaflet.map(`map`, {
-      center: city,
-      zoom,
+      city: this._city,
+      zoom: this._zoom,
       zoomControl: false,
       marker: true
     });
-    this._map.setView(city, zoom);
 
-    // add layer
+    this._map.setView(this._city, this._zoom);
+
     Leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     }).addTo(this._map);
 
-    this._layerGroup = Leaflet.layerGroup().addTo(this._map); // add layer to map
+    this._layerGroup = Leaflet.layerGroup().addTo(this._map);
 
-    // iterate object as an array
-    if (typeof this._offerCoords === `object` && this._offerCoords !== null) {
-      this._markers = Object.values(this._offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup)); // add to layer instead of directly to map
-    }
+    this.props.offerCoords.map((coordinates, index) => this._setMarker(coordinates, index));
+
+    this._setCurrentMarker(this.props.currentCoords);
   }
+
 
   componentWillUnmount() {
     this._map.remove();
   }
 
   componentDidUpdate(prevProps) {
-    // need to check if the previous state and the current state are different !important
-    if (this.props.activeCoords !== prevProps.activeCoords) {
-      this._markers.map((marker) => {
-        if (marker._latlng.lat === this.props.activeCoords[0]
-          && marker._latlng.lng === this.props.activeCoords[1]) {
-          marker.setIcon(iconActive);
-        } else {
-          marker.setIcon(icon);
-        }
-      });
+    if (JSON.stringify(this.props.activeCoords) !== JSON.stringify(prevProps.activeCoords)) {
+      this._setMarker(prevProps.activeCoords);
+      this._setCurrentMarker(this.props.activeCoords);
     }
 
-    if (JSON.stringify(this.props.offerCoords) !== JSON.stringify(prevProps.offerCoords)) {
+    if (JSON.stringify(this.props.cityCenterCoords) !== JSON.stringify(prevProps.cityCenterCoords)) {
+      const {latitude, longitude, zoom} = this.props.cityCenterCoords;
 
-      this._map.setView([
-        this.props.cityCenterCoords.latitude,
-        this.props.cityCenterCoords.longitude
-      ], this.props.cityCenterCoords.zoom);
+      this._city = [latitude, longitude];
+      this._zoom = zoom;
 
-      this._layerGroup.clearLayers();
-      this._markers = Object.values(this.props.offerCoords).map((coordinates) => Leaflet.marker(coordinates, {icon}).addTo(this._layerGroup));
+      this._map.setView(this._city, this._zoom);
+      this.props.offerCoords.map((coordinates, index) => this._setMarker(coordinates, index));
     }
 
+    if (JSON.stringify(this.props.currentCoords) !== JSON.stringify(prevProps.currentCoords)) {
+      this._setMarker(prevProps.currentCoords);
+      this._setCurrentMarker(this.props.currentCoords);
+    }
   }
 
   render() {
@@ -89,7 +97,9 @@ class Map extends PureComponent {
 
 Map.propTypes = {
   offerCoords: PropTypes.array.isRequired,
-  activeCoords: PropTypes.array.isRequired,
+  cityCenterCoords: PropTypes.object.isRequired,
+  activeCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
+  currentCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired])
 };
 
 export default Map;

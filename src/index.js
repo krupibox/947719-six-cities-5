@@ -10,9 +10,10 @@ import App from './components/app/app';
 
 import rootReducer from "./store/reducers/root-reducer";
 import {requireAuthorization} from "./store/reducers/user";
-import AuthorizationStatus from "./consts/authorization-status";
 
-// Selectors
+import {AuthorizationStatus} from "./consts/authorization-status";
+
+// Thunk functions
 import {fetchOffersList} from "./store/reducers/data";
 import {checkAuth} from "./store/reducers/user";
 

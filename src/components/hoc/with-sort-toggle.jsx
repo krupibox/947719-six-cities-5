@@ -5,7 +5,7 @@ const withSortToggle = (Component) => {
     constructor(props) {
       super(props);
 
-      this._handleTypeClick = props.handleTypeClick.bind(this);
+      this._handleTypeClick = props.onTypeClick.bind(this);
       this._handleToggleMenuClick = this.handleToggleMenuClick.bind(this);
 
       this.state = {
@@ -28,15 +28,15 @@ const withSortToggle = (Component) => {
         <Component
           {...this.props}
           isOpen={this.state.isOpen}
-          handleTypeClick={this._handleTypeClick}
-          handleToggleMenuClick={this._handleToggleMenuClick}
+          onTypeClick={this._handleTypeClick}
+          onToggleMenuClick={this._handleToggleMenuClick}
         />
       );
     }
   }
 
   WithSortToggle.propTypes = {
-    handleTypeClick: PropTypes.func.isRequired,
+    onTypeClick: PropTypes.func.isRequired,
   };
 
   return WithSortToggle;

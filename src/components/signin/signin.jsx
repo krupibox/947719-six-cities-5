@@ -19,12 +19,14 @@ class SignIn extends PureComponent {
   handleSubmit(evt) {
     evt.preventDefault();
 
-    const {onSubmit} = this.props;
+    const {onSubmit, goBack} = this.props;
 
     onSubmit({
       login: this.loginRef.current.value,
       password: this.passwordRef.current.value,
     });
+
+    goBack();
   }
 
   render() {
@@ -85,6 +87,7 @@ class SignIn extends PureComponent {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
