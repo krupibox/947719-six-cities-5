@@ -15,7 +15,6 @@ import {MAX_ITEMS} from '../../consts/max-items';
 import {AuthorizationStatus} from '../../consts/authorization-status';
 import {AppRoute} from '../../consts/app-route';
 
-// Thunk
 import {fetchOffer} from '../../store/reducers/data';
 import {fetchNearby} from '../../store/reducers/data';
 import {fetchReviews} from '../../store/reducers/data';
@@ -28,10 +27,6 @@ import {selectNearbyFromState} from '../../store/selectors';
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
-
-// import offerMock from '../../mocks/offer-mock';
-// import nearbyMock from '../../mocks/nearby-mock';
-import reviewMock from '../../mocks/review-mock';
 
 class OfferDetails extends PureComponent {
 
@@ -56,8 +51,6 @@ class OfferDetails extends PureComponent {
   }
 
   _renderContent() {
-
-    console.log(this.props);
 
     const {offer, nearby, reviews, authorizationStatus, onFavoriteClick} = this.props;
     const {id: offerId, isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host} = offer;
@@ -194,21 +187,82 @@ class OfferDetails extends PureComponent {
   }
 }
 
-// TODO props
-// OfferDetails.propTypes = {
-//   offer: PropTypes.shape(offerProperties).isRequired,
-//   nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
-//   reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
-//   authorizationStatus: PropTypes.string.isRequired,
-//   offerId: PropTypes.string.isRequired,
-//   activeCoords: PropTypes.object.isRequired,
-//   setOfferCoords: PropTypes.func.isRequired,
-//   getOffer: PropTypes.func.isRequired,
-//   getNearby: PropTypes.func.isRequired,
-//   getReviews: PropTypes.func.isRequired,
-//   setOfferId: PropTypes.func.isRequired,
-//   onFavoriteClick: PropTypes.func.isRequired,
-// };
+OfferDetails.defaultProps = {
+  offer: {
+    city: {
+      name: ``,
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0
+      }
+    },
+    previewImage: ``,
+    images: [],
+    type: ``,
+    price: 0,
+    rating: 0,
+    title: ``,
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0
+    },
+    host: {
+      id: 0,
+      name: ``,
+      isPro: false,
+      avatarUrl: ``,
+      description: ``,
+    }
+  },
+  activeCoords: {},
+  currentCoords: {},
+
+  nearby: [{
+    city: {
+      name: ``,
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0
+      }
+    },
+    previewImage: ``,
+    images: [],
+    type: ``,
+    price: 0,
+    rating: 0,
+    title: ``,
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0
+    },
+    host: {
+      id: 0,
+      name: ``,
+      isPro: false,
+      avatarUrl: ``,
+      description: ``,
+    }
+  }],
+
+  reviews: [],
+};
+
+OfferDetails.propTypes = {
+  offer: PropTypes.shape(offerProperties).isRequired,
+  nearby: PropTypes.arrayOf(PropTypes.shape(nearbyProperties)).isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.shape(reviewProperties)).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  offerId: PropTypes.string.isRequired,
+  getOffer: PropTypes.func.isRequired,
+  getNearby: PropTypes.func.isRequired,
+  getReviews: PropTypes.func.isRequired,
+  setOfferId: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = ({USER, DATA}) => ({
   offer: DATA.offer,

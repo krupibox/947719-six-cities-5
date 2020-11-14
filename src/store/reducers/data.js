@@ -2,19 +2,16 @@ import {updateState} from '../../utils/update-state';
 
 import {APIRoute} from '../../consts/api-route';
 import {FIRST_CITY} from '../../consts/first-city';
-import {MAX_REVIEWS} from '../../consts/max-reviews';
+import {ReviewLimit} from '../../consts/review-limit';
 
-// Request
 import {setRequest as setRequestAction} from '../reducers/request';
 
-// Models
 import ModelOffer from '../../models/model-offer';
 
 import {RequestStatus} from '../../consts/request-status';
 
 import {getUniqueCities} from '../../utils/get-unique-cities';
 
-// stateToProps
 const initialState = {
   offers: [],
   favorites: [],
@@ -24,7 +21,6 @@ const initialState = {
   activeCoords: {}
 };
 
-// Actions
 export const ActionType = {
   LOAD_OFFER: `LOAD_OFFER`,
   SET_ACTIVE_OFFER_ID: `SET_ACTIVE_OFFER_ID`,
@@ -39,7 +35,6 @@ export const ActionType = {
   UPDATE_ACTIVE_CITY: `UPDATE_ACTIVE_CITY`,
 };
 
-// ActionCreators (mapDispatchToProps) (2)
 export const loadOfferAction = (offer) => ({
   type: ActionType.LOAD_OFFER,
   payload: ModelOffer.parseOffer(offer),
@@ -95,7 +90,6 @@ export const updateCityAction = (activeCity) => ({
   payload: activeCity
 });
 
-// Async thunk functions (1)
 export const fetchOffersList = () => (dispatch, getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
@@ -133,7 +127,6 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
   })
 );
 
-// Post Review data
 export const postReview = ({review, rating, offerId}) => (dispatch, _getState, api) => {
   dispatch(setRequestAction({status: RequestStatus.PENDING}));
   return api.post(`${APIRoute.REVIEWS}/${offerId}`, {comment: review, rating})
@@ -166,14 +159,12 @@ const updateFavorite = (dispatch, state, api, id, status, nearby) => {
   });
 };
 
-// Post Favorite data
 export const postFavorite = (offerId, favoriteStatus, nearby) => (dispatch, getState, api) => {
   const STATUS = {true: `0`, false: `1`};
 
   updateFavorite(dispatch, getState, api, offerId, STATUS[favoriteStatus], nearby);
 };
 
-// Reducer (for updating stateToProps) (3)
 export const data = (state = initialState, action) => {
 
   switch (action.type) {
@@ -190,7 +181,7 @@ export const data = (state = initialState, action) => {
     case ActionType.UPDATE_NEARBY:
       return updateState(state, {nearby: action.payload});
     case ActionType.LOAD_REVIEWS:
-      return updateState(state, {reviews: action.payload.slice(0, MAX_REVIEWS).sort((a, b) => b.id - a.id)});
+      return updateState(state, {reviews: action.payload.slice(0, ReviewLimit.MAX_COUNT).sort((a, b) => b.id - a.id)});
     case ActionType.LOAD_FAVORITES:
       return updateState(state, {favorites: action.payload});
     case ActionType.GET_CITIES:
@@ -201,5 +192,5 @@ export const data = (state = initialState, action) => {
       return updateState(state, {activeCity: action.payload});
   }
 
-  return state; // send initial state at start
+  return state;
 };

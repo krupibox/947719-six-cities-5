@@ -35,16 +35,6 @@ class Map extends PureComponent {
     }
   }
 
-  _updateMarker(coords) {
-    if (coords !== null) {
-      Leaflet.marker([
-        coords.latitude,
-        coords.longitude
-      ]).setIcon(iconDefault)
-        .addTo(this._layerGroup);
-    }
-  }
-
   componentDidMount() {
 
     const {latitude, longitude, zoom} = this.props.cityCenterCoords;
