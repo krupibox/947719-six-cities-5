@@ -1,18 +1,17 @@
 import {Route, Switch, Link, Router as BrowserRouter} from 'react-router-dom';
 
 import Main from '../main/main';
-import SignIn from '../signin/signin';
+import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import OfferDetails from '../offer-details/offer-details';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from "../../browser-history"; // send history as prop to router
+import browserHistory from "../../browser-history";
 
 import {AppRoute} from "../../consts/app-route";
 
 const App = () => {
 
   return (
-    // now we can recieve browserHistory as prop in components
     <BrowserRouter history={browserHistory}>
       <Switch>
 

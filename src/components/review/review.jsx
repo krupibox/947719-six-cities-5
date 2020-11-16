@@ -3,7 +3,7 @@ import {getFormatDate} from '../../utils/get-format-date';
 
 import reviewProperties from "../../proptypes/review-properties";
 
-const Reviews = ({user: {avatar_url: avatarUrl, name}, comment: text, date, rating}) => {
+const Review = ({user: {avatar_url: avatarUrl, name}, comment: text, date, rating}) => {
 
   return (<>
     <li className="reviews__item">
@@ -31,6 +31,7 @@ const Reviews = ({user: {avatar_url: avatarUrl, name}, comment: text, date, rati
   </>);
 };
 
-Reviews.propTypes = PropTypes.arrayOf(reviewProperties).isRequired;
+Review.propTypes = PropTypes.arrayOf(reviewProperties).isRequired;
 
-export default Reviews;
+export {Review};
+export default Review;
