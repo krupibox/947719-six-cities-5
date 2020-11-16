@@ -15,28 +15,7 @@ class Map extends PureComponent {
     super(props);
   }
 
-  _setCurrentMarker(nextCoords) {
-    if (nextCoords !== null) {
-      Leaflet.marker([
-        nextCoords.latitude,
-        nextCoords.longitude
-      ]).setIcon(iconActive)
-        .addTo(this._layerGroup);
-    }
-  }
-
-  _setMarker(prevCoords) {
-    if (prevCoords !== null) {
-      Leaflet.marker([
-        prevCoords.latitude,
-        prevCoords.longitude
-      ]).setIcon(iconDefault)
-        .addTo(this._layerGroup);
-    }
-  }
-
   componentDidMount() {
-
     const {latitude, longitude, zoom} = this.props.cityCenterCoords;
     this._city = [latitude, longitude];
     this._zoom = zoom;
@@ -61,11 +40,6 @@ class Map extends PureComponent {
     this._setCurrentMarker(this.props.currentCoords);
   }
 
-
-  componentWillUnmount() {
-    this._map.remove();
-  }
-
   componentDidUpdate(prevProps) {
     if (JSON.stringify(this.props.activeCoords) !== JSON.stringify(prevProps.activeCoords)) {
       this._setMarker(prevProps.activeCoords);
@@ -85,6 +59,30 @@ class Map extends PureComponent {
     if (JSON.stringify(this.props.currentCoords) !== JSON.stringify(prevProps.currentCoords)) {
       this._setMarker(prevProps.currentCoords);
       this._setCurrentMarker(this.props.currentCoords);
+    }
+  }
+
+  componentWillUnmount() {
+    this._map.remove();
+  }
+
+  _setCurrentMarker(nextCoords) {
+    if (nextCoords !== null) {
+      Leaflet.marker([
+        nextCoords.latitude,
+        nextCoords.longitude
+      ]).setIcon(iconActive)
+        .addTo(this._layerGroup);
+    }
+  }
+
+  _setMarker(prevCoords) {
+    if (prevCoords !== null) {
+      Leaflet.marker([
+        prevCoords.latitude,
+        prevCoords.longitude
+      ]).setIcon(iconDefault)
+        .addTo(this._layerGroup);
     }
   }
 
