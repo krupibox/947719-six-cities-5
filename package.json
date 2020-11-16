@@ -8,8 +8,9 @@
     "start": "webpack-dev-server",
     "eslint": "eslint --ext .jsx --ext .js src/",
     "eslintfix": "eslint --ext .jsx --ext .js src/ --fix",
-    "test": "npm run eslint",
-    "fix": "npm run eslintfix"
+    "fix": "npm run eslintfix",
+    "test": "npm run eslint && npm run test.jest",
+    "test.jest": "jest"
   },
   "devDependencies": {
     "@babel/core": "7.8.7",
