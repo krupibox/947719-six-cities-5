@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {AppRoute} from '../../consts/app-route';
-
 import {AuthorizationStatus} from "../../consts/authorization-status";
 
 const Header = ({authorizationStatus, authorizationInfo}) => {
@@ -20,7 +19,6 @@ const Header = ({authorizationStatus, authorizationInfo}) => {
               <li className="header__nav-item user">
                 <Link
                   className="header__nav-link header__nav-link--profile"
-
                   to={authorizationStatus === AuthorizationStatus.AUTH ? AppRoute.FAVORITES : AppRoute.LOGIN}
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper">

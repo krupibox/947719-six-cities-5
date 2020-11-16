@@ -1,16 +1,10 @@
 import {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-
 import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
-
-// Thunk
 import {fetchFavorites} from "../../store/reducers/data";
-
-// Reselect
 import {selectFavoritesByCity} from '../../store/selectors';
-
 import {AppRoute} from '../../consts/app-route';
 
 class Favorites extends PureComponent {
