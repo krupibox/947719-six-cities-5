@@ -1,5 +1,5 @@
 import {Review} from './review';
-import {TestMock} from "@root/test-mock/test-mock";
+import {TestMock} from '../../test-mock/test-mock';
 
 describe(`<Review/>: `, () => {
   it(`should render correctly`, () => {

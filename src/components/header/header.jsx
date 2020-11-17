@@ -48,5 +48,4 @@ const mapStateToProps = ({USER}) => ({
   authorizationInfo: USER.authorizationInfo,
 });
 
-export {Header};
 export default connect(mapStateToProps)(React.memo(Header));

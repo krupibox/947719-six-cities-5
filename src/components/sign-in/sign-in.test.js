@@ -1,8 +1,8 @@
 import {Router} from 'react-router-dom';
-import {SignIn} from "./sign-in";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import browserHistory from "../../browser-history";
+import {SignIn} from "./sign-in";
 import {AuthorizationStatus} from "../../consts/authorization-status";
 
 const mockStore = configureStore([]);

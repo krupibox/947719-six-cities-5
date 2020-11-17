@@ -1,11 +1,10 @@
 import {Router} from 'react-router-dom';
-import OfferCard from './offer-card';
-import {TestMock} from '@root/test-mock/test-mock';
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import browserHistory from "../../browser-history";
-
+import OfferCard from './offer-card';
 import {AuthorizationStatus} from "../../consts/authorization-status";
+import {TestMock} from '../../test-mock/test-mock';
 
 const mockStore = configureStore([]);
 
