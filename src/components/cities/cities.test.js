@@ -13,7 +13,7 @@ const store = mockStore({
 });
 
 describe(`<Cities/>`, () => {
-  it(`Cities should render correctly`, () => {
+  it(`should render correctly`, () => {
     const tree = renderer
             .create(
                 <Provider store={store}>

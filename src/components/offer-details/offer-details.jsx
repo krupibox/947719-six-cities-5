@@ -171,6 +171,8 @@ class OfferDetails extends PureComponent {
                 <OfferList
                   offers={nearby}
                   nearby={true}
+                  favorite={false}
+                  onCardHover={() => {}}
                 />
 
               </div>

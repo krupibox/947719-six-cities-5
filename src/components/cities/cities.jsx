@@ -15,7 +15,7 @@ const Cities = ({activeCity, cities, onUpdateCity}) => {
 };
 
 Cities.propTypes = {
-  cities: PropTypes.array.isRequired,
+  cities: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   activeCity: PropTypes.string.isRequired,
   onUpdateCity: PropTypes.func.isRequired
 };

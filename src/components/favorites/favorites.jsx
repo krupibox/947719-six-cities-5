@@ -6,6 +6,7 @@ import OfferCard from '../offer-card/offer-card';
 import {fetchFavorites} from "../../store/reducers/data";
 import {selectFavoritesByCity} from '../../store/selectors';
 import {AppRoute} from '../../consts/app-route';
+import offerProperties from '../../proptypes/offer-properties';
 
 class Favorites extends PureComponent {
 
@@ -56,6 +57,7 @@ class Favorites extends PureComponent {
                                 offer={offer}
                                 onCardHover={() => { }}
                                 favorite={true}
+                                nearby={false}
                               />
                             )}
                           </div>
@@ -81,7 +83,7 @@ class Favorites extends PureComponent {
 }
 
 Favorites.propTypes = {
-  favorites: PropTypes.object.isRequired,
+  favorites: PropTypes.shape(PropTypes.arrayOf(offerProperties).isRequired).isRequired,
   getFavorites: PropTypes.func.isRequired
 };
 

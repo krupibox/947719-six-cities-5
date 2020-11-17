@@ -1,20 +1,14 @@
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-
 import {AppRoute} from "../../consts/app-route";
-
-import {getStars} from '../../utils/get-stars';
 import {AuthorizationStatus} from "../../consts/authorization-status";
-
-// Thunk
+import {getStars} from '../../utils/get-stars';
 import {postFavorite} from '../../store/reducers/data';
-
 import {setActiveOfferId} from '../../store/reducers/data';
 import {setActiveOfferCoords} from '../../store/reducers/data';
+import offerProperties from "../../proptypes/offer-properties";
 
-import offerProperties from "../../proptypes/offer-card-properties";
-
-const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, setOfferId, setOfferCoords}) => {
+const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, onSetOfferId, onSetOfferCoords}) => {
 
   const {id: offerId, isPremium, isFavorite, price, title, previewImage, location, rating, type} = offer;
 
@@ -23,8 +17,8 @@ const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, autho
 
       onMouseEnter={onCardHover ? () => {
         onCardHover(location);
-        setOfferId(offerId);
-        setOfferCoords(offer.location);
+        onSetOfferId(offerId);
+        onSetOfferCoords(offer.location);
       } : null}
       onMouseOut={onCardHover ? () => onCardHover(null) : null}
     >
@@ -88,22 +82,26 @@ const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, autho
   );
 };
 
-OfferCard.propTypes = offerProperties;
-
 OfferCard.propTypes = {
+  favorite: PropTypes.bool.isRequired,
+  nearby: PropTypes.bool.isRequired,
+  offer: PropTypes.shape(offerProperties).isRequired,
   authorizationStatus: PropTypes.string.isRequired,
+  onCardHover: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
+  onSetOfferId: PropTypes.func.isRequired,
+  onSetOfferCoords: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus,
-  authorizationInfo: USER.authorizationInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setOfferId(offerId) {
+  onSetOfferId(offerId) {
     dispatch(setActiveOfferId(offerId));
   },
-  setOfferCoords(offer) {
+  onSetOfferCoords(offer) {
     dispatch(setActiveOfferCoords(offer));
   },
   onFavoriteClick(offerId, status, nearby) {
