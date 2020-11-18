@@ -5,9 +5,9 @@ import {connect} from 'react-redux';
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
-import OfferList from '../offers-list/offer-list';
+import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
-import Host from '../offer-details/host';
+import Host from '../host/host';
 
 import {getStars} from '../../utils/get-stars';
 import {getCoordinates} from '../../utils/get-coordinates';
@@ -168,7 +168,7 @@ class OfferDetails extends PureComponent {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
 
-                <OfferList
+                <OffersList
                   offers={nearby}
                   nearby={true}
                   favorite={false}

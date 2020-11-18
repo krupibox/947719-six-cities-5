@@ -1,21 +1,14 @@
 import {connect} from 'react-redux';
-
 import Header from '../header/header';
 import Cities from '../cities/cities';
 import OffersSorting from '../offers-sorting/offers-sorting';
-import OfferList from '../offers-list/offer-list';
+import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import MainEmpty from '../main-empty/main-empty';
-
 import withActiveCoords from '../hoc/with-active-coords';
-
 import {getCoordinates} from '../../utils/get-coordinates';
-
-// Reselect
 import {selectOffersByCity} from '../../store/selectors';
-
 import offerMock from '../../mocks/offer-mock';
-
 import offerProperties from "../../proptypes/offer-properties";
 
 const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
@@ -48,7 +41,7 @@ const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sorti
 
                   <div className="cities__places-list places__list tabs__content">
 
-                    <OfferList
+                    <OffersList
                       offers={offers}
                       sortingType={sortingType}
                       onCardHover={onCardHover}

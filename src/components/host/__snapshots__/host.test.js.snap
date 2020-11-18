@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Host/> should render correctly 1`] = `
+<div
+  className="property__host"
+>
+  <h2
+    className="property__host-title"
+  >
+    Meet the host
+  </h2>
+  <div
+    className="property__host-user user"
+  >
+    <div
+      className="property__avatar-wrapper undefined user__avatar-wrapper"
+    >
+      <img
+        alt="Host avatar"
+        className="property__avatar user__avatar"
+        height={74}
+        width={74}
+      />
+    </div>
+    <span
+      className="property__user-name"
+    >
+      Angelina
+    </span>
+  </div>
+  <div
+    className="property__description"
+  >
+    <p
+      className="property__text"
+    >
+      Discover daily local life in city center.
+    </p>
+  </div>
+</div>
+`;
