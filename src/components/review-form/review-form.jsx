@@ -1,5 +1,5 @@
 import withForm from '../hoc/with-form.jsx';
-import ReviewStars from './review-stars';
+import ReviewStars from '../review-stars/review-stars';
 
 import {ReviewLimit} from '../../consts/review-limit';
 

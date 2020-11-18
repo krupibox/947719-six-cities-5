@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {ratings} from '../../consts/ratings';
 
 const ReviewStars = ({onFieldChange, rating, status}) => {

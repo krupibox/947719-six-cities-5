@@ -11,7 +11,6 @@ const hostProperties = {
 };
 
 export default {
-  id: PropTypes.number.isRequired,
   city: PropTypes.shape(cityProperties).isRequired,
   previewImage: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
