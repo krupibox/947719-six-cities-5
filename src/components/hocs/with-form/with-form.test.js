@@ -13,10 +13,7 @@ const store = mockStore({
 
 describe(`<withForm/>: `, () => {
 
-  const MockComponent = () => (
-    <div/>
-  );
-
+  const MockComponent = () => <div/>;
   const MockWrapper = withForm(MockComponent);
 
   it(`should render correctly`, () => {

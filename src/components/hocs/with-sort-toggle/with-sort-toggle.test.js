@@ -3,7 +3,6 @@ import withSortToggle from './with-sort-toggle';
 describe(`<withSortToggle/>: `, () => {
 
   const MockComponent = () => <div />;
-
   const MockWrapper = withSortToggle(MockComponent);
 
   it(`should render correctly`, () => {

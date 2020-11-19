@@ -5,7 +5,7 @@ import OffersSorting from '../offers-sorting/offers-sorting';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import MainEmpty from '../main-empty/main-empty';
-import withActiveCoords from '../hoc/with-active-coords';
+import withActiveCoords from '../hocs/with-active-coords';
 import {getCoordinates} from '../../utils/get-coordinates';
 import {selectOffersByCity} from '../../store/selectors';
 import offerMock from '../../mocks/offer-mock';
