@@ -1,21 +1,20 @@
 import {PureComponent} from "react";
 import Leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-
-const LeafIcon = Leaflet.Icon.extend({
-  options: {iconSize: [30, 30]}
-});
-
-const iconDefault = new LeafIcon({iconUrl: `img/pin.svg`});
-const iconActive = new LeafIcon({iconUrl: `img/pin-active.svg`});
 
 class Map extends PureComponent {
-
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
+
+    const LeafIcon = Leaflet.Icon.extend({
+      options: {iconSize: [30, 30]}
+    });
+
+    this._iconDefault = new LeafIcon({iconUrl: `img/pin.svg`});
+    this._iconActive = new LeafIcon({iconUrl: `img/pin-active.svg`});
+
     const {latitude, longitude, zoom} = this.props.cityCenterCoords;
     this._city = [latitude, longitude];
     this._zoom = zoom;
@@ -71,7 +70,7 @@ class Map extends PureComponent {
       Leaflet.marker([
         nextCoords.latitude,
         nextCoords.longitude
-      ]).setIcon(iconActive)
+      ]).setIcon(this._iconActive)
         .addTo(this._layerGroup);
     }
   }
@@ -81,7 +80,7 @@ class Map extends PureComponent {
       Leaflet.marker([
         prevCoords.latitude,
         prevCoords.longitude
-      ]).setIcon(iconDefault)
+      ]).setIcon(this._iconDefault)
         .addTo(this._layerGroup);
     }
   }

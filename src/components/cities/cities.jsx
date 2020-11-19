@@ -20,7 +20,7 @@ Cities.propTypes = {
   onUpdateCity: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({DATA, _USER}) => ({
+const mapStateToProps = ({DATA}) => ({
   activeCity: DATA.activeCity,
   cities: DATA.cities,
 });

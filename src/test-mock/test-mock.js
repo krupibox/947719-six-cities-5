@@ -1,5 +1,7 @@
 export const TestMock = {
 
+  activeCity: `Cologne`,
+
   cities: [`Paris`, `Brussels`, `Hamburg`, `Amsterdam`, `Cologne`],
 
   review: {
