@@ -1,5 +1,4 @@
 import OfferCard from '../offer-card/offer-card';
-
 import getSortedOffers from '../../utils/get-sorted-offers';
 
 const OffersList = ({offers, onCardHover, sortingType, nearby, favorite}) => {

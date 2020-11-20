@@ -22,7 +22,6 @@ const withSortToggle = (Component) => {
       this.setState({sortingType: value});
     }
 
-    // union this class with component class
     render() {
       return (
         <Component

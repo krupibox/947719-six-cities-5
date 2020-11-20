@@ -1,6 +1,5 @@
 import {getStars} from '../../utils/get-stars';
 import {getFormatDate} from '../../utils/get-format-date';
-
 import reviewProperties from "../../proptypes/review-properties";
 
 const Review = ({user: {avatar_url: avatarUrl, name}, comment: text, date, rating}) => {

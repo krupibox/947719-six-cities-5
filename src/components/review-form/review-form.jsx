@@ -1,6 +1,5 @@
 import withForm from '../hocs/with-form/with-form.jsx';
 import ReviewStars from '../review-stars/review-stars';
-
 import {ReviewLimit} from '../../consts/review-limit';
 
 const ReviewForm = ({rating, review, onSubmit, onFieldChange, status}) => {
