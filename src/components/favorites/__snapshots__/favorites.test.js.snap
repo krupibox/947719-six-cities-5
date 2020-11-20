@@ -102,7 +102,7 @@ Array [
                 <article
                   className=" favorites__card place-card"
                   onMouseEnter={[Function]}
-                  onMouseOut={[Function]}
+                  onMouseLeave={[Function]}
                 >
                   <div
                     className="place-card__mark"
@@ -233,7 +233,7 @@ Array [
                 <article
                   className=" favorites__card place-card"
                   onMouseEnter={[Function]}
-                  onMouseOut={[Function]}
+                  onMouseLeave={[Function]}
                 >
                   <div
                     className="place-card__mark"
