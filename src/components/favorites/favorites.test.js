@@ -8,18 +8,39 @@ import {TestMock} from '../../test-mock/test-mock';
 
 const mockStore = configureStore([]);
 
-const store = mockStore({
-  DATA: {
-    favorites: [],
-  },
-  USER: {
-    authorizationStatus: AuthorizationStatus.NO_AUTH,
-    authorizationInfo: {},
-  }
-});
-
 describe(`<Favorites/>`, () => {
-  it(`should render correctly`, () => {
+
+  it(`should render correctly without favorites`, () => {
+    const store = mockStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        authorizationInfo: {email: `Oliver.conner@gmail.com`},
+      },
+      DATA: {
+        favorites: TestMock.favorites
+      }
+    });
+    const tree = renderer
+      .create(
+          <Provider store={store}>
+            <Router history={browserHistory}>
+              <Favorites
+                favorites={{}}
+                getFavorites={() => { }}
+              />)
+            </Router>
+          </Provider>)
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it(`should render correctly with favorites`, () => {
+    const store = mockStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        authorizationInfo: {email: `Oliver.conner@gmail.com`},
+      },
+    });
     const tree = renderer
       .create(
           <Provider store={store}>
@@ -33,4 +54,5 @@ describe(`<Favorites/>`, () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
+
 });
