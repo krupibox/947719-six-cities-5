@@ -20,7 +20,7 @@ const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, autho
         onSetOfferId(offerId);
         onSetOfferCoords(offer.location);
       } : null}
-      onMouseOut={onCardHover ? () => onCardHover(null) : null}
+      onMouseLeave={onCardHover ? () => onCardHover(null) : null}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
@@ -109,4 +109,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export {OfferCard};
 export default connect(mapStateToProps, mapDispatchToProps)(OfferCard);
