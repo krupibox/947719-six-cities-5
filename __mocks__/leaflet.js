@@ -1,32 +1,29 @@
-const leaflet = jest.genMockFromModule(`leaflet`);
+const Leaflet = jest.genMockFromModule(`leaflet`);
 
-leaflet.icon = () => {};
+Leaflet.icon = () => {};
 
-leaflet.map = () => {
+Leaflet.map = () => {
   return {
     setView: () => {},
-    remove: () => {},
-    once: () => {},
-    removeLayer: () => {},
-    flyTo: () => {},
-    scrollWheelZoom: () => {}
   };
 };
 
-leaflet.marker = () => {
-  return {
-    addTo: () => {
-      return {
-        bindPopup: () => {}
-      };
-    },
-  };
-};
-
-leaflet.tileLayer = () => {
+Leaflet.marker = () => {
   return {
     addTo: () => {},
   };
 };
 
-module.exports = leaflet;
+Leaflet.tileLayer = () => {
+  return {
+    addTo: () => {},
+  };
+};
+
+Leaflet.layerGroup = () => {
+  return {
+    addTo: () => {},
+  };
+};
+
+module.exports = Leaflet;

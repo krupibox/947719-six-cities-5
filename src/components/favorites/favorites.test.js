@@ -23,9 +23,7 @@ describe(`<Favorites/>`, () => {
     const tree = renderer
       .create(
           <Provider store={store}>
-            <Router
-              history={browserHistory}
-            >
+            <Router history={browserHistory}>
               <Favorites
                 favorites={TestMock.favorites}
                 getFavorites={() => { }}

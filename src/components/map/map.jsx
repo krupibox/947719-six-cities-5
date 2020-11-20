@@ -1,19 +1,21 @@
 import {PureComponent} from "react";
 import Leaflet from 'leaflet';
 
+const ICON_DEFAULT = Leaflet.icon({
+  iconUrl: `/img/pin.svg`,
+  iconSize: [30, 30]
+});
+
+const ICON_ACTIVE = Leaflet.icon({
+  iconUrl: `/img/pin-active.svg`,
+  iconSize: [30, 30]
+});
+
 class Map extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
 
-    const LeafIcon = Leaflet.Icon.extend({
-      options: {iconSize: [30, 30]}
-    });
-
-    this._iconDefault = new LeafIcon({iconUrl: `img/pin.svg`});
-    this._iconActive = new LeafIcon({iconUrl: `img/pin-active.svg`});
+    // console.log(this.props);
 
     const {latitude, longitude, zoom} = this.props.cityCenterCoords;
     this._city = [latitude, longitude];
@@ -52,7 +54,10 @@ class Map extends PureComponent {
       this._zoom = zoom;
 
       this._map.setView(this._city, this._zoom);
-      this.props.offerCoords.map((coordinates, index) => this._setMarker(coordinates, index));
+      this.props.offerCoords.map((coordinates, index) => {
+        this._setMarker(coordinates, index);
+
+      });
     }
 
     if (JSON.stringify(this.props.currentCoords) !== JSON.stringify(prevProps.currentCoords)) {
@@ -65,23 +70,15 @@ class Map extends PureComponent {
     this._map.remove();
   }
 
-  _setCurrentMarker(nextCoords) {
-    if (nextCoords !== null) {
-      Leaflet.marker([
-        nextCoords.latitude,
-        nextCoords.longitude
-      ]).setIcon(this._iconActive)
-        .addTo(this._layerGroup);
+  _setMarker(prevCoords) {
+    if (prevCoords !== null) {
+      Leaflet.marker([prevCoords.latitude, prevCoords.longitude], {icon: ICON_DEFAULT}).addTo(this._layerGroup);
     }
   }
 
-  _setMarker(prevCoords) {
-    if (prevCoords !== null) {
-      Leaflet.marker([
-        prevCoords.latitude,
-        prevCoords.longitude
-      ]).setIcon(this._iconDefault)
-        .addTo(this._layerGroup);
+  _setCurrentMarker(nextCoords) {
+    if (nextCoords !== null) {
+      Leaflet.marker([nextCoords.latitude, nextCoords.longitude], {icon: ICON_ACTIVE}).addTo(this._layerGroup);
     }
   }
 
