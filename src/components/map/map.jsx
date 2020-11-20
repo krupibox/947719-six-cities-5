@@ -14,9 +14,6 @@ const ICON_ACTIVE = Leaflet.icon({
 class Map extends PureComponent {
 
   componentDidMount() {
-
-    // console.log(this.props);
-
     const {latitude, longitude, zoom} = this.props.cityCenterCoords;
     this._city = [latitude, longitude];
     this._zoom = zoom;
