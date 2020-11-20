@@ -1,17 +1,12 @@
 import {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-
 import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
-
-// Thunk
 import {fetchFavorites} from "../../store/reducers/data";
-
-// Reselect
 import {selectFavoritesByCity} from '../../store/selectors';
-
 import {AppRoute} from '../../consts/app-route';
+import offerProperties from '../../proptypes/offer-properties';
 
 class Favorites extends PureComponent {
 
@@ -62,6 +57,7 @@ class Favorites extends PureComponent {
                                 offer={offer}
                                 onCardHover={() => { }}
                                 favorite={true}
+                                nearby={false}
                               />
                             )}
                           </div>
@@ -87,7 +83,7 @@ class Favorites extends PureComponent {
 }
 
 Favorites.propTypes = {
-  favorites: PropTypes.object.isRequired,
+  favorites: PropTypes.shape(PropTypes.arrayOf(offerProperties).isRequired).isRequired,
   getFavorites: PropTypes.func.isRequired
 };
 

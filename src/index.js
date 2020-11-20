@@ -3,17 +3,11 @@ import {createStore, applyMiddleware} from "redux";
 import {Provider} from 'react-redux';
 import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
-
 import {createAPI} from "./services/api";
-
 import App from './components/app/app';
-
 import rootReducer from "./store/reducers/root-reducer";
 import {requireAuthorization} from "./store/reducers/user";
-
 import {AuthorizationStatus} from "./consts/authorization-status";
-
-// Thunk functions
 import {fetchOffersList} from "./store/reducers/data";
 import {checkAuth} from "./store/reducers/user";
 

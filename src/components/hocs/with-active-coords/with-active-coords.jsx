@@ -20,7 +20,6 @@ export const withActiveCoords = (Component) => {
       this.setState({sortingType: value});
     }
 
-    // union this class with component class
     render() {
       return (
         <Component

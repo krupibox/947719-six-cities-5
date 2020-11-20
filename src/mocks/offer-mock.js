@@ -1,7 +1,7 @@
 export default {
   id: 1,
   city: {
-    name: `Paris1`,
+    name: `Paris`,
     location: {
       latitude: 0,
       longitude: 0,

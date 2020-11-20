@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OfferList/> should render correctly 1`] = `
+Array [
+  <article
+    className=" cities__place-card place-card"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <div
+      className="place-card__mark"
+    >
+      <span>
+        Premium
+      </span>
+    </div>
+    <div
+      className="false place-card__image-wrapper"
+    >
+      <a
+        href="#"
+      >
+        <img
+          alt="Place image"
+          className="place-card__image"
+          height={200}
+          src="img/apartment-01.jpg"
+          width={260}
+        />
+      </a>
+    </div>
+    <div
+      className="false place-card__info"
+    >
+      <div
+        className="place-card__price-wrapper"
+      >
+        <div
+          className="place-card__price"
+        >
+          <b
+            className="place-card__price-value"
+          >
+            €
+            80
+          </b>
+          <span
+            className="place-card__price-text"
+          >
+            / night
+          </span>
+        </div>
+        <a
+          className="place-card__bookmark-button button"
+          href="/login"
+          onClick={[Function]}
+        >
+          <svg
+            className="place-card__bookmark-icon"
+            height={19}
+            width={18}
+          >
+            <use
+              xlinkHref="#icon-bookmark"
+            />
+          </svg>
+          <span
+            className="visually-hidden"
+          >
+            To bookmarks
+          </span>
+        </a>
+      </div>
+      <div
+        className="place-card__rating rating"
+      >
+        <div
+          className="place-card__stars rating__stars"
+        >
+          <span
+            style={
+              Object {
+                "width": "60%",
+              }
+            }
+          />
+          <span
+            className="visually-hidden"
+          >
+            Rating
+          </span>
+        </div>
+      </div>
+      <h2
+        className="place-card__name"
+      >
+        <a
+          className="place-card__name"
+          href="/offer/1"
+          onClick={[Function]}
+        >
+          Beautiful &amp; luxurious apartment at great location
+        </a>
+      </h2>
+      <p
+        className="place-card__type"
+      >
+        Apartment
+      </p>
+    </div>
+  </article>,
+  ")",
+]
+`;

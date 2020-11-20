@@ -1,26 +1,20 @@
 import {updateState} from '../../utils/update-state';
-
-// Model
 import ModelUser from '../../models/model-user';
-
 import {AuthorizationStatus} from "../../consts/authorization-status";
 import {APIRoute} from "../../consts/api-route";
 import {AppRoute} from "../../consts/app-route";
 
-// stateToProps
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
   authorizationInfo: {},
 };
 
-// Actions
 export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   SAVE_AUTHORIZATION_DATA: `SAVE_AUTHORIZATION_DATA`,
   REDIRECT_TO_ROUTE: `REDIRECT_TO_ROUTE`,
 };
 
-// ActionCreators (mapDispatchToProps) (2)
 export const requireAuthorization = (status) => ({
   type: ActionType.REQUIRED_AUTHORIZATION,
   payload: status,
@@ -36,7 +30,6 @@ export const redirectToRoute = (url) => ({
   payload: url,
 });
 
-// Selectors (async thunk func) (1)
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
@@ -56,7 +49,6 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     })
 );
 
-// Reducer (mapDispatchToProps for updating stateToProps) (3)
 export const user = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:

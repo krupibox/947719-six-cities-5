@@ -36,8 +36,6 @@ module.exports = {
     plugins: [
         new webpack.ProvidePlugin({
             'React': 'react',
-            // 'PureComponent': [`react`, `PureComponent`],
-            // 'createRef': [`react`, `createRef`],
             'PropTypes': 'prop-types'
         })
     ],

@@ -1,29 +1,23 @@
 import {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
-
 import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
-import OfferList from '../offers-list/offer-list';
+import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
-import Host from '../offer-details/host';
-
+import Host from '../host/host';
 import {getStars} from '../../utils/get-stars';
 import {getCoordinates} from '../../utils/get-coordinates';
 import {MAX_ITEMS} from '../../consts/max-items';
 import {AuthorizationStatus} from '../../consts/authorization-status';
 import {AppRoute} from '../../consts/app-route';
-
 import {fetchOffer} from '../../store/reducers/data';
 import {fetchNearby} from '../../store/reducers/data';
 import {fetchReviews} from '../../store/reducers/data';
 import {postFavorite} from '../../store/reducers/data';
-
 import {setActiveOfferId} from '../../store/reducers/data';
-
 import {selectNearbyFromState} from '../../store/selectors';
-
 import offerProperties from "../../proptypes/offer-properties";
 import reviewProperties from "../../proptypes/review-properties";
 import nearbyProperties from "../../proptypes/nearby-properties";
@@ -168,9 +162,11 @@ class OfferDetails extends PureComponent {
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
 
-                <OfferList
+                <OffersList
                   offers={nearby}
                   nearby={true}
+                  favorite={false}
+                  onCardHover={() => {}}
                 />
 
               </div>

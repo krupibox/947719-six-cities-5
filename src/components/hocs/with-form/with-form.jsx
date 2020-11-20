@@ -1,9 +1,8 @@
 import {PureComponent} from "react";
 import {connect} from 'react-redux';
-
-import {RequestStatus} from '../../consts/request-status';
-import {setRequest} from '../../store/reducers/request';
-import {postReview} from '../../store/reducers/data';
+import {RequestStatus} from '../../../consts/request-status';
+import {setRequest} from '../../../store/reducers/request';
+import {postReview} from '../../../store/reducers/data';
 
 export const withForm = (Component) => {
   class WithForm extends PureComponent {
@@ -29,7 +28,6 @@ export const withForm = (Component) => {
 
       const {offerId, onSubmit} = this.props;
 
-      // send object with form data
       onSubmit({
         review: this.state.review,
         rating: parseInt(this.state.rating, 10),
@@ -40,7 +38,6 @@ export const withForm = (Component) => {
     _handleFieldChange(evt) {
       const {name, value} = evt.target;
 
-      // this name - it's keys for value
       this.setState({
         [name]: value
       });
@@ -50,7 +47,6 @@ export const withForm = (Component) => {
       this.setState({rating: ``, review: ``});
     }
 
-    // union this class with component class
     render() {
 
       const statusPending = this.props.requestStatus === RequestStatus.PENDING;
@@ -58,7 +54,7 @@ export const withForm = (Component) => {
 
       return (
         <Component
-          {...this.props} // important for props from parent
+          {...this.props}
           rating={this.state.rating}
           review={this.state.review}
           status={{pending: statusPending, failure: statusFailure}}

@@ -1,4 +1,4 @@
-import Reviews from '../reviews/reviews';
+import Review from '../review/review';
 import reviewProperties from "../../proptypes/review-properties";
 
 const ReviewsList = ({reviews}) => {
@@ -8,7 +8,7 @@ const ReviewsList = ({reviews}) => {
   return (<>
   <h2 className="reviews__title">Reviews · <span className="reviews__amount">{reviewsAmount}</span></h2>
     <ul className="reviews__list">
-      {reviews.map((review, index) => <Reviews key={`${index}-${review.id}`} {...review}/>)}
+      {reviews.map((review, index) => <Review key={`${index}-${review.id}`} {...review}/>)}
     </ul>
   </>);
 };

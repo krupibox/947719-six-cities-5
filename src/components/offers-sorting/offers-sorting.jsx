@@ -1,5 +1,4 @@
-import withSortToggle from '../hoc/with-sort-toggle';
-
+import withSortToggle from '../hocs/with-sort-toggle/with-sort-toggle';
 import {SortType} from '../../consts/sort-type';
 
 const OffersSorting = ({isOpen, sortingType, onTypeClick, onToggleMenuClick}) => {
