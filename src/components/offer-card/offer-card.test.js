@@ -21,9 +21,7 @@ describe(`<OfferCard/>`, () => {
     const tree = renderer
             .create(
                 <Provider store={store}>
-                  <Router
-                    history={browserHistory}
-                  >
+                  <Router history={browserHistory}>
                     <OfferCard
                       nearby={false}
                       favorite={false}

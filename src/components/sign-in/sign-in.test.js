@@ -21,9 +21,7 @@ describe(`<SignIn/>`, () => {
     const tree = renderer
               .create(
                   <Provider store={store}>
-                    <Router
-                      history={browserHistory}
-                    >
+                    <Router history={browserHistory}>
                       <SignIn
                         goBack={noop}
                         onSubmit={noop}

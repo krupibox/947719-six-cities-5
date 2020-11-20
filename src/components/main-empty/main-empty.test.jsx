@@ -1,11 +1,11 @@
-import {Review} from './review';
+import MainEmpty from './main-empty';
 import {TestMock} from '../../test-mock/test-mock';
 
-describe(`<Review/>: `, () => {
+describe(`<MainEmpty/>: `, () => {
   it(`should render correctly`, () => {
     const tree = renderer
       .create(
-          <Review {...TestMock.review}/>
+          <MainEmpty activeCity={TestMock.activeCity}/>
       ).toJSON();
     expect(tree).toMatchSnapshot();
   });
