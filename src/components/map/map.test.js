@@ -1,5 +1,5 @@
 import Map from './map';
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 describe(`<Map/>`, () => {
   it(`should render correctly`, () => {

@@ -1,5 +1,5 @@
 import Host from './host';
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 describe(`<Host/>`, () => {
   it(`should render correctly`, () => {

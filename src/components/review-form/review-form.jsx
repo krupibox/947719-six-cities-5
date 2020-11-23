@@ -47,5 +47,6 @@ ReviewForm.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
 };
 
+export {ReviewForm};
 export default withForm(ReviewForm);
 

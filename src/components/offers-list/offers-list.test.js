@@ -4,7 +4,7 @@ import configureStore from "redux-mock-store";
 import browserHistory from "../../browser-history";
 import OffersList from './offers-list';
 import {AuthorizationStatus} from "../../consts/authorization-status";
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 const mockStore = configureStore([]);
 

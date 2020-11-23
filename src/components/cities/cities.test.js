@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import browserHistory from "../../browser-history";
 import Cities from './cities';
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 const mockStore = configureStore([]);
 

@@ -13,6 +13,11 @@ const ICON_ACTIVE = Leaflet.icon({
 
 class Map extends PureComponent {
 
+  constructor(props) {
+    super(props);
+    this._markers = null;
+  }
+
   componentDidMount() {
     const {latitude, longitude, zoom} = this.props.cityCenterCoords;
     this._city = [latitude, longitude];
@@ -32,34 +37,36 @@ class Map extends PureComponent {
     }).addTo(this._map);
 
     this._layerGroup = Leaflet.layerGroup().addTo(this._map);
+    this._layerCurrentGroup = Leaflet.layerGroup().addTo(this._map);
 
-    this.props.offerCoords.map((coordinates, index) => this._setMarker(coordinates, index));
-
-    this._setCurrentMarker(this.props.currentCoords);
+    this._renderMarkers();
+    this._setCurrentMarker();
   }
 
   componentDidUpdate(prevProps) {
+
     if (JSON.stringify(this.props.activeCoords) !== JSON.stringify(prevProps.activeCoords)) {
-      this._setMarker(prevProps.activeCoords);
-      this._setCurrentMarker(this.props.activeCoords);
+      this._setActiveMarker(this.props.activeCoords, prevProps.activeCoords);
     }
 
     if (JSON.stringify(this.props.cityCenterCoords) !== JSON.stringify(prevProps.cityCenterCoords)) {
+      this._layerGroup.clearLayers();
+
       const {latitude, longitude, zoom} = this.props.cityCenterCoords;
 
       this._city = [latitude, longitude];
       this._zoom = zoom;
 
       this._map.setView(this._city, this._zoom);
-      this.props.offerCoords.map((coordinates, index) => {
-        this._setMarker(coordinates, index);
 
-      });
+      this._renderMarkers();
     }
 
     if (JSON.stringify(this.props.currentCoords) !== JSON.stringify(prevProps.currentCoords)) {
-      this._setMarker(prevProps.currentCoords);
-      this._setCurrentMarker(this.props.currentCoords);
+      this._layerGroup.clearLayers();
+      this._renderMarkers();
+      this._setActiveMarker(this.props.currentCoords, prevProps.currentCoords);
+      this._setCurrentMarker();
     }
   }
 
@@ -67,16 +74,32 @@ class Map extends PureComponent {
     this._map.remove();
   }
 
-  _setMarker(prevCoords) {
+  _renderMarkers() {
+    this._markers = this.props.offerCoords.map((coordinates) => Leaflet.marker([coordinates.latitude, coordinates.longitude], {icon: ICON_DEFAULT}).addTo(this._layerCurrentGroup));
+  }
+
+  _setActiveMarker(activeCoords, prevCoords) {
+    if (activeCoords !== null) {
+      this._markers.map((markerCoords) => this._isPin(activeCoords, markerCoords) && markerCoords.setIcon(ICON_ACTIVE));
+    }
+
     if (prevCoords !== null) {
-      Leaflet.marker([prevCoords.latitude, prevCoords.longitude], {icon: ICON_DEFAULT}).addTo(this._layerGroup);
+      this._markers.map((markerCoords) => this._isPin(prevCoords, markerCoords) && markerCoords.setIcon(ICON_DEFAULT));
     }
   }
 
-  _setCurrentMarker(nextCoords) {
-    if (nextCoords !== null) {
-      Leaflet.marker([nextCoords.latitude, nextCoords.longitude], {icon: ICON_ACTIVE}).addTo(this._layerGroup);
+  _setCurrentMarker() {
+    if (this._currentMarker) {
+      this._currentMarker.setIcon(ICON_DEFAULT);
     }
+
+    if (this.props.currentCoords) {
+      this._currentMarker = Leaflet.marker([this.props.currentCoords.latitude, this.props.currentCoords.longitude], {icon: ICON_ACTIVE}).addTo(this._layerCurrentGroup);
+    }
+  }
+
+  _isPin(activeCoords, markerCoords) {
+    return markerCoords._latlng.lat === activeCoords.latitude && markerCoords._latlng.lng === activeCoords.longitude;
   }
 
   render() {

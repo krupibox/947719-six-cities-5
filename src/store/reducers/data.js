@@ -143,7 +143,14 @@ const updateFavorite = (dispatch, state, api, id, status, nearby) => {
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, status})
   .then(({data}) => {
     if (nearby) {
-      dispatch(fetchNearby(state().DATA.activeOfferId));
+
+      dispatch(fetchFavorites());
+
+      let nears = state().DATA.nearby;
+      const index = nears.findIndex((el) => el.id === data.id);
+      nears = [...nears.slice(0, index), data, ...nears.slice(index + 1)];
+
+      dispatch(loadNearbyAction(nears));
 
       return;
     }
@@ -154,7 +161,7 @@ const updateFavorite = (dispatch, state, api, id, status, nearby) => {
 
     dispatch(loadOfferAction(data));
     dispatch(loadOffersAction(offers));
-    dispatch(fetchFavorites()); // effect on favorites page
+    dispatch(fetchFavorites());
 
   });
 };

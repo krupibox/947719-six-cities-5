@@ -1,5 +1,5 @@
 import MainEmpty from './main-empty';
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 describe(`<MainEmpty/>: `, () => {
   it(`should render correctly`, () => {
