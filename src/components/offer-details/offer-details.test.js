@@ -5,7 +5,6 @@ import browserHistory from "../../browser-history";
 import {OfferDetails} from './offer-details';
 import {AuthorizationStatus} from "../../consts/authorization-status";
 import {RequestStatus} from '../../consts/request-status';
-// import {TestMock} from '../../test-mock/test-mock';
 
 const mockStore = configureStore([]);
 

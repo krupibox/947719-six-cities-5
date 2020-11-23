@@ -1,7 +1,7 @@
 import {OfferCard} from './offer-card';
 import {shallow} from 'enzyme';
 import {AuthorizationStatus} from "../../consts/authorization-status";
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 describe(`<OfferCard/> events are correct: `, () => {
   const offer = TestMock.offer;

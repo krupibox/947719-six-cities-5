@@ -1,5 +1,5 @@
 import ReviewsList from './reviews-list';
-import {TestMock} from '../../test-mock/test-mock';
+import {TestMock} from '../../__mocks__/mocks';
 
 describe(`<ReviewsList/>`, () => {
   it(`should render correctly`, () => {
