@@ -4,6 +4,8 @@ export const TestMock = {
 
   cities: [`Paris`, `Brussels`, `Hamburg`, `Amsterdam`, `Cologne`],
 
+  firstCity: [`Cologne`],
+
   review: {
     user: {
       id: 1,

@@ -1,5 +1,5 @@
-import {OfferCard} from './offer-card';
 import {shallow} from 'enzyme';
+import {OfferCard} from './offer-card';
 import {AuthorizationStatus} from "../../consts/authorization-status";
 import {TestMock} from '../../__mocks__/mocks';
 
