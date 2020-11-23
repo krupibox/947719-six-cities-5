@@ -37,6 +37,7 @@ class Map extends PureComponent {
     }).addTo(this._map);
 
     this._layerGroup = Leaflet.layerGroup().addTo(this._map);
+    this._layerCurrentGroup = Leaflet.layerGroup().addTo(this._map);
 
     this._renderMarkers();
     this._setCurrentMarker();
@@ -62,6 +63,7 @@ class Map extends PureComponent {
     }
 
     if (JSON.stringify(this.props.currentCoords) !== JSON.stringify(prevProps.currentCoords)) {
+      this._layerGroup.clearLayers();
       this._renderMarkers();
       this._setActiveMarker(this.props.currentCoords, prevProps.currentCoords);
       this._setCurrentMarker();
@@ -73,7 +75,7 @@ class Map extends PureComponent {
   }
 
   _renderMarkers() {
-    this._markers = this.props.offerCoords.map((coordinates) => Leaflet.marker([coordinates.latitude, coordinates.longitude], {icon: ICON_DEFAULT}).addTo(this._layerGroup));
+    this._markers = this.props.offerCoords.map((coordinates) => Leaflet.marker([coordinates.latitude, coordinates.longitude], {icon: ICON_DEFAULT}).addTo(this._layerCurrentGroup));
   }
 
   _setActiveMarker(activeCoords, prevCoords) {
@@ -92,7 +94,7 @@ class Map extends PureComponent {
     }
 
     if (this.props.currentCoords) {
-      this._currentMarker = Leaflet.marker([this.props.currentCoords.latitude, this.props.currentCoords.longitude], {icon: ICON_ACTIVE}).addTo(this._layerGroup);
+      this._currentMarker = Leaflet.marker([this.props.currentCoords.latitude, this.props.currentCoords.longitude], {icon: ICON_ACTIVE}).addTo(this._layerCurrentGroup);
     }
   }
 
