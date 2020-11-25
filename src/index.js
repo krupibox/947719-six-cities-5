@@ -6,10 +6,10 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import {createAPI} from "./services/api";
 import App from './components/app/app';
 import rootReducer from "./store/reducers/root-reducer";
-import {requireAuthorization} from "./store/reducers/user";
+import {requireAuthorization} from "./store/reducers/user/user";
 import {AuthorizationStatus} from "./consts/authorization-status";
 import {fetchOffersList} from "./store/reducers/data";
-import {checkAuth} from "./store/reducers/user";
+import {checkAuth} from "./store/reducers/user/user";
 import {redirect} from "./store/middlewares/redirect";
 
 const api = createAPI(

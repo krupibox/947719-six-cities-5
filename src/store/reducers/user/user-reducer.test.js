@@ -1,13 +1,13 @@
 import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../services/api";
+import {createAPI} from "../../../services/api";
 import {user} from "./user";
 import {ActionType} from "./user";
 import {checkAuth, login} from "./user";
-import {APIRoute} from "../../consts/api-route";
-import {AppRoute} from "../../consts/app-route";
-import {AuthorizationStatus} from "../../consts/authorization-status";
-import ModelUser from '../../models/model-user';
-import {info} from '../../__mocks__/mocks';
+import {APIRoute} from "../../../consts/api-route";
+import {AppRoute} from "../../../consts/app-route";
+import {AuthorizationStatus} from "../../../consts/authorization-status";
+import ModelUser from '../../../models/model-user';
+import {info} from '../../../__mocks__/mocks';
 
 const api = createAPI(() => { });
 

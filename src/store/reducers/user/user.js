@@ -1,8 +1,8 @@
-import {updateState} from '../../utils/update-state';
-import ModelUser from '../../models/model-user';
-import {AuthorizationStatus} from "../../consts/authorization-status";
-import {APIRoute} from "../../consts/api-route";
-import {AppRoute} from "../../consts/app-route";
+import {updateState} from '../../../utils/update-state';
+import ModelUser from '../../../models/model-user';
+import {AuthorizationStatus} from "../../../consts/authorization-status";
+import {APIRoute} from "../../../consts/api-route";
+import {AppRoute} from "../../../consts/app-route";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
