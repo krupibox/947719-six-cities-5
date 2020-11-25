@@ -32,9 +32,8 @@ export const redirectToRoute = (url) => ({
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({data}) => {
+    .then(() => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(saveAuthorizationData(data));
     }).catch(() => {
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
     })
