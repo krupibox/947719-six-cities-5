@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import {AppRoute} from "../../consts/app-route";
 import {AuthorizationStatus} from "../../consts/authorization-status";
 import {getStars} from '../../utils/get-stars';
-import {postFavorite} from '../../store/reducers/data';
-import {setActiveOfferId} from '../../store/reducers/data';
-import {setActiveOfferCoords} from '../../store/reducers/data';
+import {postFavorite} from '../../store/reducers/data/data';
+import {setActiveOfferId} from '../../store/reducers/data/data';
+import {setActiveOfferCoords} from '../../store/reducers/data/data';
 import offerProperties from "../../proptypes/offer-properties";
 
 const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, onSetOfferId, onSetOfferCoords}) => {

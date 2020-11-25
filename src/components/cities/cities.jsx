@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {updateCityAction} from '../../store/reducers/data';
+import {updateCityAction} from '../../store/reducers/data/data';
 
 const Cities = ({activeCity, cities, onUpdateCity}) => {
 

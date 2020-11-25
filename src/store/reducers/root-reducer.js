@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {data} from './data';
+import {data} from './data/data';
 import {user} from './user/user';
 import {request} from './request/request';
 

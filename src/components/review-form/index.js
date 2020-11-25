@@ -8,7 +8,7 @@ import App from './components/app/app';
 import rootReducer from "./store/reducers/root-reducer";
 import {requireAuthorization} from "./store/reducers/user";
 import {AuthorizationStatus} from "./consts/authorization-status";
-import {fetchOffersList} from "./store/reducers/data";
+import {fetchOffersList} from "./store/reducers/data/data";
 import {checkAuth} from "./store/reducers/user";
 import {redirect} from "./store/middlewares/redirect";
 

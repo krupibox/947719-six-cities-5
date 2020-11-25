@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
-import {fetchFavorites} from "../../store/reducers/data";
+import {fetchFavorites} from "../../store/reducers/data/data";
 import {selectFavoritesByCity} from '../../store/selectors';
 import {AppRoute} from '../../consts/app-route';
 import offerProperties from '../../proptypes/offer-properties';

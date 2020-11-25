@@ -2,7 +2,7 @@ import {PureComponent} from "react";
 import {connect} from 'react-redux';
 import {RequestStatus} from '../../../consts/request-status';
 import {setRequest} from '../../../store/reducers/request/request';
-import {postReview} from '../../../store/reducers/data';
+import {postReview} from '../../../store/reducers/data/data';
 
 export const withForm = (Component) => {
   class WithForm extends PureComponent {
