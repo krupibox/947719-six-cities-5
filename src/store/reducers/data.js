@@ -27,7 +27,6 @@ export const ActionType = {
   SET_ACTIVE_OFFER_COORDS: `SET_ACTIVE_OFFER_COORDS`,
   LOAD_OFFERS: `LOAD_OFFERS`,
   LOAD_NEARBY: `LOAD_NEARBY`,
-  UPDATE_NEARBY: `UPDATE_NEARBY`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   LOAD_FAVORITES: `LOAD_FAVORITES`,
   GET_CITIES: `GET_CITIES`,
@@ -179,8 +178,6 @@ export const data = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return updateState(state, {offers: action.payload});
     case ActionType.LOAD_NEARBY:
-      return updateState(state, {nearby: action.payload});
-    case ActionType.UPDATE_NEARBY:
       return updateState(state, {nearby: action.payload});
     case ActionType.LOAD_REVIEWS:
       return updateState(state, {reviews: action.payload.slice(0, ReviewLimit.MAX_COUNT).sort((a, b) => b.id - a.id)});
