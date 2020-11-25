@@ -12,7 +12,6 @@ const ICON_ACTIVE = Leaflet.icon({
 });
 
 class Map extends PureComponent {
-
   constructor(props) {
     super(props);
     this._markers = null;

@@ -27,10 +27,6 @@ describe(`<OfferDetails/>`, () => {
           <Provider store={store}>
             <Router history={browserHistory}>
               <OfferDetails
-                // nearby={false}
-                // favorite={false}
-                // offer={TestMock.offer}
-                // onCardHover={noop}
                 offerId={`1`}
                 authorizationStatus={AuthorizationStatus.AUTH}
                 onFavoriteClick={noop}
@@ -39,7 +35,6 @@ describe(`<OfferDetails/>`, () => {
                 getNearby={noop}
                 getReviews={noop}
                 setOfferId={noop}
-                // onSetOfferCoords={noop}
               />
             </Router>
           </Provider>,

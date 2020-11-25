@@ -169,13 +169,3 @@ export const TestMock = {
     }
   ],
 };
-
-
-// const initialState = {
-//   offers: [],
-//   favorites: [],
-//   cities: [],
-//   activeCity: ``,
-//   activeOfferId: ``,
-//   activeCoords: {}
-// };

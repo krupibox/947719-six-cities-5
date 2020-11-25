@@ -1,17 +1,11 @@
-// import {NameSpace} from './reducers/root-reducer';
 import {createSelector} from 'reselect';
 
-// Main
-// export const selectOffers = (state) => state[NameSpace.DATA].offers; // example with [NameSpace]
 export const selectOffersFromState = (state) => state.offers;
 export const selectActiveCityFromState = (state) => state.activeCity;
-
 export const selectUniqFavoriteCitiesFromState = (state) => [...new Set(state.favorites.map((offer) => offer.city.name))];
 export const selectFavoriteOffersFromState = (state) => state.favorites;
-
 export const selectNearbyFromState = (state) => state.nearby;
 
-// Favorites
 export const selectOffersByCity = createSelector(
     selectOffersFromState,
     selectActiveCityFromState,

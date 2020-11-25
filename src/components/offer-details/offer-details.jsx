@@ -26,7 +26,7 @@ class OfferDetails extends PureComponent {
 
   constructor(props) {
     super(props);
-    this._currentCoords = {}; // (1)
+    this._currentCoords = {};
   }
 
   componentDidMount() {

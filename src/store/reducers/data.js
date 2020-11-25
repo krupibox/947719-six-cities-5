@@ -60,11 +60,6 @@ export const loadNearbyAction = (nearby) => ({
   payload: ModelOffer.parseOffers(nearby)
 });
 
-export const updateNearbyAction = (nearby) => ({
-  type: ActionType.UPDATE_NEARBY,
-  payload: nearby
-});
-
 export const loadReviewsAction = (reviews) => ({
   type: ActionType.LOAD_REVIEWS,
   payload: reviews
