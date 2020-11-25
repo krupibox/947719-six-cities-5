@@ -37,14 +37,18 @@ describe(`Async operation work correctly`, () => {
 
     apiMock
       .onGet(APIRoute.LOGIN)
-      .reply(200, [{fake: true}]);
+      .reply(200, info);
 
     return checkAuthLoader(dispatch, () => { }, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.AUTH,
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
+          type: ActionType.SAVE_AUTHORIZATION_DATA,
+          payload: ModelUser.parse(info),
         });
       });
   });
