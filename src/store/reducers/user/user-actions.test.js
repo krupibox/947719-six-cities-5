@@ -7,7 +7,6 @@ import {info} from '../../../__mocks__/mocks';
 
 const status = AuthorizationStatus.AUTH;
 
-
 describe(`Actions work correctly`, () => {
   it(`Action requireAuthorization work correctly`, () => {
     expect(requireAuthorization(status)).toEqual({

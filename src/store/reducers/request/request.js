@@ -1,5 +1,5 @@
-import {updateState} from '../../utils/update-state';
-import {RequestStatus} from '../../consts/request-status';
+import {updateState} from '../../../utils/update-state';
+import {RequestStatus} from '../../../consts/request-status';
 
 const initialState = {
   status: RequestStatus.INITIAL,

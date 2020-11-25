@@ -1,15 +1,10 @@
 import {updateState} from '../../utils/update-state';
-
 import {APIRoute} from '../../consts/api-route';
 import {FIRST_CITY} from '../../consts/first-city';
 import {ReviewLimit} from '../../consts/review-limit';
-
-import {setRequest as setRequestAction} from '../reducers/request';
-
+import {setRequest as setRequestAction} from '../reducers/request/request';
 import ModelOffer from '../../models/model-offer';
-
 import {RequestStatus} from '../../consts/request-status';
-
 import {getUniqueCities} from '../../utils/get-unique-cities';
 
 const initialState = {
