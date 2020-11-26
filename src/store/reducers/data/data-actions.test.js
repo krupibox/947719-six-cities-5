@@ -1,5 +1,4 @@
 import {ActionType} from './data';
-
 import {
   loadOfferAction,
   setActiveOfferId,
@@ -12,13 +11,12 @@ import {
   getFirstCityAction,
   updateCityAction,
 } from './data';
-
 import {getUniqueCities} from '../../../utils/get-unique-cities';
 import ModelOffer from '../../../models/model-offer';
 import {TestMock} from '../../../__mocks__/mocks';
 
-const offer = TestMock.offer;
-const offers = TestMock.offers;
+const {offer, offers, reviews, firstCity, activeCity} = TestMock;
+const {id, location} = offer;
 
 describe(`Actions work correctly`, () => {
   it(`Action loadOfferAction work correctly`, () => {
@@ -28,15 +26,15 @@ describe(`Actions work correctly`, () => {
     });
   });
   it(`Action setActiveOfferId work correctly`, () => {
-    expect(setActiveOfferId(offer.id)).toEqual({
+    expect(setActiveOfferId(id)).toEqual({
       type: ActionType.SET_ACTIVE_OFFER_ID,
-      payload: offer.id,
+      payload: id,
     });
   });
   it(`Action setActiveOfferCoords work correctly`, () => {
-    expect(setActiveOfferCoords(offer.location)).toEqual({
+    expect(setActiveOfferCoords(location)).toEqual({
       type: ActionType.SET_ACTIVE_OFFER_COORDS,
-      payload: offer.location,
+      payload: location,
     });
   });
   it(`Action loadOffersAction work correctly`, () => {
@@ -52,7 +50,7 @@ describe(`Actions work correctly`, () => {
     });
   });
   it(`Action loadReviewsAction work correctly`, () => {
-    expect(loadReviewsAction(TestMock.reviews)).toEqual({
+    expect(loadReviewsAction(reviews)).toEqual({
       type: ActionType.LOAD_REVIEWS,
       payload: TestMock.reviews,
     });
@@ -70,15 +68,15 @@ describe(`Actions work correctly`, () => {
     });
   });
   it(`Action getFirstCityAction work correctly`, () => {
-    expect(getFirstCityAction(TestMock.city)).toEqual({
+    expect(getFirstCityAction(firstCity)).toEqual({
       type: ActionType.GET_FIRST_CITY,
-      payload: TestMock.city,
+      payload: firstCity,
     });
   });
   it(`Action updateCityAction work correctly`, () => {
-    expect(updateCityAction(TestMock.city)).toEqual({
+    expect(updateCityAction(activeCity)).toEqual({
       type: ActionType.UPDATE_ACTIVE_CITY,
-      payload: TestMock.city,
+      payload: activeCity,
     });
   });
 });

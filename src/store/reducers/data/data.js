@@ -1,11 +1,11 @@
 import {updateState} from '../../../utils/update-state';
+import {getUniqueCities} from '../../../utils/get-unique-cities';
+import {setRequest as setRequestAction} from '../request/request';
+import {RequestStatus} from '../../../consts/request-status';
+import {ReviewLimit} from '../../../consts/review-limit';
 import {APIRoute} from '../../../consts/api-route';
 import {FIRST_CITY} from '../../../consts/first-city';
-import {ReviewLimit} from '../../../consts/review-limit';
-import {setRequest as setRequestAction} from '../request/request';
 import ModelOffer from '../../../models/model-offer';
-import {RequestStatus} from '../../../consts/request-status';
-import {getUniqueCities} from '../../../utils/get-unique-cities';
 
 const initialState = {
   offers: [],
@@ -79,40 +79,29 @@ export const updateCityAction = (activeCity) => ({
   payload: activeCity
 });
 
-export const fetchOffersList = () => (dispatch, getState, api) => (
+export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
       dispatch(loadOffersAction(data));
       dispatch(getCitiesAction(data));
-      dispatch(getFirstCityAction(getState().DATA.cities[FIRST_CITY]));
+      dispatch(getFirstCityAction(data[FIRST_CITY].city.name));
     })
 );
 
 export const fetchOffer = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}`)
-    .then(({data}) => {
-      dispatch(loadOfferAction(data));
-    })
+    .then(({data}) => dispatch(loadOfferAction(data)))
 );
 
 export const fetchNearby = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${offerId}/nearby`)
-  .then(({data}) => {
-    dispatch(loadNearbyAction(data));
-  })
+  .then(({data}) => dispatch(loadNearbyAction(data)))
 );
 
 export const fetchReviews = (offerId) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.REVIEWS}/${offerId}`)
   .then(({data}) => {
     dispatch(loadReviewsAction(data));
-  })
-);
-
-export const fetchFavorites = () => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.FAVORITE}`)
-  .then(({data}) => {
-    dispatch(loadFavoritesAction(data));
   })
 );
 
@@ -128,37 +117,40 @@ export const postReview = ({review, rating, offerId}) => (dispatch, _getState, a
       });
 };
 
-const updateFavorite = (dispatch, state, api, id, status, nearby) => {
-  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {'hotel_id': id, status})
+export const fetchFavorites = () => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.FAVORITE}`)
   .then(({data}) => {
+    dispatch(loadFavoritesAction(data));
+  })
+);
+
+export const postFavorite = (offerId, favoriteStatus, nearby) => (dispatch, getState, api) => {
+
+  const STATUS = {true: `0`, false: `1`};
+
+  return api.post(`${APIRoute.FAVORITE}/${offerId}/${STATUS[favoriteStatus]}`, {'hotel_id': offerId, status})
+  .then(({data}) => {
+
     if (nearby) {
 
       dispatch(fetchFavorites());
 
-      let nears = state().DATA.nearby;
+      let nears = getState().DATA.nearby;
       const index = nears.findIndex((el) => el.id === data.id);
       nears = [...nears.slice(0, index), data, ...nears.slice(index + 1)];
-
       dispatch(loadNearbyAction(nears));
 
       return;
     }
 
-    let offers = state().DATA.offers;
+    let offers = getState().DATA.offers;
     const index = offers.findIndex((offer) => offer.id === data.id);
     offers = [...offers.slice(0, index), data, ...offers.slice(index + 1)];
-
     dispatch(loadOfferAction(data));
     dispatch(loadOffersAction(offers));
     dispatch(fetchFavorites());
 
   });
-};
-
-export const postFavorite = (offerId, favoriteStatus, nearby) => (dispatch, getState, api) => {
-  const STATUS = {true: `0`, false: `1`};
-
-  updateFavorite(dispatch, getState, api, offerId, STATUS[favoriteStatus], nearby);
 };
 
 export const data = (state = initialState, action) => {
