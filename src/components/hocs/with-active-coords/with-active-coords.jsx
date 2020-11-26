@@ -1,39 +1,19 @@
-import {PureComponent} from "react";
+import {useState} from 'react';
 
-export const withActiveCoords = (Component) => {
-  class WithActiveCoords extends PureComponent {
-    constructor(props) {
-      super(props);
-      this._handleCardHover = this.handleCardHover.bind(this);
-      this._handleTypeClick = this.handleTypeClick.bind(this);
-      this.state = {
-        activeCoords: null,
-        sortingType: `Popular`,
-      };
-    }
+export const withActiveCoords = (Component) => (props) => {
 
-    handleCardHover(value) {
-      this.setState({activeCoords: value});
-    }
+  const [activeCoords, setActiveCoords] = useState(null);
+  const [sortingType, setType] = useState(`Popular`);
 
-    handleTypeClick(value) {
-      this.setState({sortingType: value});
-    }
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          activeCoords={this.state.activeCoords}
-          sortingType={this.state.sortingType}
-          onCardHover={this._handleCardHover}
-          onTypeClick={this._handleTypeClick}
-        />
-      );
-    }
-  }
-
-  return WithActiveCoords;
+  return (
+    <Component
+      {...props}
+      activeCoords={activeCoords}
+      sortingType={sortingType}
+      onCardHover={(coords) => setActiveCoords(coords)}
+      onTypeClick={(type) => setType(type)}
+    />
+  );
 };
 
 export default withActiveCoords;

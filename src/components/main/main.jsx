@@ -12,6 +12,7 @@ import offerMock from '../../mocks/offer-mock';
 import offerProperties from "../../proptypes/offer-properties";
 
 const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
+
   return (
     <div className="page page--gray page--main">
 
@@ -36,7 +37,10 @@ const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sorti
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{offers.length} places to stay in {activeCity}</b>
 
-                  <OffersSorting onTypeClick={onTypeClick} sortingType={sortingType} />
+                  <OffersSorting
+                    onTypeClick={onTypeClick}
+                    sortingType={sortingType}
+                  />
 
                   <div className="cities__places-list places__list tabs__content">
 
@@ -50,6 +54,7 @@ const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sorti
 
                   </div>
                 </section>
+
                 : <MainEmpty activeCity={activeCity} />
             }
             <div className="cities__right-section">
