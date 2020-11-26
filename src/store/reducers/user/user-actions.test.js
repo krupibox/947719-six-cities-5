@@ -3,11 +3,12 @@ import {requireAuthorization, saveAuthorizationData, redirectToRoute} from './us
 import {AppRoute} from "../../../consts/app-route";
 import {AuthorizationStatus} from "../../../consts/authorization-status";
 import ModelUser from '../../../models/model-user';
-import {info} from '../../../__mocks__/mocks';
+import {TestMock} from '../../../__mocks__/mocks';
 
+const {info} = TestMock;
 const status = AuthorizationStatus.AUTH;
 
-describe(`Actions work correctly`, () => {
+describe(`User actions work correctly`, () => {
   it(`Action requireAuthorization work correctly`, () => {
     expect(requireAuthorization(status)).toEqual({
       type: ActionType.REQUIRED_AUTHORIZATION,

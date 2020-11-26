@@ -1,5 +1,4 @@
 export const TestMock = {
-
   activeCity: `Cologne`,
 
   cities: [`Paris`, `Brussels`, `Hamburg`, `Amsterdam`, `Cologne`],
@@ -168,15 +167,13 @@ export const TestMock = {
       }
     }
   ],
-
-};
-
-export const info = {
-  // eslint-disable-next-line camelcase
-  avatar_url: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/5.jpg`,
-  email: `Oliver.conner@gmail.com`,
-  id: 1,
-  // eslint-disable-next-line camelcase
-  is_pro: false,
-  name: `12345678`,
+  info: {
+    // eslint-disable-next-line camelcase
+    avatar_url: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/5.jpg`,
+    email: `Oliver.conner@gmail.com`,
+    id: 1,
+    // eslint-disable-next-line camelcase
+    is_pro: false,
+    name: `12345678`,
+  },
 };
