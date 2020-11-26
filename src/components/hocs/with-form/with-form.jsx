@@ -1,91 +1,64 @@
-import {PureComponent} from "react";
-import {connect} from 'react-redux';
+import {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {RequestStatus} from '../../../consts/request-status';
 import {setRequest} from '../../../store/reducers/request/request';
 import {postReview} from '../../../store/reducers/data/data';
 
-export const withForm = (Component) => {
-  class WithForm extends PureComponent {
-    constructor(props) {
-      super(props);
-      this._handleSubmit = this._handleSubmit.bind(this);
-      this._handleFieldChange = this._handleFieldChange.bind(this);
-      this._handleFormClear = this._handleFormClear.bind(this);
-      this.state = {rating: ``, review: ``};
-    }
+export const withForm = (Component) => (props) => {
 
-    componentDidUpdate() {
-      const {requestStatus, onFormClear} = this.props;
+  const [rating, setRating] = useState(``);
+  const [review, setReview] = useState(``);
 
-      if (requestStatus === RequestStatus.SUCCESS) {
-        this._handleFormClear();
-        onFormClear();
-      }
-    }
+  const requestStatus = useSelector(({REQUEST}) => ({
+    requestStatus: REQUEST.status,
+  }));
 
-    _handleSubmit(evt) {
-      evt.preventDefault();
+  const dispatch = useDispatch();
 
-      const {offerId, onSubmit} = this.props;
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
 
-      onSubmit({
-        review: this.state.review,
-        rating: parseInt(this.state.rating, 10),
-        offerId
-      });
-    }
+    const {offerId} = props;
 
-    _handleFieldChange(evt) {
-      const {name, value} = evt.target;
+    dispatch(postReview({
+      review,
+      rating: parseInt(rating, 10),
+      offerId
+    }));
+    dispatch(setRequest({status: RequestStatus.INITIAL}));
 
-      this.setState({
-        [name]: value
-      });
-    }
-
-    _handleFormClear() {
-      this.setState({rating: ``, review: ``});
-    }
-
-    render() {
-
-      const statusPending = this.props.requestStatus === RequestStatus.PENDING;
-      const statusFailure = this.props.requestStatus === RequestStatus.FAILURE;
-
-      return (
-        <Component
-          {...this.props}
-          rating={this.state.rating}
-          review={this.state.review}
-          status={{pending: statusPending, failure: statusFailure}}
-          onSubmit={this._handleSubmit}
-          onFieldChange={this._handleFieldChange}
-        />
-      );
-    }
-  }
-
-  WithForm.propTypes = {
-    offerId: PropTypes.string.isRequired,
-    requestStatus: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    onFormClear: PropTypes.func.isRequired,
+    handleFormClear();
   };
 
-  const mapStateToProps = ({REQUEST}) => ({
-    requestStatus: REQUEST.status,
-  });
+  const handleFieldChange = (evt) => {
+    switch (evt.target.name) {
+      case `rating`:
+        setRating(evt.target.value);
+        break;
+      case `review`:
+        setReview(evt.target.value);
+        break;
+    }
+  };
 
-  const mapDispatchToProps = (dispatch) => ({
-    onSubmit(data) {
-      dispatch(postReview(data));
-    },
-    onFormClear() {
-      dispatch(setRequest({status: RequestStatus.INITIAL}));
-    },
-  });
+  const handleFormClear = () => {
+    setRating(``);
+    setReview(``);
+  };
 
-  return connect(mapStateToProps, mapDispatchToProps)(WithForm);
+  const statusPending = requestStatus === RequestStatus.PENDING;
+  const statusFailure = requestStatus === RequestStatus.FAILURE;
+
+  return (
+    <Component
+      {...props}
+      rating={rating}
+      review={review}
+      status={{pending: statusPending, failure: statusFailure}}
+      onSubmit={handleSubmit}
+      onFieldChange={handleFieldChange}
+    />
+  );
 };
 
 export default withForm;
