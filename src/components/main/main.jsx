@@ -12,7 +12,6 @@ import offerMock from '../../mocks/offer-mock';
 import offerProperties from "../../proptypes/offer-properties";
 
 const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
-
   return (
     <div className="page page--gray page--main">
 

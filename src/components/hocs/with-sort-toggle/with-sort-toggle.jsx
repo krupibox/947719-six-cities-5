@@ -1,45 +1,24 @@
-import {PureComponent} from "react";
+import {useState, useEffect} from 'react';
 
-const withSortToggle = (Component) => {
-  class WithSortToggle extends PureComponent {
-    constructor(props) {
-      super(props);
+const withSortToggle = (Component) => (props) => {
 
-      this._handleTypeClick = props.onTypeClick.bind(this);
-      this._handleToggleMenuClick = this.handleToggleMenuClick.bind(this);
+  let {onTypeClick} = props;
+  const [isMenu, setMenu] = useState(false);
+  const [sortingType, setType] = useState(`Popular`);
+  const handleToggleMenuClick = () => setMenu(!isMenu);
 
-      this.state = {
-        isOpen: false,
-      };
+  useEffect(() => {
+    onTypeClick = (value) => setType(value);
+  }, [sortingType]);
 
-    }
-
-    handleToggleMenuClick() {
-      this.setState((prevState) => ({isOpen: !prevState.isOpen}));
-    }
-
-    handleTypeClick(value) {
-      this.setState({sortingType: value});
-    }
-
-    render() {
-      return (
-        <Component
-          {...this.props}
-          isOpen={this.state.isOpen}
-          onTypeClick={this._handleTypeClick}
-          onToggleMenuClick={this._handleToggleMenuClick}
-        />
-      );
-    }
-  }
-
-  WithSortToggle.propTypes = {
-    onTypeClick: PropTypes.func.isRequired,
-  };
-
-  return WithSortToggle;
+  return (
+    <Component
+      {...props}
+      isMenu={isMenu}
+      onTypeClick={onTypeClick}
+      onToggleMenuClick={handleToggleMenuClick}
+    />
+  );
 };
-
 
 export default withSortToggle;
