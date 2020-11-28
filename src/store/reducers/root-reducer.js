@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {data} from './data/data';
-import {user} from './user/user';
+import {userReducer} from './user/user-reducer';
 import {request} from './request/request';
 
 export const NameSpace = {
@@ -11,6 +11,6 @@ export const NameSpace = {
 
 export default combineReducers({
   [NameSpace.DATA]: data,
-  [NameSpace.USER]: user,
+  [NameSpace.USER]: userReducer,
   [NameSpace.REQUEST]: request,
 });

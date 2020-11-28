@@ -40,7 +40,11 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.jsx']
-    },
+        extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', '.node'],
+        alias: {
+          '@root': path.resolve(__dirname, `src/`),
+          '@components': path.resolve(__dirname, `src/components/`),
+        }
+      },
     devtool: `source-map`,
 };

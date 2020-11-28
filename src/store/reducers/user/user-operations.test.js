@@ -1,12 +1,12 @@
 import MockAdapter from 'axios-mock-adapter';
-import {createAPI} from '../../../services/api';
-import {ActionType} from './user';
-import {checkAuth, login} from './user';
-import {APIRoute} from '../../../consts/api-route';
-import {AppRoute} from '../../../consts/app-route';
-import {AuthorizationStatus} from '../../../consts/authorization-status';
-import ModelUser from '../../../models/model-user';
-import {TestMock} from '../../../__mocks__/mocks';
+import {createAPI} from '@root/services/api';
+import {ActionType} from './user-actions';
+import {checkAuth, login} from './user-operations';
+import {APIRoute} from '@root/consts/api-route';
+import {AppRoute} from '@root/consts/app-route';
+import {AuthorizationStatus} from '@root/consts/authorization-status';
+import UserAdapter from '@root/adapters/user-adapter';
+import {TestMock} from '@root/__mocks__/mocks';
 
 const {info} = TestMock;
 const api = createAPI(() => { });
@@ -30,7 +30,7 @@ describe(`User async operation work correctly`, () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SAVE_AUTHORIZATION_DATA,
-          payload: ModelUser.parse(info),
+          payload: UserAdapter.parse(info),
         });
       });
   });
@@ -52,10 +52,12 @@ describe(`User async operation work correctly`, () => {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: AuthorizationStatus.AUTH,
         });
+
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.SAVE_AUTHORIZATION_DATA,
-          payload: ModelUser.parse(info),
+          payload: UserAdapter.parse(info),
         });
+
         expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.REDIRECT_TO_ROUTE,
           payload: AppRoute.ROOT,

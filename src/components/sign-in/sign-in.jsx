@@ -1,7 +1,7 @@
 import {PureComponent, createRef} from "react";
 import {connect} from 'react-redux';
 import Header from '../header/header';
-import {login} from '../../store/reducers/user/user';
+import {login} from '@root/store/reducers/user/user-operations';
 
 class SignIn extends PureComponent {
 

@@ -1,9 +1,13 @@
-import {ActionType} from './user';
-import {requireAuthorization, saveAuthorizationData, redirectToRoute} from './user';
-import {AppRoute} from "../../../consts/app-route";
-import {AuthorizationStatus} from "../../../consts/authorization-status";
-import ModelUser from '../../../models/model-user';
-import {TestMock} from '../../../__mocks__/mocks';
+import {
+  ActionType,
+  requireAuthorization,
+  saveAuthorizationData,
+  redirectToRoute
+} from './user-actions';
+import {AuthorizationStatus} from "@root/consts/authorization-status";
+import {AppRoute} from "@root/consts/app-route";
+import UserAdapter from '@root/adapters/user-adapter';
+import {TestMock} from '@root/__mocks__/mocks';
 
 const {info} = TestMock;
 const status = AuthorizationStatus.AUTH;
@@ -19,7 +23,7 @@ describe(`User actions work correctly`, () => {
   it(`Action saveAuthorizationData work correctly`, () => {
     expect(saveAuthorizationData(info)).toEqual({
       type: ActionType.SAVE_AUTHORIZATION_DATA,
-      payload: ModelUser.parse(info),
+      payload: UserAdapter.parse(info),
     });
   });
 

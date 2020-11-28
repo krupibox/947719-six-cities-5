@@ -1,4 +1,4 @@
-class ModelUser {
+class UserAdapter {
   constructor(data) {
     this.avatarUrl = data[`avatar_url`];
     this.email = data[`email`];
@@ -12,4 +12,4 @@ class ModelUser {
   }
 }
 
-export default ModelUser;
+export default UserAdapter;
