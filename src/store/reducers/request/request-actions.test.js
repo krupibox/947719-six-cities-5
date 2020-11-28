@@ -1,5 +1,4 @@
-import {ActionType} from './request';
-import {setRequest} from './request';
+import {ActionType, setRequest} from './request-actions';
 
 const status = {status: `INITIAL`};
 describe(`Request action work correctly`, () => {

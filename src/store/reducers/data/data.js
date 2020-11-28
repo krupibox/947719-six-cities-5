@@ -1,6 +1,6 @@
 import {updateState} from '../../../utils/update-state';
 import {getUniqueCities} from '../../../utils/get-unique-cities';
-import {setRequest as setRequestAction} from '../request/request';
+import {setRequestAction} from '../request/request-actions';
 import {RequestStatus} from '../../../consts/request-status';
 import {ReviewLimit} from '../../../consts/review-limit';
 import {APIRoute} from '../../../consts/api-route';

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {RequestStatus} from '../../../consts/request-status';
-import {setRequest} from '../../../store/reducers/request/request';
+import {setRequestAction} from '@root/store/reducers/request/request-actions';
 import {postReview} from '../../../store/reducers/data/data';
 
 export const withForm = (Component) => (props) => {
@@ -25,7 +25,7 @@ export const withForm = (Component) => (props) => {
       rating: parseInt(rating, 10),
       offerId
     }));
-    dispatch(setRequest({status: RequestStatus.INITIAL}));
+    dispatch(setRequestAction({status: RequestStatus.INITIAL}));
 
     handleFormClear();
   };

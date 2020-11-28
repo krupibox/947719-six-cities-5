@@ -1,16 +1,16 @@
-import {ActionType} from './request';
-import {request} from './request';
-import {RequestStatus} from '../../../consts/request-status';
+import {ActionType} from './request-actions';
+import {requestReducer} from './request-reducer';
+import {RequestStatus} from '@root/consts';
 
 describe(`Request reducer work correctly`, () => {
   it(`Reducer return initial state`, () => {
-    expect(request(void 0, {})).toEqual({
+    expect(requestReducer(void 0, {})).toEqual({
       status: RequestStatus.INITIAL,
     });
   });
 
   it(`Reducer should update status by set request to success`, () => {
-    expect(request({
+    expect(requestReducer({
       status: RequestStatus.SUCCESS,
     }, {
       type: ActionType.SET_REQUEST,
