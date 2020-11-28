@@ -2,10 +2,8 @@ import MockAdapter from 'axios-mock-adapter';
 import {createAPI} from '@root/services/api';
 import {ActionType} from './user-actions';
 import {checkAuth, login} from './user-operations';
-import {APIRoute} from '@root/consts/api-route';
-import {AppRoute} from '@root/consts/app-route';
-import {AuthorizationStatus} from '@root/consts/authorization-status';
-import UserAdapter from '@root/adapters/user-adapter';
+import {AuthorizationStatus, APIRoute, AppRoute} from '@root/consts';
+import {UserAdapter} from '@root/adapters';
 import {TestMock} from '@root/__mocks__/mocks';
 
 const {info} = TestMock;

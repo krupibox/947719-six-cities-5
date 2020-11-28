@@ -1,6 +1,6 @@
 import {ActionType} from './user-actions';
 import {userReducer} from './user-reducer';
-import {AuthorizationStatus} from '@root/consts/authorization-status';
+import {AuthorizationStatus} from '@root/consts';
 
 describe(`User reducer work correctly`, () => {
   it(`Reducer return initial state`, () => {

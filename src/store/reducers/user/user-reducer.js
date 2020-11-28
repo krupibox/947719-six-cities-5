@@ -1,6 +1,6 @@
 import {updateState} from '@root/utils/update-state';
 import {ActionType} from './user-actions';
-import {AuthorizationStatus} from '@root/consts/authorization-status';
+import {AuthorizationStatus} from '@root/consts';
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,

@@ -4,9 +4,13 @@ import {
   saveAuthorizationData,
   redirectToRoute
 } from './user-actions';
-import {AuthorizationStatus} from "@root/consts/authorization-status";
-import {AppRoute} from "@root/consts/app-route";
-import UserAdapter from '@root/adapters/user-adapter';
+
+import {
+  AuthorizationStatus,
+  AppRoute
+} from '@root/consts';
+
+import {UserAdapter} from '@root/adapters';
 import {TestMock} from '@root/__mocks__/mocks';
 
 const {info} = TestMock;

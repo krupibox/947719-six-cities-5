@@ -1,4 +1,4 @@
-import UserAdapter from '@root/adapters/user-adapter';
+import {UserAdapter} from '@root/adapters';
 
 export const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
