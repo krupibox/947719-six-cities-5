@@ -1,4 +1,4 @@
-class ModelOffer {
+class OfferAdapter {
   constructor(data) {
     this.isFavorite = data.is_favorite;
     this.isPremium = data.is_premium;
@@ -18,4 +18,4 @@ class ModelOffer {
   }
 }
 
-export default ModelOffer;
+export default OfferAdapter;

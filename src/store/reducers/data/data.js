@@ -1,11 +1,8 @@
 import {updateState} from '../../../utils/update-state';
 import {getUniqueCities} from '../../../utils/get-unique-cities';
 import {setRequestAction} from '../request/request-actions';
-import {RequestStatus} from '../../../consts/request-status';
-import {ReviewLimit} from '../../../consts/review-limit';
-import {APIRoute} from '../../../consts/api-route';
-import {FIRST_CITY} from '../../../consts/first-city';
-import ModelOffer from '../../../models/model-offer';
+import {APIRoute, ReviewLimit, RequestStatus, FIRST_CITY} from '@root/consts';
+import {OfferAdapter} from '@root/adapters';
 
 const initialState = {
   offers: [],
@@ -31,7 +28,7 @@ export const ActionType = {
 
 export const loadOfferAction = (offer) => ({
   type: ActionType.LOAD_OFFER,
-  payload: ModelOffer.parseOffer(offer),
+  payload: OfferAdapter.parseOffer(offer),
 });
 
 export const setActiveOfferId = (offerId) => ({
@@ -46,12 +43,12 @@ export const setActiveOfferCoords = (location) => ({
 
 export const loadOffersAction = (offers) => ({
   type: ActionType.LOAD_OFFERS,
-  payload: ModelOffer.parseOffers(offers),
+  payload: OfferAdapter.parseOffers(offers),
 });
 
 export const loadNearbyAction = (nearby) => ({
   type: ActionType.LOAD_NEARBY,
-  payload: ModelOffer.parseOffers(nearby)
+  payload: OfferAdapter.parseOffers(nearby)
 });
 
 export const loadReviewsAction = (reviews) => ({
@@ -61,7 +58,7 @@ export const loadReviewsAction = (reviews) => ({
 
 export const loadFavoritesAction = (favorites) => ({
   type: ActionType.LOAD_FAVORITES,
-  payload: ModelOffer.parseOffers(favorites)
+  payload: OfferAdapter.parseOffers(favorites)
 });
 
 export const getCitiesAction = (offers) => ({
