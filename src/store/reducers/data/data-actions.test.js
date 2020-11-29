@@ -12,7 +12,7 @@ import {
   updateCityAction,
 } from './data';
 import {getUniqueCities} from '../../../utils/get-unique-cities';
-import ModelOffer from '../../../models/model-offer';
+import OfferAdapter from '../../../models/model-offer';
 import {TestMock} from '../../../__mocks__/mocks';
 
 const {offer, offers, reviews, firstCity, activeCity} = TestMock;
@@ -22,7 +22,7 @@ describe(`Data actions work correctly`, () => {
   it(`Action loadOfferAction work correctly`, () => {
     expect(loadOfferAction(offer)).toEqual({
       type: ActionType.LOAD_OFFER,
-      payload: ModelOffer.parseOffer(offer),
+      payload: OfferAdapter.parseOffer(offer),
     });
   });
 
@@ -64,7 +64,7 @@ describe(`Data actions work correctly`, () => {
   it(`Action loadFavoritesAction work correctly`, () => {
     expect(loadFavoritesAction(offers)).toEqual({
       type: ActionType.LOAD_FAVORITES,
-      payload: ModelOffer.parseOffers(offers),
+      payload: OfferAdapter.parseOffers(offers),
     });
   });
 

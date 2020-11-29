@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card';
-import getSortedOffers from '../../utils/get-sorted-offers';
+import {getSortedOffers} from '@root/utils';
 
 const OffersList = ({offers, onCardHover, sortingType, nearby, favorite}) => {
 

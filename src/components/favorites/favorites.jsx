@@ -1,12 +1,12 @@
-import {PureComponent} from "react";
+import {PureComponent} from 'react';
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 import Header from '../header/header';
 import OfferCard from '../offer-card/offer-card';
-import {fetchFavorites} from "../../store/reducers/data/data";
-import {selectFavoritesByCity} from '../../store/selectors';
-import {AppRoute} from '../../consts/app-route';
-import offerProperties from '../../proptypes/offer-properties';
+import {fetchFavorites} from '@root/store/reducers/data/data-operations';
+import {selectFavoritesByCity} from '@root/store/selectors';
+import {AppRoute} from '@root/consts/app-route';
+import offerProperties from '@root/proptypes/offer-properties';
 
 class Favorites extends PureComponent {
 

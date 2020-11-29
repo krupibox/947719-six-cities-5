@@ -7,7 +7,7 @@ import {createAPI} from "./services/api";
 import App from './components/app/app';
 import rootReducer from "./store/reducers/root-reducer";
 import {AuthorizationStatus} from './consts/authorization-status';
-import {fetchOffersList} from './store/reducers/data/data';
+import {fetchOffersList} from './store/reducers/data/data-operations';
 import {requireAuthorization} from './store/reducers/user/user-actions';
 import {checkAuth} from './store/reducers/user/user-operations';
 import {redirect} from './store/middlewares/redirect';

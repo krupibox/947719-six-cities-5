@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {data} from './data/data';
+import {dataReducer} from './data/data-reducer';
 import {userReducer} from './user/user-reducer';
 import {requestReducer} from './request/request-reducer';
 
@@ -10,7 +10,7 @@ export const NameSpace = {
 };
 
 export default combineReducers({
-  [NameSpace.DATA]: data,
+  [NameSpace.DATA]: dataReducer,
   [NameSpace.USER]: userReducer,
   [NameSpace.REQUEST]: requestReducer,
 });

@@ -1,12 +1,10 @@
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {AppRoute} from "../../consts/app-route";
-import {AuthorizationStatus} from "../../consts/authorization-status";
-import {getStars} from '../../utils/get-stars';
-import {postFavorite} from '../../store/reducers/data/data';
-import {setActiveOfferId} from '../../store/reducers/data/data';
-import {setActiveOfferCoords} from '../../store/reducers/data/data';
-import offerProperties from "../../proptypes/offer-properties";
+import {AppRoute, AuthorizationStatus} from '@root/consts';
+import {getStars} from '@root/utils/get-stars';
+import {postFavorite} from '@root/store/reducers/data/data-operations';
+import {setActiveOfferId, setActiveOfferCoords} from '@root/store/reducers/data/data-actions';
+import offerProperties from '@root/proptypes/offer-properties';
 
 const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, onSetOfferId, onSetOfferCoords}) => {
 

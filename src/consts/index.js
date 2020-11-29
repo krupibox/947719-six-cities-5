@@ -4,3 +4,7 @@ export {APIRoute} from './api-route';
 export {AppRoute} from './app-route';
 export {ReviewLimit} from './review-limit';
 export {FIRST_CITY} from './first-city';
+export {MAX_CITIES} from './max-cities';
+export {MAX_ITEMS} from './max-items';
+export {ratings} from './ratings';
+export {SortType} from './sort-type';

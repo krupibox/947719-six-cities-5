@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {RequestStatus} from '../../../consts/request-status';
+import {RequestStatus} from '@root/consts';
 import {setRequestAction} from '@root/store/reducers/request/request-actions';
-import {postReview} from '../../../store/reducers/data/data';
+import {postReview} from '@root/store/reducers/data/data-operations';
 
 export const withForm = (Component) => (props) => {
 

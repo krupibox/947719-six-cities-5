@@ -1,6 +1,6 @@
-import {SortType} from '../consts/sort-type';
+import {SortType} from '../consts';
 
-const getSortedOffers = (offers, currentSortType) => {
+export const getSortedOffers = (offers, currentSortType) => {
   switch (currentSortType) {
     case SortType.PRICE_LOW_TO_HIGH:
       return offers.slice().sort((a, b) => a.price - b.price);
@@ -13,4 +13,3 @@ const getSortedOffers = (offers, currentSortType) => {
   return offers;
 };
 
-export default getSortedOffers;

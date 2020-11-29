@@ -10,7 +10,7 @@ class OfferAdapter {
   }
 
   static parseOffer(data) {
-    return new ModelOffer(data);
+    return new OfferAdapter(data);
   }
 
   static parseOffers(data) {

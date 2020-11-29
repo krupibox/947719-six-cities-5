@@ -7,20 +7,14 @@ import ReviewForm from '../review-form/review-form';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import Host from '../host/host';
-import {getStars} from '../../utils/get-stars';
-import {getCoordinates} from '../../utils/get-coordinates';
-import {MAX_ITEMS} from '../../consts/max-items';
-import {AuthorizationStatus} from '../../consts/authorization-status';
-import {AppRoute} from '../../consts/app-route';
-import {fetchOffer} from '../../store/reducers/data/data';
-import {fetchNearby} from '../../store/reducers/data/data';
-import {fetchReviews} from '../../store/reducers/data/data';
-import {postFavorite} from '../../store/reducers/data/data';
-import {setActiveOfferId} from '../../store/reducers/data/data';
-import {selectNearbyFromState} from '../../store/selectors';
-import offerProperties from "../../proptypes/offer-properties";
-import reviewProperties from "../../proptypes/review-properties";
-import nearbyProperties from "../../proptypes/nearby-properties";
+import {getStars, getCoordinates} from '@root/utils';
+import {AppRoute, AuthorizationStatus, MAX_ITEMS} from '@root/consts';
+import {fetchNearby, fetchOffer, fetchReviews, postFavorite} from '@root/store/reducers/data/data-operations';
+import {setActiveOfferId} from '@root/store/reducers/data/data-actions';
+import {selectNearbyFromState} from '@root/store/selectors';
+import offerProperties from '@root/proptypes/offer-properties';
+import reviewProperties from '@root/proptypes/review-properties';
+import nearbyProperties from '@root/proptypes/nearby-properties';
 
 class OfferDetails extends PureComponent {
 

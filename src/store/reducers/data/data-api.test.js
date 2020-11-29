@@ -13,7 +13,7 @@ import {
 } from './data';
 import {APIRoute} from '../../../consts/api-route';
 import {RequestStatus} from '../../../consts/request-status';
-import ModelOffer from '../../../models/model-offer';
+import OfferAdapter from '../../../models/model-offer';
 import {TestMock} from '../../../__mocks__/mocks';
 
 const {offers, offer, reviews} = TestMock;
@@ -52,7 +52,7 @@ describe(`Data async operations work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFER,
-          payload: ModelOffer.parseOffer(offer),
+          payload: OfferAdapter.parseOffer(offer),
         });
       });
   });
@@ -70,7 +70,7 @@ describe(`Data async operations work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_NEARBY,
-          payload: ModelOffer.parseOffers(offers),
+          payload: OfferAdapter.parseOffers(offers),
         });
       });
   });
@@ -136,7 +136,7 @@ describe(`Data async operations work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FAVORITES,
-          payload: ModelOffer.parseOffers(offers),
+          payload: OfferAdapter.parseOffers(offers),
         });
       });
   });
@@ -159,11 +159,11 @@ describe(`Data async operations work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFER,
-          payload: ModelOffer.parseOffer(offer),
+          payload: OfferAdapter.parseOffer(offer),
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_OFFERS,
-          payload: ModelOffer.parseOffers(offers),
+          payload: OfferAdapter.parseOffers(offers),
         });
       });
   });
@@ -186,11 +186,11 @@ describe(`Data async operations work correctly`, () => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFER,
-          payload: ModelOffer.parseOffer(offer),
+          payload: OfferAdapter.parseOffer(offer),
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOAD_OFFERS,
-          payload: ModelOffer.parseOffers(offers),
+          payload: OfferAdapter.parseOffers(offers),
         });
       });
   });
