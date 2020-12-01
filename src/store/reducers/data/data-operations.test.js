@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
-import {createAPI} from '../../../services/api';
-import {ActionType} from './data';
-import {ActionType as ActionTypeRequest} from '../request/request';
+import {createAPI} from '@root/services/api';
+import {ActionType} from './data-actions';
+import {ActionType as ActionTypeRequest} from '../request/request-actions';
 import {
   fetchOffersList,
   fetchOffer,
@@ -10,11 +10,11 @@ import {
   fetchFavorites,
   postReview,
   postFavorite,
-} from './data';
-import {APIRoute} from '../../../consts/api-route';
-import {RequestStatus} from '../../../consts/request-status';
-import OfferAdapter from '../../../models/model-offer';
-import {TestMock} from '../../../__mocks__/mocks';
+} from './data-operations';
+import {APIRoute} from '@root/consts/api-route';
+import {RequestStatus} from '@root/consts/request-status';
+import {OfferAdapter} from '@root/adapters';
+import {TestMock} from '@root/__mocks__/mocks';
 
 const {offers, offer, reviews} = TestMock;
 const {id: offerId} = offer;

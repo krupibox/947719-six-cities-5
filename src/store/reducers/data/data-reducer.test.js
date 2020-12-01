@@ -1,5 +1,5 @@
-import {ActionType} from './data';
-import {data} from './data';
+import {ActionType} from './data-actions';
+import {dataReducer} from './data-reducer';
 import {TestMock} from '../../../__mocks__/mocks';
 
 const {offer, offers, favorites, cities, activeCity} = TestMock;
@@ -7,7 +7,7 @@ const {id: activeOfferId, location: activeCoords} = offer;
 
 describe(`Data reducer work correctly`, () => {
   it(`Reducer return initial state`, () => {
-    expect(data(void 0, {})).toEqual({
+    expect(dataReducer(void 0, {})).toEqual({
       offers: [],
       favorites: [],
       cities: [],
@@ -18,7 +18,7 @@ describe(`Data reducer work correctly`, () => {
   });
 
   it(`Reducer should update offers by load offers`, () => {
-    expect(data({
+    expect(dataReducer({
       offers: [],
     }, {
       type: ActionType.LOAD_OFFERS,
@@ -29,7 +29,7 @@ describe(`Data reducer work correctly`, () => {
   });
 
   it(`Reducer should update favorites by load favorites`, () => {
-    expect(data({
+    expect(dataReducer({
       favorites: [],
     }, {
       type: ActionType.LOAD_FAVORITES,
@@ -40,7 +40,7 @@ describe(`Data reducer work correctly`, () => {
   });
 
   it(`Reducer should update cities by get cities`, () => {
-    expect(data({
+    expect(dataReducer({
       cities: [],
     }, {
       type: ActionType.GET_CITIES,
@@ -51,7 +51,7 @@ describe(`Data reducer work correctly`, () => {
   });
 
   it(`Reducer should update activeCity by update activeCity`, () => {
-    expect(data({
+    expect(dataReducer({
       activeCity: ``,
     }, {
       type: ActionType.UPDATE_ACTIVE_CITY,
@@ -62,7 +62,7 @@ describe(`Data reducer work correctly`, () => {
   });
 
   it(`Reducer should update activeOfferId by set activeOfferId`, () => {
-    expect(data({
+    expect(dataReducer({
       activeOfferId: ``,
     }, {
       type: ActionType.SET_ACTIVE_OFFER_ID,
@@ -73,7 +73,7 @@ describe(`Data reducer work correctly`, () => {
   });
 
   it(`Reducer should update activeCoords by set activeCoords`, () => {
-    expect(data({
+    expect(dataReducer({
       activeCoords: ``,
     }, {
       type: ActionType.SET_ACTIVE_OFFER_COORDS,

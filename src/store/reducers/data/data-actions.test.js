@@ -1,5 +1,5 @@
-import {ActionType} from './data-actions';
 import {
+  ActionType,
   loadOfferAction,
   setActiveOfferId,
   setActiveOfferCoords,
@@ -10,10 +10,10 @@ import {
   getCitiesAction,
   getFirstCityAction,
   updateCityAction,
-} from './data';
-import {getUniqueCities} from '../../../utils/get-unique-cities';
-import OfferAdapter from '../../../models/model-offer';
-import {TestMock} from '../../../__mocks__/mocks';
+} from './data-actions';
+import {getUniqueCities} from '@root/utils/get-unique-cities';
+import {OfferAdapter} from '@root/adapters';
+import {TestMock} from '@root/__mocks__/mocks';
 
 const {offer, offers, reviews, firstCity, activeCity} = TestMock;
 const {id, location} = offer;
