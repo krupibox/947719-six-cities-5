@@ -3,13 +3,13 @@ import Header from '../header/header';
 import Cities from '../cities/cities';
 import OffersSorting from '../offers-sorting/offers-sorting';
 import OffersList from '../offers-list/offers-list';
-import Map from '../map/map';
+import OfferMap from '../offer-map/offer-map';
 import MainEmpty from '../main-empty/main-empty';
 import withActiveCoords from '../hocs/with-active-coords/with-active-coords';
-import {getCoordinates} from '../../utils/get-coordinates';
-import {selectOffersByCity} from '../../store/selectors';
+import {getCoordinates} from '@root/utils/get-coordinates';
+import {selectOffersByCity} from '@root/store/selectors';
 import offerMock from '../../mocks/offer-mock';
-import offerProperties from "../../proptypes/offer-properties";
+import offerProperties from "@root/proptypes/offer-properties";
 
 const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
 
@@ -62,7 +62,7 @@ const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sorti
                 offers.length > 0 &&
                 <section className="cities__map map">
 
-                  <Map
+                  <OfferMap
                     offerCoords={getCoordinates(offers).places}
                     cityCenterCoords={getCoordinates(offers).cityCenter}
                     activeCoords={activeCoords}

@@ -1,11 +1,11 @@
-import Map from './map';
+import OfferMap from './offer-map';
 import {TestMock} from '../../__mocks__/mocks';
 
-describe(`<Map/>`, () => {
+describe(`<OfferMap/>`, () => {
   it(`should render correctly`, () => {
     const tree = renderer
       .create(
-          <Map
+          <OfferMap
             cityCenterCoords={TestMock.offer.city.location}
             offerCoords={TestMock.offer.coordinates}
             currentCoords={TestMock.offer.city.location}

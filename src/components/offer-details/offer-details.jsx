@@ -5,7 +5,7 @@ import Header from '../header/header';
 import ReviewsList from '../reviews-list/reviews-list';
 import ReviewForm from '../review-form/review-form';
 import OffersList from '../offers-list/offers-list';
-import Map from '../map/map';
+import OfferMap from '../offer-map/offer-map';
 import Host from '../host/host';
 import {getStars, getCoordinates} from '@root/utils';
 import {AppRoute, AuthorizationStatus, MAX_ITEMS} from '@root/consts';
@@ -140,7 +140,7 @@ class OfferDetails extends PureComponent {
             </div>
             <section className="property__map map">
 
-              <Map
+              <OfferMap
                 offerCoords={getCoordinates(nearby).places}
                 cityCenterCoords={getCoordinates(nearby).cityCenter}
                 activeCoords={null}
