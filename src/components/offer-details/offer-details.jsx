@@ -7,7 +7,8 @@ import ReviewForm from '../review-form/review-form';
 import OffersList from '../offers-list/offers-list';
 import OfferMap from '../offer-map/offer-map';
 import Host from '../host/host';
-import {getStars, getCoordinates} from '@root/utils';
+import {getStars} from '@root/utils';
+import {MapAdapter} from '@root/adapters';
 import {AppRoute, AuthorizationStatus, MAX_ITEMS} from '@root/consts';
 import {fetchNearby, fetchOffer, fetchReviews, postFavorite} from '@root/store/reducers/data/data-operations';
 import {setActiveOfferId} from '@root/store/reducers/data/data-actions';
@@ -42,6 +43,9 @@ class OfferDetails extends PureComponent {
 
     const {offer, nearby, reviews, authorizationStatus, onFavoriteClick} = this.props;
     const {id: offerId, isPremium, isFavorite, price, title, images, rating, bedrooms, maxAdults, goods, description, host} = offer;
+
+    const {latitude, longitude} = this.props.offer.location;
+    const currentCoords = {offerId, latitude, longitude};
 
     return (
       <div className="page">
@@ -141,11 +145,9 @@ class OfferDetails extends PureComponent {
             <section className="property__map map">
 
               <OfferMap
-                offerCoords={getCoordinates(nearby).places}
-                cityCenterCoords={getCoordinates(nearby).cityCenter}
-                activeCoords={null}
-                currentCoords={this.props.offer.location}
-                onCardHover={() => {}}
+                offersCoords={MapAdapter.getOffersCoords(nearby)}
+                cityCoords={MapAdapter.getCityCoords(nearby)}
+                currentCoords={currentCoords}
               />
 
             </section>
@@ -179,6 +181,7 @@ class OfferDetails extends PureComponent {
 
 OfferDetails.defaultProps = {
   offer: {
+    id: 0,
     city: {
       name: ``,
       location: {
@@ -210,6 +213,7 @@ OfferDetails.defaultProps = {
   currentCoords: {},
 
   nearby: [{
+    id: 0,
     city: {
       name: ``,
       location: {

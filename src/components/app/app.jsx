@@ -4,15 +4,15 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import OfferDetails from '../offer-details/offer-details';
 import PrivateRoute from '../private-route/private-route';
-import browserHistory from "../../browser-history";
-import {AppRoute} from "../../consts/app-route";
+import browserHistory from '@root/browser-history';
+import {AppRoute} from '@root/consts';
 
 const App = () =>
   <BrowserRouter history={browserHistory}>
     <Switch>
 
-      <Route exact path={AppRoute.ROOT}
-        render={() => (<Main />)}>
+      <Route exact path={AppRoute.ROOT}>
+        <Main />
       </Route>
 
       <Route exact path={AppRoute.LOGIN}

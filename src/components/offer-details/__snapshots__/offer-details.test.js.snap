@@ -528,7 +528,7 @@ exports[`<OfferDetails/> should render correctly 1`] = `
               >
                 <a
                   className="place-card__name"
-                  href="/offer/undefined"
+                  href="/offer/0"
                   onClick={[Function]}
                 >
                   

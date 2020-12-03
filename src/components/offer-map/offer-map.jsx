@@ -1,70 +1,58 @@
 import {PureComponent} from "react";
 import Leaflet from 'leaflet';
+import mapProperties from "@root/proptypes/map-properties";
+
+const ICON_SIZE = [30, 30];
 
 const ICON_DEFAULT = Leaflet.icon({
   iconUrl: `/img/pin.svg`,
-  iconSize: [30, 30]
+  iconSize: ICON_SIZE
 });
 
 const ICON_ACTIVE = Leaflet.icon({
   iconUrl: `/img/pin-active.svg`,
-  iconSize: [30, 30]
+  iconSize: ICON_SIZE
 });
 
-class Map extends PureComponent {
+const LAYER = `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`;
+const COPYRIGHT = `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`;
+
+class OfferMap extends PureComponent {
   constructor(props) {
     super(props);
-    this._markers = null;
+    this._map = null;
+    this._pins = new Map();
   }
 
   componentDidMount() {
-    const {latitude, longitude, zoom} = this.props.cityCenterCoords;
-    this._city = [latitude, longitude];
-    this._zoom = zoom;
+    const {latitude, longitude, zoom} = this.props.cityCoords;
 
-    this._map = Leaflet.map(`map`, {
-      city: this._city,
-      zoom: this._zoom,
-      zoomControl: false,
-      marker: true
-    });
-
-    this._map.setView(this._city, this._zoom);
-
-    Leaflet.tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
-      attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
-    }).addTo(this._map);
+    this._initMap([latitude, longitude], zoom);
+    Leaflet.tileLayer(LAYER, {attribution: COPYRIGHT}).addTo(this._map);
 
     this._layerGroup = Leaflet.layerGroup().addTo(this._map);
     this._layerCurrentGroup = Leaflet.layerGroup().addTo(this._map);
 
     this._renderMarkers();
-    this._setCurrentMarker();
   }
 
   componentDidUpdate(prevProps) {
+    const {cityName, latitude, longitude, zoom} = this.props.cityCoords;
+    const {activeOfferId} = this.props;
 
-    if (JSON.stringify(this.props.activeCoords) !== JSON.stringify(prevProps.activeCoords)) {
-      this._setActiveMarker(this.props.activeCoords, prevProps.activeCoords);
-    }
-
-    if (JSON.stringify(this.props.cityCenterCoords) !== JSON.stringify(prevProps.cityCenterCoords)) {
+    if (cityName !== prevProps.cityCoords.cityName) {
       this._layerGroup.clearLayers();
-
-      const {latitude, longitude, zoom} = this.props.cityCenterCoords;
-
-      this._city = [latitude, longitude];
-      this._zoom = zoom;
-
-      this._map.setView(this._city, this._zoom);
-
+      this._map.setView([latitude, longitude], zoom);
       this._renderMarkers();
     }
 
-    if (JSON.stringify(this.props.currentCoords) !== JSON.stringify(prevProps.currentCoords)) {
+    if (activeOfferId !== prevProps.activeOfferId) {
+      this._setActiveMarker(activeOfferId, prevProps.activeOfferId);
+    }
+
+    if (this.props.currentCoords !== null) {
       this._layerGroup.clearLayers();
       this._renderMarkers();
-      this._setActiveMarker(this.props.currentCoords, prevProps.currentCoords);
       this._setCurrentMarker();
     }
   }
@@ -73,32 +61,43 @@ class Map extends PureComponent {
     this._map.remove();
   }
 
-  _renderMarkers() {
-    this._markers = this.props.offerCoords.map((coordinates) => Leaflet.marker([coordinates.latitude, coordinates.longitude], {icon: ICON_DEFAULT}).addTo(this._layerCurrentGroup));
+  _initMap(city, zoom) {
+    this._map = Leaflet.map(`map`, {
+      city,
+      zoom,
+      zoomControl: false,
+      marker: true
+    });
+
+    this._map.setView(city, zoom);
   }
 
-  _setActiveMarker(activeCoords, prevCoords) {
-    if (activeCoords !== null) {
-      this._markers.map((markerCoords) => this._isPin(activeCoords, markerCoords) && markerCoords.setIcon(ICON_ACTIVE));
+  _renderMarkers() {
+    this.props.offersCoords.map(({offerId, latitude, longitude}) => {
+      const pin = Leaflet.marker([latitude, longitude], {icon: ICON_DEFAULT});
+      this._pins.set(offerId, pin);
+      pin.addTo(this._layerGroup);
+    });
+  }
+
+  _setActiveMarker(nextOfferId, prevOfferId) {
+    if (nextOfferId !== null) {
+      this._pins.get(nextOfferId).setIcon(ICON_ACTIVE);
     }
 
-    if (prevCoords !== null) {
-      this._markers.map((markerCoords) => this._isPin(prevCoords, markerCoords) && markerCoords.setIcon(ICON_DEFAULT));
+    if (prevOfferId !== null) {
+      this._pins.get(prevOfferId).setIcon(ICON_DEFAULT);
     }
   }
 
   _setCurrentMarker() {
-    if (this._currentMarker) {
-      this._currentMarker.setIcon(ICON_DEFAULT);
+    const {latitude, longitude} = this.props.currentCoords;
+
+    if (this._currentPin) {
+      this._currentPin.setIcon(ICON_DEFAULT);
     }
 
-    if (this.props.currentCoords) {
-      this._currentMarker = Leaflet.marker([this.props.currentCoords.latitude, this.props.currentCoords.longitude], {icon: ICON_ACTIVE}).addTo(this._layerCurrentGroup);
-    }
-  }
-
-  _isPin(activeCoords, markerCoords) {
-    return markerCoords._latlng.lat === activeCoords.latitude && markerCoords._latlng.lng === activeCoords.longitude;
+    this._currentPin = Leaflet.marker([latitude, longitude], {icon: ICON_ACTIVE}).addTo(this._layerCurrentGroup);
   }
 
   render() {
@@ -108,11 +107,11 @@ class Map extends PureComponent {
   }
 }
 
-Map.propTypes = {
-  offerCoords: PropTypes.array.isRequired,
-  cityCenterCoords: PropTypes.object.isRequired,
-  activeCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
+OfferMap.propTypes = {
+  activeOfferId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.oneOf([null]).isRequired]),
+  offersCoords: PropTypes.arrayOf(PropTypes.shape(mapProperties).isRequired),
+  cityCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
   currentCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired])
 };
 
-export default Map;
+export default OfferMap;

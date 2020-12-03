@@ -5,13 +5,13 @@ import OffersSorting from '../offers-sorting/offers-sorting';
 import OffersList from '../offers-list/offers-list';
 import OfferMap from '../offer-map/offer-map';
 import MainEmpty from '../main-empty/main-empty';
-import withActiveCoords from '../hocs/with-active-coords/with-active-coords';
-import {getCoordinates} from '@root/utils/get-coordinates';
+import withActiveId from '../hocs/with-active-id/with-active-id';
+import {MapAdapter} from '@root/adapters';
 import {selectOffersByCity} from '@root/store/selectors';
-import offerMock from '../../mocks/offer-mock';
+import offerMock from '@root/mocks/offer-mock';
 import offerProperties from "@root/proptypes/offer-properties";
 
-const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sortingType}) => {
+const Main = ({offers, activeOfferId, onCardHover, onTypeClick, activeCity, sortingType}) => {
 
   return (
     <div className="page page--gray page--main">
@@ -63,11 +63,10 @@ const Main = ({offers, activeCoords, onCardHover, onTypeClick, activeCity, sorti
                 <section className="cities__map map">
 
                   <OfferMap
-                    offerCoords={getCoordinates(offers).places}
-                    cityCenterCoords={getCoordinates(offers).cityCenter}
-                    activeCoords={activeCoords}
+                    offersCoords={MapAdapter.getOffersCoords(offers)}
+                    cityCoords={MapAdapter.getCityCoords(offers)}
+                    activeOfferId={activeOfferId}
                     currentCoords = {null}
-                    onCardHover={onCardHover}
                   />
 
                 </section>
@@ -86,7 +85,7 @@ Main.defaultProps = {
 
 Main.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape(offerProperties)).isRequired,
-  activeCoords: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
+  activeOfferId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.oneOf([null]).isRequired]),
   onCardHover: PropTypes.func.isRequired,
   onTypeClick: PropTypes.func.isRequired,
   activeCity: PropTypes.string.isRequired,
@@ -99,4 +98,4 @@ const mapStateToProps = ({DATA}) => ({
 });
 
 export {Main};
-export default connect(mapStateToProps)(withActiveCoords(Main));
+export default connect(mapStateToProps)(withActiveId(Main));

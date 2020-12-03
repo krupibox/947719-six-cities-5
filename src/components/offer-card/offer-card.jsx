@@ -8,15 +8,15 @@ import offerProperties from '@root/proptypes/offer-properties';
 
 const OfferCard = ({offer, onCardHover, nearby, favorite, onFavoriteClick, authorizationStatus, onSetOfferId, onSetOfferCoords}) => {
 
-  const {id: offerId, isPremium, isFavorite, price, title, previewImage, location, rating, type} = offer;
+  const {id: offerId, isPremium, isFavorite, price, title, previewImage, rating, type} = offer;
 
   return (
     <article className={`${nearby ? `near-places__card` : ``} ${favorite ? `favorites__card` : `cities__place-card`} place-card`}
 
       onMouseEnter={onCardHover ? () => {
-        onCardHover(location);
+        onCardHover(offerId);
         onSetOfferId(offerId);
-        onSetOfferCoords(offer.location);
+        onSetOfferCoords(offerId);
       } : null}
       onMouseLeave={onCardHover ? () => onCardHover(null) : null}
     >

@@ -1,9 +1,9 @@
-import withActiveCoords from './with-active-coords';
+import withActiveId from './with-active-id';
 
 describe(`<withActiveCoords/>: `, () => {
 
   const MockComponent = () => <div />;
-  const MockWrapper = withActiveCoords(MockComponent);
+  const MockWrapper = withActiveId(MockComponent);
 
   it(`should render correctly`, () => {
     const wrapper = renderer

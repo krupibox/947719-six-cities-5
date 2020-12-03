@@ -167,6 +167,21 @@ export const TestMock = {
       }
     }
   ],
+
+  cityCoords: {
+    cityName: `Cologne`,
+    latitude: 0,
+    longitude: 0,
+    zoom: 13
+  },
+
+  offersCoords: [{
+    offerId: 1,
+    latitude: 0,
+    longitude: 0,
+    zoom: 13
+  }],
+
   info: {
     // eslint-disable-next-line camelcase
     avatar_url: `https://assets.htmlacademy.ru/intensives/javascript-3/avatar/5.jpg`,
